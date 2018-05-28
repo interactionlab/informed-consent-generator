@@ -1,0 +1,334 @@
+html, body{
+	background: url(../img/bg.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height:100% !important; /* important to vertically align the container */
+	margin:0 auto;
+    padding:0;
+	font-size: 14px;
+}
+
+.frameStyle {
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid black;
+}
+@page {
+    size: auto;   /* auto is the initial value */
+    margin: 0;  /* this affects the margin in the printer settings */
+}
+@media print {
+    #pagy2 { border: none !important; } 
+    @page 
+{
+        border: none !important;
+    size: auto;   /* auto is the initial value */
+    margin-left: 12mm;  /* this affects the margin in the printer settings */
+    margin-right: 12mm;  /* this affects the margin in the printer settings */
+    margin-top: 15mm;  /* this affects the margin in the printer settings */
+    margin-bottom: 12mm;  /* this affects the margin in the printer settings */
+}
+#firstItem{
+     margin-top:-40mm;  /* this affects the margin in the printer settings */
+}
+.pageBreak{
+    page-break-inside:avoid;
+}
+  html, body{
+      font-size: 14pt;
+  }
+  table{
+      font-size: 14pt;
+  }
+  .itemRow {
+    visibility: hidden;
+    }
+  .frameStyle {
+    padding: 20px;
+    margin: 20px;
+    border: none;
+    }
+   h1 {
+    font-size: 26pt !important;
+    font-weight: bold;
+    padding-bottom: 8mm;
+    }
+     h2 {
+       font-size: 24pt !important;
+        font-weight: bold;
+        
+    }
+     h3 {
+        font-size: 20pt !important;
+        font-weight: bold;
+        padding-top: 3mm;
+    }
+}
+
+#results h1 {
+    font-size: 24px;
+    font-weight: bold;
+    
+}
+#results h2 {
+   font-size: 20px;
+    font-weight: bold;
+    
+}
+#results h3 {
+    font-size: 15px;
+    font-weight: bold;
+    
+}
+#results table, th{
+    text-align: left;
+    padding-left: 30px;
+    font-weight: normal !important;
+    vertical-align: top;
+}
+#results{
+    font-family: Arial !important;
+}
+
+
+ul.checks     	     {
+list-style: none;
+  margin-left: 1em;
+  padding-left: 0;
+ }
+ul.checks  li {
+  padding-left: 1em;
+  text-indent: -1em;
+   padding-bottom: 9px;
+}
+ul.checks li:before {
+    content: "\25FB";
+    padding-right: 5px;
+ }
+.transparent{
+  background: transparent; 
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one <img draggable="false" class="emoji" alt="🙂" src="https://s.w.org/images/core/emoji/72x72/1f642.png">       */
+  display: flex;
+  align-items: center;
+}
+
+hr {
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #21addf -moz-use-text-color #21addf;
+  border-style: #21addf solid none;
+  border-width: 1px 0;
+  margin: 5px 0;
+}
+
+div.stimuliContainer {
+	background-color: red;
+	width: 50%;
+	max-width: 90px;
+	padding-top: 0%; /* 1:1 Aspect Ratio */
+	position: relative; /* If you want text inside of it */
+}
+
+@media only screen and (min-width: 400px) {
+	div.stimuliContainer {
+		background-color: red;
+		width: 49%;
+		max-width: 290px;
+		padding-top: 0%; /* 1:1 Aspect Ratio */
+		position: relative; /* If you want text inside of it */
+	}
+}
+
+@media only screen and (max-width: 576px) {
+	html, body{
+		background: white !important
+	}
+	.whiteBox{
+		background: transparent; 
+		box-shadow: 0 0 0 white !important;
+	}
+
+	#trialPage{
+		min-height: 600px;
+		margin: 0 auto;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+	}
+	
+	.whiteBox {
+		position: absolute;
+		height: 100%;
+		border-radius: .0em !important;
+	}
+	
+	input[type=radio] {
+		-ms-transform: scale(1.15) !important; /* IE 9 */
+		-webkit-transform: scale(1.15) !important; /* Chrome, Safari, Opera */
+		transform: scale(1.15) !important;
+		min-height: 18px !important;
+	}
+
+
+}
+
+img.stimuli {
+	width: 100%;
+	float: left;
+}
+
+.stimuliText {
+	padding: 0  5px 0 0;
+	margin: 0 5px 0 0;
+}
+.stimuliQuestion {
+	font-weight: bold;
+	font-size: 15px;
+	line-height: 99%;
+}
+
+.whiteBox{
+	max-width: 900px;
+	background: white; 
+	box-shadow: 4px 4px 20px rgba(0,0,0,0.2);
+	-webkit-transition: width 2s; /* Safari */
+    transition: width 2s;
+	-webkit-transition: height 2s; /* Safari */
+    transition: height 2s;
+}
+
+.killPadding{
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+.fixWidth{
+	display: block;
+	min-width:105px;
+	max-width:300px;
+	width: auto;
+	height: auto;
+}
+
+.smalltext{
+	font-size: 11px;
+	line-height: 95%;
+}
+
+.hidden{
+	display: none;
+}
+
+input[type=radio] {
+	-ms-transform: scale(1.35); /* IE 9 */
+    -webkit-transform: scale(1.35); /* Chrome, Safari, Opera */
+    transform: scale(1.35);
+	min-height: 22px;
+}
+
+#progressBarBG {
+  width: 100%;
+  background-color: #e5e5e5;
+}
+
+#progressBar {
+  width: 0%;
+  font-size: 9px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  height: 1px;
+  background-color: #4CAF50;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+/*
+input[type=radio] {
+	display: none;
+	z-index:-1000; 
+	top:-1000px; 
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	height:1px; 
+	width:1px;
+	margin:-1px;
+	padding:0;
+	border:0;
+}
+
+input[type=radio] + label.css-radiolabel {
+	margin-right: 0px;
+	padding-left: 16px;	
+	display:inline-block;
+	min-height: 24px;
+	line-height:16px;
+	background-repeat:no-repeat;
+	background-position: 0 0;
+	vertical-align:middle;
+	cursor:pointer;
+	border: 7px solid transparent;
+}
+
+input[type=radio] + label.css-correctDistance{
+	padding-left: -16px;
+}
+
+input[type=checkbox] + label.css-correctDistance{
+	padding-left: 16px;
+}
+
+input[type=checkbox] + label.css-correctDistance {
+	width: 0px;
+}
+
+input[type=radio]:checked + label.css-radiolabel {
+	background-image:url(../img/radiobutton_checked16.png);
+}
+
+label.css-radiolabel {
+	background-image:url(../img/radiobutton_unchecked16.png);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}*/
+
+
+label.error {
+	/* remove the next line when you have trouble in IE6 with labels in list */
+	color: red;
+	font-weight: bold;
+	display:inline-block;
+}
+
+relative {
+	/* remove the next line when you have trouble in IE6 with labels in list */
+	position: relative;
+}
+label.errorStar {
+	/* remove the next line when you have trouble in IE6 with labels in list */
+	position: absolute;
+	transform: translate(0px);
+}
+
+.centerAlign {
+	position: absolute;
+	font-size: 11px;
+	font-weight: bold;
+	right: 50%;
+	top: 25%;
+}
+
+input.error, select.error { 
+	border: 2px solid red; 
+}
