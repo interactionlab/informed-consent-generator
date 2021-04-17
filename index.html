@@ -53,8 +53,8 @@
                     </div>
                     
                     <div class="row mt-3 ">
-                        <div class="col-4"><span id="titleText">Title</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><input class="form-control" name="title" required></input></div>
+                        <div class="col-4"><span id="topicText">Title</span><span class="text-danger">*</span><br /></div>
+                        <div class="col-8"><input class="form-control" name="topic" required></input></div>
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="compensationText">Compensation</span><span class="text-danger">*</span><br /></div>
@@ -175,7 +175,7 @@
 				$("select[name='dataPublic'] option:eq(2)").attr("selected", true);
 				$("select[name='compensation'] option:eq(6)").attr("selected", true);
 				$("select[name='recordings'] option:eq(3)").attr("selected", true);
-				$("input[name='title'] ").val("Fitts' Task in Virtual Reality using Avatar Hands");
+				$("input[name='topic'] ").val("Fitts' Task in Virtual Reality using Avatar Hands");
 				$("input[name='departmentHead']").val("Prof. Dr. Valentin Schwind");
 				$("input[name='thePIname']").val("Prof. Dr. Valentin Schwind");
 				$("input[name='thePIemail']").val("valentin.schwind@ur.de");
@@ -220,7 +220,7 @@
             $("select[name='compensation']").append(new Option('one half credit point for the lecture', "half credit point"));
             $("select[name='compensation']").append(new Option('one credit point for the lecture', "one credit point"));
 			
-            $("input[name='title'] ").attr("placeholder", "Your research title");
+            $("input[name='topic'] ").attr("placeholder", "Your research title");
             $("input[name='ethicalComittee'] ").attr("placeholder","Your review board");
             $("input[name='departmentHead']").attr("placeholder", "When there is a prof above the prof....");
             $("input[name='thePIname']").attr("placeholder","the guy, who said you should do the study (e.g. Prof. Dr. Valentin Schwind)");
@@ -289,7 +289,7 @@
                 andStudent += $("input[name='studentName']").val() + " and ";
             
 			// INVITATION (SUMMARY OF THE FOLLOWING)
-            str += "<p>You are invited to participate in the " + $("select[name='selectResearch']").val() + " <b>" + capital_letter($("input[name='title']").val()) + "</b> initiated and conducted by " + andStudent + $("input[name='thePIname']").val()  + ". The research is supervised by " + $("input[name='departmentHead']").val() + " at the " + $("select[name='selectInstitution']").val() + ". ";
+            str += "<p>You are invited to participate in the " + $("select[name='selectResearch']").val() + " <b>" + capital_letter($("input[name='topic']").val()) + "</b> initiated and conducted by " + andStudent + $("input[name='thePIname']").val()  + ". The research is supervised by " + $("input[name='departmentHead']").val() + " at the " + $("select[name='selectInstitution']").val() + ". ";
             if( $("input[name='funding']").val() != ""){ 
                 str += "This study is funded and financed by the research project " + $("input[name='funding']").val() + ". ";
             } 
