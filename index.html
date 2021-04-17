@@ -196,6 +196,7 @@
         function fillSelect(){
 
             $("select[name='selectInstitution']").append(new Option('Please select', ""));
+            $("select[name='selectInstitution']").append(new Option('LMU Munich', "LMU Munich"));
             $("select[name='selectInstitution']").append(new Option('University of Applied Sciences Frankfurt', "University of Applied Sciences in Frankfurt"));
             $("select[name='selectInstitution']").append(new Option('University of Regensburg', "University of Regensburg"));
             $("select[name='selectInstitution']").append(new Option('University of Stuttgart', "University of Stuttgart"));
@@ -251,10 +252,6 @@
                 $('.print_special').css({ border : 'none'});
                 window.print(); 
                 e.preventDefault();
-				///var doc = new jsPDF();       
-				//doc.fromHTML("<body>HELLO WORLD</body>", 10, 10, {'width': 180});
-				
-				//doc.output("dataurlnewwindow");
             });
 		}
         
@@ -476,20 +473,25 @@
 			
 			switch( $("select[name='selectInstitution']").val()){
                 case "University of Applied Sciences in Frankfurt": 
-					street = "Nibelungenplatz 1";
-					zip = "60318";
-					city = "Frankfurt a. M.";
-				break;
+                    street = "Nibelungenplatz 1";
+                    zip = "60318";
+                    city = "Frankfurt a. M.";
+                break;
                 case "University of Regensburg": 
-					street = "Universit‰tsstraﬂe 31";
-					zip = "93053";
-					city = "Regensburg";
-				break;
-				case "University of Stuttgart": 
-					street = "Pfaffenwaldring 5a";
-					zip = "70569";
-					city = "Stuttgart";
-				break;
+                    street = "Universit‰tsstraﬂe 31";
+                    zip = "93053";
+                    city = "Regensburg";
+                break;
+                case "University of Stuttgart": 
+                    street = "Pfaffenwaldring 5a";
+                    zip = "70569";
+                    city = "Stuttgart";
+                break;
+                case "LMU Munich": 
+                    street = "Frauenlobstr 7a";
+                    zip = "80337";
+                    city = "Munich";
+                break;
             }
 			
 			str += "<p>If you have any questions or concerns about the research, please feel free to contact: </p><div class='row'>";
