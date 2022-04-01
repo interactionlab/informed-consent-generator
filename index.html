@@ -11,8 +11,6 @@
  <!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css" />
-	<link rel="image_src" type="image/jpeg" href="http://scm.uvrg.org/img/logo.jpg" />
-	<meta property="og:image" content="http://scm.uvrg.org/img/logo.jpg">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<meta property="og:site_name" content="Informed Consent Generator">	
 	<title>Informed Consent Generator</title>	
@@ -34,7 +32,7 @@
 				<div id="input">
                     <div class="row">
                         <div class="col mt-4 mb-2 ">
-                            <a href="https://interactionlab.io"><img src="img/iologo.png" class="float-right  mr-3" width="140px" alt="Interaction Lab Logo"></a>
+                            <a href="https://www.medien.ifi.lmu.de/"><img src="img/logo2.png" class="float-right  mr-3" width="140px" alt="Media Informatics Groups"></a>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -176,9 +174,9 @@
 				$("select[name='compensation'] option:eq(6)").attr("selected", true);
 				$("select[name='recordings'] option:eq(3)").attr("selected", true);
 				$("input[name='topic'] ").val("Fitts' Task in Virtual Reality using Avatar Hands");
-				$("input[name='departmentHead']").val("Prof. Dr. Valentin Schwind");
-				$("input[name='thePIname']").val("Prof. Dr. Valentin Schwind");
-				$("input[name='thePIemail']").val("valentin.schwind@ur.de");
+				$("input[name='departmentHead']").val("Prof. Dr. Sven Mayer");
+                $("input[name='thePIname']").val("Prof. Dr. Sven Mayer");
+                $("input[name='thePIemail']").val("sven.mayer@ifi.lmu.de");
 				$("textarea[name='procedure']").val("1. You will get a virtual reality headset and will be introduced with virtual hands in the environment\n2. You will see a virtual questionnaire. Tap on the table with you index finger to fill out the questionnaire. \n3. In multiple rounds, you have to point at virtual circles highlighted in red. \n4. This procedure will repeat multiple times using different hand conditions. ");
 				$("input[name='participants']").val("36");
 				$("input[name='studentName']").val("Maxy Musterfrau");
@@ -224,7 +222,7 @@
             $("input[name='topic'] ").attr("placeholder", "Your research title");
             $("input[name='ethicalComittee'] ").attr("placeholder","Your review board");
             $("input[name='departmentHead']").attr("placeholder", "When there is a prof above the prof....");
-            $("input[name='thePIname']").attr("placeholder","the guy, who said you should do the study (e.g. Prof. Dr. Valentin Schwind)");
+            $("input[name='thePIname']").attr("placeholder","the guy, who said you should do the study (e.g. Prof. Dr. Sven Mayer)");
             $("input[name='thePIemail']").attr("placeholder", "email of the guy, who said you should do the study");
             $("textarea[name='procedure']").attr("placeholder", "1. Participant takes a seat\n2. Participant conducts the study\n3. Participant is confused\n4. Participant leaves");
             $("input[name='participants']").attr("placeholder", "Insert number");
@@ -274,9 +272,10 @@
             }
             
 			switch( $("select[name='selectInstitution']").val()){
-                case "University of Applied Sciences in Frankfurt": str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><p style='padding-bottom:50px'><img src='img/frankfurtlogo.png' class='float-right' width='150px' alt='Logo' /></p></a></div></div>"; break;
-                case "University of Regensburg": str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><p style='padding-bottom:50px'><img src='img/regensburglogo.png' class='float-right' width='150px' alt='Logo' /></p></a></div></div>"; break;
-                case "University of Stuttgart": str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><p style='padding-bottom:50px'><img src='img/stuttgartlogo.jpg' class='float-right' width='150px' alt='Logo' /></p></a></div></div>"; break;
+                case "LMU Munich": str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><p style='padding-bottom:50px; padding-top:50px'><img src='img/logo2.png' class='float-right' width='150px' alt='Logo' /></p></a></div></div>"; break;
+                case "University of Applied Sciences in Frankfurt": str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><p style='padding-bottom:50px; padding-top:50px'><img src='img/frankfurtlogo.png' class='float-right' width='150px' alt='Logo' /></p></a></div></div>"; break;
+                case "University of Regensburg": str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><p style='padding-bottom:50px; padding-top:50px'><img src='img/regensburglogo.png' class='float-right' width='150px' alt='Logo' /></p></a></div></div>"; break;
+                case "University of Stuttgart": str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><p style='padding-bottom:50px; padding-top:50px'><img src='img/stuttgartlogo.jpg' class='float-right' width='150px' alt='Logo' /></p></a></div></div>"; break;
             }
  
 			// TITLE
