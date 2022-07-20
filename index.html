@@ -509,17 +509,23 @@
             }
 			
 			str += "<p>If you have any questions or concerns about the research, please feel free to contact: </p><div class='row'>";
+
+            if($("input[name='departmentHead']").val()!="" && $("input[name='departmentHead']").val()!=$("input[name='thePIname']").val()){
+                cells = "<div class='col-4 ml-4 mb-4'>";
+            } else {
+                cells = "<div class='col-6 ml-6 mb-6'>";
+            }
 			
 			if($("input[name='studentName']").val()!=""){
-				str += "<div class='col-3 ml-3  mb-3'> "+$("input[name='studentName']").val()+"<br />Student<br />" + $("input[name='studentEmail']").val() + "</div>";
+				str += cells +$("input[name='studentName']").val()+"<br />" + $("input[name='studentEmail']").val() + "</div>";
 			}
 			
 			if($("input[name='thePIname']").val()!=""){
-				str += "<div class='col-4 ml-3  mb-3'> "+$("input[name='thePIname']").val()+"<br />Principal Investigator<br />Human-Computer Interaction<br />" + street + "<br />" + zip + " " + city + ", " + country + "<br />" + $("input[name='thePIemail']").val() + "</div>";
+				str += cells+$("input[name='thePIname']").val()+"<br />Principal Investigator<br />Human-Computer Interaction<br />" + street + "<br />" + zip + " " + city + ", " + country + "<br />" + $("input[name='thePIemail']").val() + "</div>";
 			}
 			
 			if($("input[name='departmentHead']").val()!="" && $("input[name='departmentHead']").val()!=$("input[name='thePIname']").val()){
-				str += "<div class='col-4 ml-3 mb-3'> "+$("input[name='departmentHead']").val()+"<br />Professor/Head of Department<br />Human-Computer Interaction<br />" + street + "<br />" + zip + " " + city + ", " + country + "</div>";
+				str += cells+$("input[name='departmentHead']").val()+"<br />Professor/Head of Department<br />Human-Computer Interaction<br />" + street + "<br />" + zip + " " + city + ", " + country + "</div>";
 			}
 			
             str += "<br /></div></div>";
