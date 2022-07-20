@@ -302,7 +302,7 @@
             } 
 			
 			// BULLET POINT AT THE BEGINNING
-            str += "Please note:<ul><li>Your participation is enitrely voluntary</li><li>The "+$("select[name='selectResearch']").val()+" will last approximately " + $("input[name='duration']").val() + "</li>";
+            str += "Please note:<ul><li>Your participation is entirely voluntary</li><li>The "+$("select[name='selectResearch']").val()+" will last approximately " + $("input[name='duration']").val() + "</li>";
             
             if($("input[name='recordDemographics']").prop('checked')) str += "<li>We will record personal demographics (age, gender, etc.)</li>";
             if($("input[name='recordPhotos']").prop('checked')) str += "<li>We will take photos during the session</li>";
@@ -323,7 +323,7 @@
             
             str += "<li>We may publish our results from this and other sessions in our reports, but all such reports will be confidential and will neither include your name nor cannot be associated with your identity</li></ul>";
 			
-            str += "<p>If you have any questions or complaints about the whole informed consent process of this research study or your rights as a human reserach subject, please contact ";
+            str += "<p>If you have any questions or complaints about the whole informed consent process of this research study or your rights as a human research subject, please contact ";
 			
             if($("input[name='ethicalComittee']").val()!=""){
                 str += "our ethical comitte office: " + $("input[name='ethicalComittee']").val() + ". ";
@@ -376,7 +376,7 @@
                 str += "The investigator may withdraw you from this research if your physician tells us that continued participation may injure your health. ";
                 
             if($("select[name='selectResearch']").val()=="interview")    
-                str += "I have the right not to answer questions and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
+                str += "I have the right not to answer questions, and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
                 
             itemCount++;
 			// PROCEDURE
@@ -409,13 +409,13 @@
             str += "<p>";
 			
             if($("input[name='recordDemographics']").prop('checked')) 
-				str += "Personal data (age, gender, etc.) will be recorded while participation. ";
+				str += "Personal data (age, gender, etc.) will be recorded during participation. ";
 			
 			if($("select[name='selectResearch']").val() != "online study"){
                 str += "The contact details of the study participants can be used to track potential infection chains. ";
             } 
 			
-            str += "The researcher will not identify you by your real name in any reports using information obtained from this "+ $("select[name='selectResearch']").val() + " and that your confidentiality as a participant in this " + $("select[name='selectResearch']").val() + " will remain secure and encrypted. " ;
+            str += "The researcher will not identify you by your real name in any reports using information obtained from this "+ $("select[name='selectResearch']").val() + ", and your confidentiality as a participant in this " + $("select[name='selectResearch']").val() + " will remain secure and encrypted. " ;
             
             str += "All data you provide in this " + $("select[name='selectResearch']").val() + " will be published anonymized and treated confidentially in compliance with the General Data Protection Regulation (GDPR) of the European Union (EU). ";
                         
@@ -423,21 +423,22 @@
                 str += "Subsequent uses of records and data will be subject to standard data use policies. ";
                         
             if($("select[name='dataPublic']").val()=="anonymized")
-                str += "Subsequent uses of records and data will be subject to standard data use policies which protect the full anonymity of the participating individuals. ";
+                str += "Subsequent uses of records and data will be subject to standard data use policies that protect the participating individuals' anonymity. ";
                 
             str += "In all cases, uses of records and data will be subject to the GDPR. ";
             str += "Faculty and administrators from the campus will not have access to raw data or transcripts. This precaution will prevent your individual comments from having any negative repercussions. ";
             
             if($("select[name='selectResearch']").val()=="interview"){
-				str += "The transcript of the interview will be analysed by ";
+				str += "The interview transcript will be primarily analyzed by ";
 				
 				if($("input[name='thePIname']").val())
 					str += $("input[name='thePIname']").val();
 				
 				if($("input[name='studentName']").val())
-					str += " and " + $("input[name='thePIname']").val();
-				
-                str += ". Access to the raw interview transcript will be limited to the authors of these research, academic colleagues, and researchers with whom he might collaborate as part of the research process. Any summary interview content, or direct quotations from the interview, that are made available through academic publication or other academic outlets will be anonymized so that you cannot be identified, and care will be taken to ensure that other information in the interview that could identify yourself is not revealed. I have the right not to answer questions and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
+					str += " and " + $("input[name='studentName']").val();
+				str += ". ";
+
+                str += "Access to the raw interview transcript will be limited to the authors of this research, academic colleagues, and researchers with whom he might collaborate as part of the research process. Any summary interview content, or direct quotations from the interview, that are made available through academic publications or other outlets will be anonymized so that you cannot be identified, and care will be taken to ensure that other information in the interview that could identify you is not revealed. I have the right not to answer questions, and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
             }    
 			
             if($("select[name='selectResearch']").val()=="online study"){
@@ -459,7 +460,7 @@
                 str += records;
             }
             
-            str += "Any recordings cannot be viewed by anyone outside this research project unless we have you sign a separate permission form allowing us to use them (see below). ";
+            str += "No one outside this research project can view any recordings unless we have you sign a separate permission form allowing us to use them (see below). ";
             
             if($("select[name='dataPublic']").val()=="no"){
 				str += "The records will be destroyed after the end of the research ";
@@ -467,10 +468,10 @@
 					str += "as required by the funding organization ";
 				str += "or if you contact the researcher to destroy or delete them immediately. ";
 			} else {
-				str += "Records that have not been made public are automatically deleted after the end of the research. The records will be destroyed if you contact the researcher to destroy or delete them immediately. ";
+				str += "Records that have not been made public will be deleted after the end of the research. The records will be destroyed if you contact the researcher to destroy or delete them immediately. ";
             }
 			
-            str += "As with any publication or online related activity, the risk of a breach of confidentiality is always possible. According to the GDPR, the researchers will inform the participant if a breach of confidential data was detected. ";
+            str += "As with any publication or online-related activity, the risk of a breach of confidentiality is always possible. According to the GDPR, the researchers will inform the participant if a breach of confidential data is detected. ";
 			
             str += records + "</p></div>";
             
