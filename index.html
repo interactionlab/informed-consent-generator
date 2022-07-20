@@ -281,11 +281,22 @@
 			// TITLE
             str += "<div class='pageBreak'><h1>Informed Consent of Participation</h1>";
             var andStudent = "";
-            if($("input[name='studentName']").val()!="")
+            if($("input[name='studentName']").val()!=""){
                 andStudent += $("input[name='studentName']").val() + " and ";
+            }
             
 			// INVITATION (SUMMARY OF THE FOLLOWING)
-            str += "<p>You are invited to participate in the " + $("select[name='selectResearch']").val() + " <b>" + capital_letter($("input[name='topic']").val()) + "</b> initiated and conducted by " + andStudent + $("input[name='thePIname']").val()  + ". The research is supervised by " + $("input[name='departmentHead']").val() + " at the " + $("select[name='selectInstitution']").val() + ". ";
+            str += "<p>You are invited to participate in the " + $("select[name='selectResearch']").val() + " <b>" + capital_letter($("input[name='topic']").val()) + "</b> initiated and conducted by " + andStudent + $("input[name='thePIname']").val()  + ". The research is supervised";
+            if($("input[name='departmentHead']").val()!=""){
+                str += " by " + $("input[name='departmentHead']").val();
+            }
+            if($("input[name='thePIname']").val()!=""){
+                str += " by " + $("input[name='thePIname']").val();
+            }
+            if($("input[name='selectInstitution']").val()!=""){
+                str += " at the " + $("select[name='selectInstitution']").val();
+            }
+            str += ". ";
             if( $("input[name='funding']").val() != ""){ 
                 str += "This study is funded and financed by the research project " + $("input[name='funding']").val() + ". ";
             } 
@@ -316,8 +327,11 @@
 			
             if($("input[name='ethicalComittee']").val()!=""){
                 str += "our ethical comitte office: " + $("input[name='ethicalComittee']").val() + ". ";
-            } else {
+            } else if ($("input[name='departmentHead']").val()!="") {
                 str += $("input[name='thePIname']").val() + " (E-Mail: " + $("input[name='thePIemail']").val() +") or "+ $("input[name='departmentHead']").val()+ ". ";
+            
+            } else {
+                str += $("input[name='thePIname']").val() + " (E-Mail: " + $("input[name='thePIemail']").val() +"). ";
             
             }
             str += "You should carefully read the information below. Please take as much time as you need to read the consent form.</p></div>";
@@ -368,7 +382,7 @@
 			// PROCEDURE
 			
             str += "</p></div><div class='pageBreak'><h3>" + itemCount + ". Procedure</h3>";
-            str += "After confirming your informed consent you will:<div style='padding-left: 10px; padding-top: 0px'>"+$("textarea[name='procedure']").val().replace(/\n/g, "<br />")+"</div><p>The complete procedure of this "+$("select[name='selectResearch']").val()+" will last approximately " + $("input[name='duration']").val() + ".</p>";
+            str += "After confirming your informed consent, you will be guided through the following steps:<div style='padding-left: 10px; padding-top: 0px'>"+$("textarea[name='procedure']").val().replace(/\n/g, "<br />")+"</div><p>The complete procedure of this "+$("select[name='selectResearch']").val()+" will last approximately " + $("input[name='duration']").val() + ".</p>";
             str += "</div>";
 			
             itemCount++;
@@ -377,9 +391,9 @@
             str += "<div class='pageBreak'><h3>" + itemCount + ". Risks and Benefits</h3>";
             str += "<p>There are no risks associated with this "+ $("select[name='selectResearch']").val() + ". Discomforts or inconveniences will be minor and are not likely to happen. If any discomforts become a problem, you may discontinue your participation. ";
             
-			if($("select[name='selectResearch']").val()!="online study"){
-                str += "In order to minimize any risk of infection, the hygiene rules must be followed. The hygiene regulations of the " + $("select[name='selectInstitution']").val() + " apply. Violation of the hygiene regulations can mean an immediate termination of the study. ";
-            } 
+			// if($("select[name='selectResearch']").val()!="online study"){
+            //    str += "In order to minimize any risk of infection, the hygiene rules must be followed. The hygiene regulations of the " + $("select[name='selectInstitution']").val() + " apply. Violation of the hygiene regulations can mean an immediate termination of the study. ";
+            //  } 
 			
             if($("select[name='compensation']").val()=="no compensation") 
                 str += "You will not directly benefit through participation in this "+ $("select[name='selectResearch']").val() +". We hope that the information obtained from your participation may help to bring forward the research in this field. ";
@@ -514,8 +528,10 @@
 			
 			if( $("select[name='selectResearch']").val() != "online study"){
 				str += "<div class='pageBreak'><h3>" + itemCount + ". Informed Consent and Agreement</h3>";
-				str += "<table>"
-				str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p>I understand the explanation provided to me. I understand the hygiene rules of the institution and I accept to follow them. I have been given a copy of this form. I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this " + $("select[name='selectResearch']").val() +".<p /></th></tr>"
+				str += "<table>";
+				//str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p>I understand the explanation provided to me. I understand the hygiene rules of the institution and I accept to follow them. I have been given a copy of this form. I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this " + $("select[name='selectResearch']").val() +".<p /></th></tr>";
+
+                str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p>I understand the explanation provided to me. I have been given a copy of this form. I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this " + $("select[name='selectResearch']").val() +".<p /></th></tr>";
 			   
 				if($("select[name='dataPublic']").val()=="yes"){
 					str += "<tr><th><img src='img/square.jpg'  width='15px'  height='15px'/></th><th><p>I agree that my data records and measurements during the study can be published in context of this research.<p>"
