@@ -100,11 +100,11 @@
                         <div class="col-8"><textarea rows="4" class="form-control" name="procedure" required></textarea></div>
                     </div> 
                     <div class="row mt-3 ">
-                        <div class="col-4"><span id="researchersNameText">Researchers' Name (The PI)</span><span class="text-danger">*</span><br /></div>
+                        <div class="col-4"><span id="thePIname">First Researchers' Name (The PI)</span><span class="text-danger">*</span><br /></div>
                         <div class="col-8"><input class="form-control" name="thePIname" required></input></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><span id="researchersMail">Researchers' E-Mail</span><span class="text-danger">*</span><br /></div>
+                        <div class="col-4"><span id="thePIemail">First Researchers' E-Mail</span><span class="text-danger">*</span><br /></div>
                         <div class="col-8"><input class="form-control" name="thePIemail" required></input></div>
                     </div>
                     <div class="row mt-3 ">
@@ -112,12 +112,20 @@
                         <div class="col-8"><input class="form-control" name="departmentHead"></input></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><span id="studentName">Student's Name</span></div>
-                        <div class="col-8"><input class="form-control" name="studentName"></input></div>
+                        <div class="col-4"><span id="secondResearcherName">Second Researchers's Name</span></div>
+                        <div class="col-8"><input class="form-control" name="secondResearcherName"></input></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><span id="studentEmail">Student's E-Mail</span></div>
-                        <div class="col-8"><input class="form-control" name="studentEmail"></input></div>
+                        <div class="col-4"><span id="secondResearcherEmail">Second  Researchers's E-Mail</span></div>
+                        <div class="col-8"><input class="form-control" name="secondResearcherEmail"></input></div>
+                    </div>
+                    <div class="row mt-3 ">
+                        <div class="col-4"><span id="thirdResearcherName">Thrid Researchers's Name (e.g., the student)</span></div>
+                        <div class="col-8"><input class="form-control" name="thirdResearcherName"></input></div>
+                    </div>
+                    <div class="row mt-3 ">
+                        <div class="col-4"><span id="thirdResearcherEmail">Thrid Researchers's E-Mail</span></div>
+                        <div class="col-8"><input class="form-control" name="thirdResearcherEmail"></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="funding">Funding</span></div>
@@ -159,7 +167,9 @@
 	<script>
 	
 		var debug = false;
+
 		
+
 		$(document).ready(function() {
 			
 			fillSelect();
@@ -179,8 +189,10 @@
                 $("input[name='thePIemail']").val("sven.mayer@ifi.lmu.de");
 				$("textarea[name='procedure']").val("1. You will get a virtual reality headset and will be introduced with virtual hands in the environment\n2. You will see a virtual questionnaire. Tap on the table with you index finger to fill out the questionnaire. \n3. In multiple rounds, you have to point at virtual circles highlighted in red. \n4. This procedure will repeat multiple times using different hand conditions. ");
 				$("input[name='participants']").val("36");
-				$("input[name='studentName']").val("Maxy Musterfrau");
-				$("input[name='studentEmail']").val("maxy.musterfrau@stud.uni-regensburg.de");
+                $("input[name='secondResearcherName']").val("Maxy Musterfrau");
+                $("input[name='secondResearcherEmail']").val("maxy.musterfrau@stud.uni-regensburg.de");
+                $("input[name='thirdResearcherName']").val("Maxy Musterfrau");
+                $("input[name='thirdResearcherEmail']").val("maxy.musterfrau@stud.uni-regensburg.de");
 				$("input[name='ethicalComittee']").val("DFG/BMBF/Uni-Regensburg");
 				$("input[name='funding']").val("GEVAKUB");
 				$("input[name='duration']").val("60 minutes");
@@ -188,9 +200,11 @@
 				$("input[name='goal']").val("The goal of this research is to understand how visual signals of the own body are incorporated into the own body scheme. ");
 			});
 		});
-		
 
-		
+		function myXOR(a,b) {
+          return ( a || b ) && !( a && b );
+        }
+
         function fillSelect(){
 
             $("select[name='selectInstitution']").append(new Option('Please select', ""));
@@ -222,12 +236,14 @@
             $("input[name='topic'] ").attr("placeholder", "Your research title");
             $("input[name='ethicalComittee'] ").attr("placeholder","Your review board");
             $("input[name='departmentHead']").attr("placeholder", "When there is a prof above the prof....");
-            $("input[name='thePIname']").attr("placeholder","the guy, who said you should do the study (e.g. Prof. Dr. Sven Mayer)");
+            $("input[name='thePIname']").attr("placeholder","the guy, who said you should do the study (e.g., Prof. Dr. Sven Mayer)");
             $("input[name='thePIemail']").attr("placeholder", "email of the guy, who said you should do the study");
             $("textarea[name='procedure']").attr("placeholder", "1. Participant takes a seat\n2. Participant conducts the study\n3. Participant is confused\n4. Participant leaves");
             $("input[name='participants']").attr("placeholder", "Insert number");
-            $("input[name='studentName']").attr("placeholder","Eva Musterfrau");
-            $("input[name='studentEmail']").attr("placeholder","eva.musterfrau@gmail.com");
+            $("input[name='secondResearcherName']").attr("placeholder","Eva Musterfrau");
+            $("input[name='secondResearcherEmail']").attr("placeholder","eva.musterfrau@gmail.com");
+            $("input[name='thirdResearcherName']").attr("placeholder","Eva Musterfrau");
+            $("input[name='thirdResearcherEmail']").attr("placeholder","eva.musterfrau@gmail.com");
             $("input[name='funding']").attr("placeholder","Your funding");
             $("input[name='duration']").attr("placeholder","60 minutes");
             $("input[name='purpose']").attr("placeholder","Explain the purpose of this research. ");
@@ -281,8 +297,11 @@
 			// TITLE
             str += "<div class='pageBreak'><h1>Informed Consent of Participation</h1>";
             var andStudent = "";
-            if($("input[name='studentName']").val()!=""){
-                andStudent += $("input[name='studentName']").val() + " and ";
+            if($("input[name='thirdResearcherName']").val()!=""){
+                andStudent += $("input[name='thirdResearcherName']").val() + " and ";
+            }
+            if($("input[name='secondResearcherName']").val()!=""){
+                andStudent += $("input[name='secondResearcherName']").val() + " and ";
             }
             
 			// INVITATION (SUMMARY OF THE FOLLOWING)
@@ -431,11 +450,15 @@
             if($("select[name='selectResearch']").val()=="interview"){
 				str += "The interview transcript will be primarily analyzed by ";
 				
-				if($("input[name='thePIname']").val())
+				if($("input[name='thePIname']").val()){
 					str += $("input[name='thePIname']").val();
-				
-				if($("input[name='studentName']").val())
-					str += " and " + $("input[name='studentName']").val();
+                }
+				if($("input[name='secondResearcherName']").val()){
+					str += " and " + $("input[name='secondResearcherName']").val();
+                }
+                if($("input[name='thirdResearcherName']").val()){
+                    str += " and " + $("input[name='thirdResearcherName']").val();
+                }
 				str += ". ";
 
                 str += "Access to the raw interview transcript will be limited to the authors of this research, academic colleagues, and researchers with whom he might collaborate as part of the research process. Any summary interview content, or direct quotations from the interview, that are made available through academic publications or other outlets will be anonymized so that you cannot be identified, and care will be taken to ensure that other information in the interview that could identify you is not revealed. I have the right not to answer questions, and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
@@ -510,14 +533,29 @@
 			
 			str += "<p>If you have any questions or concerns about the research, please feel free to contact: </p><div class='row'>";
 
-            if($("input[name='departmentHead']").val()!="" && $("input[name='departmentHead']").val()!=$("input[name='thePIname']").val()){
-                cells = "<div class='col-4 ml-4 mb-4'>";
+            var count = 1
+            if ($("input[name='departmentHead']").val()!="") {
+                count++;
+            } 
+            if ($("input[name='secondResearcherName']").val()!=""){
+                count++;
+            }
+            if ($("input[name='thirdResearcherName']").val()!=""){
+                count++;
+            }
+
+            if (count == 3){
+                cells = "<div class='col-4'>";
             } else {
-                cells = "<div class='col-6 ml-6 mb-6'>";
+                cells = "<div class='col-6'>";
             }
 			
-			if($("input[name='studentName']").val()!=""){
-				str += cells +$("input[name='studentName']").val()+"<br />" + $("input[name='studentEmail']").val() + "</div>";
+            if($("input[name='thirdResearcherName']").val()!=""){
+                str += cells +$("input[name='thirdResearcherName']").val()+"<br />" + $("input[name='secondResearcherEmail']").val() + "</div>";
+            }
+
+			if($("input[name='secondResearcherName']").val()!=""){
+				str += cells +$("input[name='secondResearcherName']").val()+"<br />" + $("input[name='secondResearcherEmail']").val() + "</div>";
 			}
 			
 			if($("input[name='thePIname']").val()!=""){
