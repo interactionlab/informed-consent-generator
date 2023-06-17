@@ -1,5 +1,5 @@
 html, body{
-	background: url(../img/bg.jpg) no-repeat center center fixed; 
+	background-color: #CCCCCC;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -10,61 +10,82 @@ html, body{
 	font-size: 14px;
 }
 
+#results{
+	width: 100%;
+}
 .frameStyle {
     padding: 20px;
     margin: 20px;
     border: 1px solid black;
+    text-align: justify;
 }
 @page {
     size: auto;   /* auto is the initial value */
     margin: 0;  /* this affects the margin in the printer settings */
 }
 @media print {
-    #pagy2 { border: none !important; } 
-    @page 
-{
-        border: none !important;
-    size: auto;   /* auto is the initial value */
-    margin-left: 12mm;  /* this affects the margin in the printer settings */
-    margin-right: 12mm;  /* this affects the margin in the printer settings */
-    margin-top: 15mm;  /* this affects the margin in the printer settings */
-    margin-bottom: 12mm;  /* this affects the margin in the printer settings */
-}
-#firstItem{
-     margin-top:-40mm;  /* this affects the margin in the printer settings */
-}
-.pageBreak{
-    page-break-inside:avoid;
-}
-  html, body{
-      font-size: 14pt;
-  }
-  table{
-      font-size: 14pt;
-  }
-  .itemRow {
-    visibility: hidden;
-    }
-  .frameStyle {
-    padding: 20px;
-    margin: 20px;
-    border: none;
-    }
-   h1 {
-    font-size: 26pt !important;
-    font-weight: bold;
-    padding-bottom: 8mm;
-    }
-     h2 {
-       font-size: 24pt !important;
-        font-weight: bold;
-        
-    }
-     h3 {
-        font-size: 20pt !important;
-        font-weight: bold;
-        padding-top: 3mm;
-    }
+    @page {
+		border: none !important;
+	    size: auto;
+	    margin: 12mm 12mm 12mm 12mm !important;
+	}
+
+	html, body, p, table{
+	  font-family: Helvetica, Arial, Tahoma, sans-serif;
+	  font-size: 10pt !important;
+      text-align: justify;
+      background: transparent !important;
+	  border: none !important;
+	  padding: 0px;
+	  margin: 0px;
+      -webkit-print-color-adjust:exact ;
+	}
+
+	.itemRow, .uiView, .uiEdit {
+		display: none;
+	}
+
+	#firstItem{
+	     margin-top:-5mm;  /* this affects the margin in the printer settings */
+	}
+
+	.pageBreak{
+	    page-break-inside:avoid;
+	}
+
+
+	.whiteBox{
+		background: transparent; 
+		box-shadow: 0 0 0 white !important;
+		position: absolute;
+		height: 100%;
+		border-radius: .0em !important;
+	}
+
+	.frameStyle {
+		padding: 20px;
+		margin: 20px;
+		border: none;
+	}
+
+	h1, h2, h3, h4, h5 {
+		page-break-after: avoid;
+	}
+
+	h1 {
+		font-size: 22pt !important;
+		font-weight: bold;
+	}
+	h2 {
+		font-size: 16pt !important;
+		font-weight: bold;
+	    
+	}
+	h3 {
+	    font-size: 14pt !important;
+	    font-weight: bold;
+	    padding-top: 3mm;
+	}
 }
 
 #results h1 {
@@ -155,6 +176,9 @@ div.stimuliContainer {
 	.whiteBox{
 		background: transparent; 
 		box-shadow: 0 0 0 white !important;
+		position: absolute;
+		height: 100%;
+		border-radius: .0em !important;
 	}
 
 	#trialPage{
@@ -163,12 +187,6 @@ div.stimuliContainer {
 		position: absolute;
 		top: 0;
 		bottom: 0;
-	}
-	
-	.whiteBox {
-		position: absolute;
-		height: 100%;
-		border-radius: .0em !important;
 	}
 	
 	input[type=radio] {
