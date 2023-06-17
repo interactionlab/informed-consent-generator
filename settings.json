@@ -1,0 +1,71 @@
+{
+	"version": "0.1",
+	"hostLogo":"logoLMU.png",
+	"hostUrl":"https://www.medien.ifi.lmu.de/",
+	"institutions": {
+		"LMU Munich": {
+			"name": "LMU Munich",
+			"logo": "logoLMU.png",
+			"street":"Frauenlobstr 7a",
+			"zip":"80337",
+			"city":"Munich"
+		},
+		"University of Applied Sciences Frankfurt": {
+			"name": "University of Applied Sciences Frankfurt",
+			"logo": "logoFHFrankfurt.png",
+			"street":"Nibelungenplatz 1",
+			"zip":"60318",
+			"city":"Frankfurt a. M."
+		},
+		"University of Regensburg": {
+			"name": "University of Regensburg",
+			"logo": "logoURegensburg.png",
+			"street":"Universitätsstraße 31",
+			"zip":"93053",
+			"city":"Regensburg"
+		},
+		"University of Stuttgart": {
+			"name": "University of Stuttgart",
+			"logo": "logoUStuttgart.png",
+			"street":"Pfaffenwaldring 5a",
+			"zip":"70569",
+			"city":"Stuttgart"
+		}
+	},
+	"types": [
+		["Online study (survey, apps, web studies, etc.)", "online study"],
+		["User Study (lab study, UX study, VR, eye-tracking, etc.)", "user study"],
+		["Field Study (outside the lab, in-situ, etc.)", "field study"],
+		["Interview (focus groups, use cases, diaries, etc.)", "interview"]
+	],
+	"compensation":[
+		["Money", "money"],
+		["Money & Participation Points", "moneyPoints"],
+		["Participation Points", "points"],
+		["None", "none"]
+	],
+	"dataAnonymization": [
+		["Yes (not anonymized)", "yes"],
+		["Yes (anonymized)", "anonymized"],
+		["No", "no"]
+	],
+	"hints": {
+		"select": "Please select",
+		"title": "Your research title",
+		"monetaryCompensation": "Monetary compensation, e.g., 5 EUR",
+		"ethicalComittee": "Your review board",
+		"departmentHead": "When there is a prof above the prof....",
+		"thePIname": "the person, who said you should do the study (e.g., Prof. Dr. Sven Mayer)",
+		"thePIemail": "email of the guy, who said you should do the study",
+		"procedure": "1. Participant takes a seat\n2. Participant conducts the study\n3. Participant is confused\n4.Participant leaves",
+		"participants": "Insert number",
+		"secondResearcherName": "Eva Musterfrau",
+		"secondResearcherEmail": "eva.musterfrau@gmail.com",
+		"thirdResearcherName": "Eva Musterfrau",
+		"thirdResearcherEmail": "eva.musterfrau@gmail.com",
+		"funding": "Your funding",
+		"duration": "60 minutes",
+		"purpose": "Explain the purpose of this research.",
+		"goal": "Explain the goal of this research."
+	}
+}

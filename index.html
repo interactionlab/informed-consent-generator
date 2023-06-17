@@ -1,38 +1,33 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<!-- Required meta tags -->
-	<meta charset="iso-8859-1">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="author" content="Valentin Schwind">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
- <!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/style.css" />
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<meta property="og:site_name" content="Informed Consent Generator">	
-	<title>Informed Consent Generator</title>	
+    <!-- Required meta tags -->
+    <meta charset="iso-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+    <meta name="author" content="Valentin Schwind">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta property="og:site_name" content="Informed Consent Generator"> 
+    <title>Informed Consent Generator</title>   
 </head>
  <body class="transparent">
-	<script src="js/countryList.js"></script>
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/jquery-ui.js"></script>
-	<script src="js/jquery-cookie-plugin/jquery.cookie.js"></script>
-	<script src="js/jquery-validation/jquery.validate.js"></script>	 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-	<script src="js/seedrandom.min.js"></script>
-	<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
     
-	<div id="mainFrame" class="vertical-center">
-		<div id="demographicsPage" class="whiteBox container rounded">
-			<form id="demographicsForm" class="form-horizontal" action="javascript:generate(this);">
-				<div id="input">
+    <div id="mainFrame" class="vertical-center">
+        <a id="downloadAnchorElem" style="display:none"></a>
+        <div id="demographicsPage" class="whiteBox container rounded">
+            <form id="demographicsForm" class="form-horizontal" action="javascript:generate(this);">
+                <div id="input">
                     <div class="row">
                         <div class="col mt-4 mb-2 ">
-                            <a href="https://www.medien.ifi.lmu.de/"><img src="img/logo2.png" class="float-right  mr-3" width="140px" alt="Media Informatics Groups"></a>
+                            <a id="hostUrl" href=""><img id="hostLogo" class="float-right  mr-3" width="140px" alt="Media Informatics Groups"></a>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -43,41 +38,45 @@
                     <hr />
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="institutionText">Your Institution</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><select class="form-control" name="selectInstitution" required></select></div>
+                        <div class="col-8"><select class="form-control" name="institution" required></select></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="researchText">Kind of research</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><select class="form-control" name="selectResearch" required></select></div>
+                        <div class="col-8"><select class="form-control" name="type" required></select></div>
                     </div>
                     
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="topicText">Title</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><input class="form-control" name="topic" required></input></div>
+                        <div class="col-8"><input class="form-control" name="title" required></input></div>
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="compensationText">Compensation</span><span class="text-danger">*</span><br /></div>
                         <div class="col-8"><select class="form-control" name="compensation" required></select></div>
-                    </div> 
+                    </div>
+                    <div class="row mt-3 ">
+                        <div class="col-4"><span id="monetaryCompensationText">Monetary Compensation </span><span class="text-danger">*</span><br /></div>
+                        <div class="col-8"><input class="form-control" name="monetaryCompensation" required></input></div>
+                    </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="recordingsText">Recorded Data</span></div>
-						<div class="col ml-4">
-							<div class="row">
-								<div class="col"><input type="checkbox" class="form-check-input" name="recordDemographics" id="recordDemographics" checked><label class="form-check-label" for="recordDemographics">Demographics</label></div>
-								<div class="col"><input type="checkbox" class="form-check-input" name="recordAudio" id="recordAudio"><label class="form-check-label" for="recordAudio">Audio</label></div>
-								<div class="col"><input type="checkbox" class="form-check-input" name="recordPhotos" id="recordPhotos"><label class="form-check-label" for="recordPhotos">Photos</label></div>
-								<div class="col"><input type="checkbox" class="form-check-input" name="recordVideos" id="recordVideos"><label class="form-check-label" for="recordVideos">Videos</label></div> 
-							</div> 	
-							<div class="row">
-								<div class="col"><input type="checkbox" class="form-check-input" name="recordMotion" id="recordMotion"><label class="form-check-label" for="recordMotion">Motion Tracking</label></div>
-								<div class="col"><input type="checkbox" class="form-check-input" name="recordPhysio" id="recordAudio"><label class="form-check-label" for="recordPhysio">Physio. Sensing</label></div>
-								<div class="col"><input type="checkbox" class="form-check-input" name="recordEye" id="recordEye"><label class="form-check-label" for="recordEye">Eye/Head Tracking</label></div>
-								<div class="col"><input type="checkbox" class="form-check-input" name="recordScreen" id="recordScreen"><label class="form-check-label" for="recordScreen">Screen Recording</label></div>
-							</div> 						
-						</div> 						
+                        <div class="col ml-4">
+                            <div class="row">
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordDemographics" id="recordDemographics" checked><label class="form-check-label" for="recordDemographics">Demographics</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordAudio" id="recordAudio"><label class="form-check-label" for="recordAudio">Audio</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhotos" id="recordPhotos"><label class="form-check-label" for="recordPhotos">Photos</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordVideos" id="recordVideos"><label class="form-check-label" for="recordVideos">Videos</label></div> 
+                            </div>  
+                            <div class="row">
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordMotion" id="recordMotion"><label class="form-check-label" for="recordMotion">Motion Tracking</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhysiological" id="recordPhysiological"><label class="form-check-label" for="recordPhysiological">Physio. Sensing</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordEyetracking" id="recordEyetracking"><label class="form-check-label" for="recordEyetracking">Eye/Head Tracking</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordScreenrecoding" id="recordScreenrecoding"><label class="form-check-label" for="recordScreenrecoding">Screen Recording</label></div>
+                            </div>                      
+                        </div>                      
                     </div> 
                     <div class="row mt-3 ">
-                        <div class="col-4"><span id="dataPublicText">Do you make the raw data public?</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><select class="form-control" name="dataPublic" required></select></div>
+                        <div class="col-4"><span id="anonymizationText">Do you make the raw data public?</span><span class="text-danger">*</span><br /></div>
+                        <div class="col-8"><select class="form-control" name="anonymization" required></select></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="durationText">Estimated Study Duration</span><span class="text-danger">*</span><br /></div>
@@ -105,7 +104,7 @@
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="thePIemail">First Researchers' E-Mail</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><input class="form-control" name="thePIemail" required></input></div>
+                        <div class="col-8"><input class="form-control" type="email" name="thePIemail" required></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="PIText">Head of the Department (if not = PI)</span></div>
@@ -117,7 +116,7 @@
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="secondResearcherEmail">Second  Researchers's E-Mail</span></div>
-                        <div class="col-8"><input class="form-control" name="secondResearcherEmail"></input></div>
+                        <div class="col-8"><input class="form-control" type="email" name="secondResearcherEmail"></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="thirdResearcherName">Thrid Researchers's Name (e.g., the student)</span></div>
@@ -125,7 +124,7 @@
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="thirdResearcherEmail">Thrid Researchers's E-Mail</span></div>
-                        <div class="col-8"><input class="form-control" name="thirdResearcherEmail"></input></div>
+                        <div class="col-8"><input class="form-control" type="email" name="thirdResearcherEmail"></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="funding">Funding</span></div>
@@ -136,126 +135,206 @@
                         <div class="col-8"><input class="form-control" name="ethicalComittee"></input></div>
                     </div>
                     </div>
-                    <div class="row mt-2 mb-2 itemRow" id="fieldsrequired">
+                    <div class="row mt-3 mb-3 itemRow" id="fieldsrequired">
                         <div class="col" >
                             <span class="text-danger">* fields required</span> <br />
                         </div>
                     </div>
-                    <div class="row mt-2 itemRow">
-                        <div class="col" >
-                            <button id="btnBack" class="btn btn-primary btn-md float-left" >Back</button>
-							<a id="btnExample" class="btn btn-secondary btn-md float-left mr-3 " >Example</a> 
+                    <hr class="uiEdit">
+                    <div class="row mt-3 itemRow uiEdit">
+                        <div class="col-8">
+                            <a id="btnExample" class="btn btn-secondary btn-md float-left mr-3 " >Example</a> 
+                            <a class="btn btn-secondary btn-md float-left mr-3 btnSave" >Save (*.json)</a>
+                        </div>
+                        <div class="d-grid gap-2 col-4 mx-auto">
                             <button id="btnGenerate" class="btn btn-primary btn-md float-right" type="Submit" value="">Generate</button>
+                        </div>
+                    </div>
+                    <div class="row mt-3 itemRow uiEdit">
+                        <div class="col-2">
+                            <label for="loadFile" class="form-label">Load (*.json)</label>
+                        </div>
+                        <div class="col-6">
+                            <input class="form-control form-control-sm" id="loadFile" type="file">
+                        </div>
+                        <div class="col-4">
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 itemRow uiView">
+                        <div class="col" >
+                            <button id="btnBack" class="btn btn-primary btn-md float-left btnBack" >Back</button> 
+                            <button class="btn btn-secondary btn-md float-left mr-3 btnSave" >Save (*.json)</button>
                             <button id="btnPrint" class="btn btn-primary btn-md float-right" value="">Print</button>
                         </div>
                     </div>
-				<div class="row mt-2 mb-2" id="results">
-					
-				</div>
-				<div class="row mt-2 mb-2 itemRow" id="githublink">
-					<div class="col" > 
-						<a href="https://github.com/interactionlab/informed-consent-generator/">Source Code on github</a>
-					</div>
-				</div>
-			</form>
-		</div>
+                <div id="results"></div>
+                <div class="row mt-2 mb-2 itemRow" id="githublink">
+                    <div class="row mt-2 itemRow uiView">
+                        <div class="col" >
+                            <button id="btnBack" class="btn btn-primary btn-md float-left btnBack" >Back</button>
+                        </div>
+                    </div>
+                    <div class="col" > 
+                        <a href="https://github.com/interactionlab/informed-consent-generator/">Source Code on github</a>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-		
-	</div>
+        
+    </div>
 
-	
-	<script>
-	
-		var debug = false;
+    
+    <script>
 
-		
+        function capitalize(s)
+        {
+            return s && s[0].toUpperCase() + s.slice(1);
+        }
 
-		$(document).ready(function() {
-			
-			fillSelect();
-			$("#btnExample").click(function() {
-				$("select[name='selectInstitution']").val("University of Regensburg");
-				$("input[name='recordDemographics']").prop( "checked", true );
-				$("input[name='recordPhotos']").prop( "checked", true );
-				$("input[name='recordMotion']").prop( "checked", true );
-				$("input[name='recordVideos']").prop( "checked", true );
-				$("select[name='selectResearch'] option:eq(2)").attr("selected", true);
-				$("select[name='dataPublic'] option:eq(2)").attr("selected", true);
-				$("select[name='compensation'] option:eq(6)").attr("selected", true);
-				$("select[name='recordings'] option:eq(3)").attr("selected", true);
-				$("input[name='topic'] ").val("Fitts' Task in Virtual Reality using Avatar Hands");
-				$("input[name='departmentHead']").val("Prof. Dr. Sven Mayer");
-                $("input[name='thePIname']").val("Prof. Dr. Sven Mayer");
-                $("input[name='thePIemail']").val("sven.mayer@ifi.lmu.de");
-				$("textarea[name='procedure']").val("1. You will get a virtual reality headset and will be introduced with virtual hands in the environment\n2. You will see a virtual questionnaire. Tap on the table with you index finger to fill out the questionnaire. \n3. In multiple rounds, you have to point at virtual circles highlighted in red. \n4. This procedure will repeat multiple times using different hand conditions. ");
-				$("input[name='participants']").val("36");
-                $("input[name='secondResearcherName']").val("Maxy Musterfrau");
-                $("input[name='secondResearcherEmail']").val("maxy.musterfrau@stud.uni-regensburg.de");
-                $("input[name='thirdResearcherName']").val("Maxy Musterfrau");
-                $("input[name='thirdResearcherEmail']").val("maxy.musterfrau@stud.uni-regensburg.de");
-				$("input[name='ethicalComittee']").val("DFG/BMBF/Uni-Regensburg");
-				$("input[name='funding']").val("GEVAKUB");
-				$("input[name='duration']").val("60 minutes");
-				$("input[name='purpose']").val("The purpose of this research is to study human performance in a pointing task with different avatar hands in virtual reality. ");
-				$("input[name='goal']").val("The goal of this research is to understand how visual signals of the own body are incorporated into the own body scheme. ");
-			});
-		});
+        function capital_letter(str) {
+            str = str.split(" ");
+            for (var i = 0, x = str.length; i < x; i++) {
+                str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+            }
+            return str.join(" ");
+        }
 
-		function myXOR(a,b) {
+        function downloadObjectAsJson(data, fileName){
+            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+            var downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", fileName);
+            document.body.appendChild(downloadAnchorNode); // required for firefox
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+          }
+
+        var inputKeys = ["title", "duration", "purpose", "goal", "departmentHead", "thePIname", "thePIemail", "participants", "monetaryCompensation", "secondResearcherName", "secondResearcherEmail", "thirdResearcherName", "thirdResearcherEmail", "ethicalComittee", "funding"];
+        var inputRecord = ["demographics", "audio", "photos", "videos", "motion", "physiological", "eyetracking", "screenrecoding"]
+
+        var settings = {};
+        var data = {};
+        $(document).ready(function() {
+            
+            fillSelect();
+
+
+            $("#hostUrl").attr("href", settings["hostUrl"]);
+            $("#hostLogo").attr("src", "img/" + settings["hostLogo"]);
+
+            $(".btnSave").click(function() {
+                data = collectData();
+                downloadObjectAsJson(data, "exportInformedConsent.json");
+            });
+
+            function loadFile(event) {
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    var jsonObj = JSON.parse(event.target.result);
+                    data = jsonObj;
+                    fillData(data);
+                };
+
+                reader.readAsText(event.target.files[0]);
+            };
+
+            document.getElementById('loadFile').addEventListener('change', loadFile);
+
+            $("#btnExample").click(function() {
+                let example = {
+                    "type":"field study",
+                    "title":"Fitts' Task in Virtual Reality using Avatar Hands",
+                    "duration":"60 minutes",
+                    "participants":"36",
+                    "anonymization":"anonymized",
+                    "purpose":"The purpose of this research is to study human performance in a pointing task with different avatar hands in virtual reality.",
+                    "goal":"The goal of this research is to understand how visual signals of the own body are incorporated into the own body scheme.",
+                    "procedure":"1. You will get a virtual reality headset and will be introduced with virtual hands in the environment\n2. You will see a virtual questionnaire. Tap on the table with you index finger to fill out the questionnaire. \n3. In multiple rounds, you have to point at virtual circles highlighted in red. \n4. This procedure will repeat multiple times using different hand conditions.",
+                    "compensation":"money",
+                    "monetaryCompensation":"5 EUR",
+                    "institution":"University of Regensburg",
+                    "departmentHead":"Prof. Dr. Sven Mayer",
+                    "thePIname":"Prof. Dr. Sven Mayer",
+                    "thePIemail":"sven.mayer@ifi.lmu.de",
+                    "secondResearcherName":"Maxy Musterfrau",
+                    "secondResearcherEmail":"maxy.musterfrau@stud.uni-regensburg.de",
+                    "thirdResearcherName":"Maxy Musterfrau",
+                    "thirdResearcherEmail":"maxy.musterfrau@stud.uni-regensburg.de",
+                    "ethicalComittee":"DFG/BMBF/Uni-Regensburg",
+                    "funding":"GEVAKUB",
+                    "record":{
+                        "demographics":true,
+                        "audio":false,
+                        "photos":true,
+                        "videos":true,
+                        "motion":true,
+                        "physiological":true,
+                        "eyetracking":false,
+                        "screenrecoding":true,
+                    }
+                }
+
+                fillData(example);
+            });
+        });
+
+        function myXOR(a,b) {
           return ( a || b ) && !( a && b );
         }
 
         function fillSelect(){
 
-            $("select[name='selectInstitution']").append(new Option('Please select', ""));
-            $("select[name='selectInstitution']").append(new Option('LMU Munich', "LMU Munich"));
-            $("select[name='selectInstitution']").append(new Option('University of Applied Sciences Frankfurt', "University of Applied Sciences in Frankfurt"));
-            $("select[name='selectInstitution']").append(new Option('University of Regensburg', "University of Regensburg"));
-            $("select[name='selectInstitution']").append(new Option('University of Stuttgart', "University of Stuttgart"));
+            var request = new XMLHttpRequest();
+            request.open("GET", "settings.json", false);
+            request.send(null);
+            settings = JSON.parse(request.responseText);
+            console.log(settings);
 
-            $("select[name='selectResearch']").append(new Option('Please select', ""));
-            $("select[name='selectResearch']").append(new Option('online study (survey, apps, web studies, etc.)', "online study"));
-            $("select[name='selectResearch']").append(new Option('User Study (lab study, UX study, VR, eye-tracking, etc.)', "user study"));
-            $("select[name='selectResearch']").append(new Option('Field Study (outside the lab, in-situ, etc.)', "field study"));
-            $("select[name='selectResearch']").append(new Option('Interview (focus groups, use cases, diaries, etc.)', "interview"));
+            $("select[name='institution']").append(new Option(settings["hints"]["select"], ""));
+            for (let key in settings["institutions"]) {
+                let institution = settings["institutions"][key]
+                $("select[name='institution']").append(new Option(institution["name"], institution["name"]));
+            }
+
+            $("select[name='type']").append(new Option(settings["hints"]["select"], ""));
+            for (let i = 0; i < settings["types"].length; i++) {
+                type = settings["types"][i]
+                $("select[name='type']").append(new Option(type[0], type[1]));
+            }
             
-            $("select[name='dataPublic']").append(new Option('Please select', ""));
-            $("select[name='dataPublic']").append(new Option('Yes (not anonymized)', "yes"));
-            $("select[name='dataPublic']").append(new Option('Yes (anonymized)', "anonymized"));
-            $("select[name='dataPublic']").append(new Option('No', "no"));
+            $("select[name='anonymization']").append(new Option(settings["hints"]["select"], ""));
+            for (let i = 0; i < settings["dataAnonymization"].length; i++) {
+                anonymization = settings["dataAnonymization"][i]
+                $("select[name='anonymization']").append(new Option(anonymization[0], anonymization[1]));
+            }
+
+            $("select[name='compensation']").append(new Option(settings["hints"]["select"], ""));
+            for (let i = 0; i < settings["compensation"].length; i++) {
+                compensation = settings["compensation"][i]
+                $("select[name='compensation']").append(new Option(compensation[0], compensation[1]));
+            }
             
-            $("select[name='compensation']").append(new Option('Please select', ""));
-            $("select[name='compensation']").append(new Option('None', "no compensation")); 
-            $("select[name='compensation']").append(new Option('5 EUR', "5 EUR"));
-            $("select[name='compensation']").append(new Option('10 EUR', "10 EUR"));
-            $("select[name='compensation']").append(new Option('15 EUR', "15 EUR"));
-            $("select[name='compensation']").append(new Option('20 EUR', "20 EUR"));
-            $("select[name='compensation']").append(new Option('one half credit point for the lecture', "half credit point"));
-            $("select[name='compensation']").append(new Option('one credit point for the lecture', "one credit point"));
-			
-            $("input[name='topic'] ").attr("placeholder", "Your research title");
-            $("input[name='ethicalComittee'] ").attr("placeholder","Your review board");
-            $("input[name='departmentHead']").attr("placeholder", "When there is a prof above the prof....");
-            $("input[name='thePIname']").attr("placeholder","the guy, who said you should do the study (e.g., Prof. Dr. Sven Mayer)");
-            $("input[name='thePIemail']").attr("placeholder", "email of the guy, who said you should do the study");
-            $("textarea[name='procedure']").attr("placeholder", "1. Participant takes a seat\n2. Participant conducts the study\n3. Participant is confused\n4. Participant leaves");
-            $("input[name='participants']").attr("placeholder", "Insert number");
-            $("input[name='secondResearcherName']").attr("placeholder","Eva Musterfrau");
-            $("input[name='secondResearcherEmail']").attr("placeholder","eva.musterfrau@gmail.com");
-            $("input[name='thirdResearcherName']").attr("placeholder","Eva Musterfrau");
-            $("input[name='thirdResearcherEmail']").attr("placeholder","eva.musterfrau@gmail.com");
-            $("input[name='funding']").attr("placeholder","Your funding");
-            $("input[name='duration']").attr("placeholder","60 minutes");
-            $("input[name='purpose']").attr("placeholder","Explain the purpose of this research. ");
-            $("input[name='goal']").attr("placeholder","Explain the goal of this research. ");
-  
-            $("#btnBack").hide();
-            $("#btnPrint").hide(); 
-            $("#btnBack").click(function(e){
-                e.preventDefault();    
-                $("#btnBack").hide();
-                $("#btnPrint").hide();
-				$("#btnExample").show();
+            var hints = settings["hints"]
+            for (let key in hints) {
+                if (key == "select"){
+                    //None
+                }
+                else if (key == "procedure"){
+                    $("textarea[name='" + key + "'] ").attr("placeholder", hints[key]);
+                } else {
+                    $("input[name='" + key + "'] ").attr("placeholder", hints[key]);
+                }
+            }
+
+            $(".uiEdit").show();
+            $(".uiView").hide();
+            $(".btnBack").click(function(e){
+                e.preventDefault();
+                $(".uiEdit").show();
+                $(".uiView").hide();
                 $("#input").show(); 
                 $("#fieldsrequired").show();
                 $("#btnGenerate").show();
@@ -267,355 +346,369 @@
                 window.print(); 
                 e.preventDefault();
             });
-		}
+        }
         
+        function fillData(data){
+            $("textarea[name='procedure']").val(data["procedure"]);
+            var record = data["record"];
+            for (let key in record) {
+                $("input[name='record" + capitalize(key) + "']").prop("checked", record[key]);
+            }
+            
+            inputKeys.forEach((key) => {
+                $("input[name='" + key + "']").val(data[key]);
+            });
+
+            $("select[name='institution'] option[value='" + data["institution"] + "']").attr("selected", true);
+            $("select[name='type'] option[value='" + data["type"] + "']").attr("selected", true);
+            $("select[name='anonymization'] option[value='" + data["anonymization"] + "']").attr("selected", true);
+            $("select[name='compensation'] option[value='" + data["compensation"] + "']").attr("selected", true);
+        }
+
+        function collectData(){
+            let data = {};
+            inputKeys.forEach((key) => {
+                data[key] = $("input[name='" + key + "']").val();
+                console.log(data[key]);
+            });
+
+            data["record"] = {};
+            inputRecord.forEach((key) => {
+                data["record"][key] = $("input[name='record" + capitalize(key) + "']").prop('checked')
+                console.log(data["record"][key]);
+            });
+
+
+            data["procedure"] = $("textarea[name='procedure']").val();
+            data["institution"] = $("select[name='institution']").val();
+            data["type"] = $("select[name='type']").val();
+            data["anonymization"] = $("select[name='anonymization']").val();
+            data["compensation"] = $("select[name='compensation']").val();
+
+            return data;
+        }
+
         function generate(){
-            $("#btnGenerate").hide();
+            data = collectData();
+
+            $(".uiView").show();
+            $(".uiEdit").hide();
             $("#input").hide();
-            $("#btnPrint").show();
-            $("#btnBack").show(); 
-			$("#fieldsrequired").hide();
-			$("#btnExample").hide();
-			
+            $("#fieldsrequired").hide();
+
             var article = "";
             var str = "";
-			
-            switch( $("select[name='selectResearch']").val()){
+            
+            switch(data["type"]){
                 case "online study": article = " an "; break;
                 case "user study": article = " a "; break;
                 case "field study": article = " a "; break;
                 case "interview": article = " an "; break;
             }
             
-			switch( $("select[name='selectInstitution']").val()){
-                case "LMU Munich": str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><p style='padding-bottom:50px; padding-top:50px'><img src='img/logo2.png' class='float-right' width='150px' alt='Logo' /></p></a></div></div>"; break;
-                case "University of Applied Sciences in Frankfurt": str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><p style='padding-bottom:50px; padding-top:50px'><img src='img/frankfurtlogo.png' class='float-right' width='150px' alt='Logo' /></p></a></div></div>"; break;
-                case "University of Regensburg": str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><p style='padding-bottom:50px; padding-top:50px'><img src='img/regensburglogo.png' class='float-right' width='150px' alt='Logo' /></p></a></div></div>"; break;
-                case "University of Stuttgart": str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><p style='padding-bottom:50px; padding-top:50px'><img src='img/stuttgartlogo.jpg' class='float-right' width='150px' alt='Logo' /></p></a></div></div>"; break;
-            }
+            str += "<div class='row' id='firstItem'><div class='col mt-4 mb-2 '><img src='img/" + settings["institutions"][data["institution"]]["logo"] + "' class='float-right' width='150px' alt='Logo' /></a></div></div>";
  
-			// TITLE
+            // TITLE
             str += "<div class='pageBreak'><h1>Informed Consent of Participation</h1>";
             var andStudent = "";
-            if($("input[name='thirdResearcherName']").val()!=""){
-                andStudent += $("input[name='thirdResearcherName']").val() + " and ";
+            if(data["thirdResearcherName"] != ""){
+                andStudent += data["thirdResearcherName"] + " and ";
             }
-            if($("input[name='secondResearcherName']").val()!=""){
-                andStudent += $("input[name='secondResearcherName']").val() + " and ";
+
+            if(data["secondResearcherName"] != ""){
+                andStudent += data["secondResearcherName"] + " and ";
             }
             
-			// INVITATION (SUMMARY OF THE FOLLOWING)
-            str += "<p>You are invited to participate in the " + $("select[name='selectResearch']").val() + " <b>" + capital_letter($("input[name='topic']").val()) + "</b> initiated and conducted by " + andStudent + $("input[name='thePIname']").val()  + ". The research is supervised";
-            if($("input[name='departmentHead']").val()!=""){
-                str += " by " + $("input[name='departmentHead']").val();
+            // INVITATION (SUMMARY OF THE FOLLOWING)
+            str += "<p>You are invited to participate in the " + data["type"] + " <b>" + capital_letter(data["title"]) + "</b> initiated and conducted by " + andStudent + data["thePIname"]  + ". The research is supervised";
+            if(data["departmentHead"] != ""){
+                str += " by " + data["departmentHead"];
             }
-            if($("input[name='thePIname']").val()!=""){
-                str += " by " + $("input[name='thePIname']").val();
+            if(data["thePIname"] != ""){
+                str += " by " + data["thePIname"];
             }
-            if($("input[name='selectInstitution']").val()!=""){
-                str += " at the " + $("select[name='selectInstitution']").val();
+            if(data["institution"] != ""){
+                str += " at the " + data["institution"];
             }
             str += ". ";
-            if( $("input[name='funding']").val() != ""){ 
-                str += "This study is funded and financed by the research project " + $("input[name='funding']").val() + ". ";
-            } 
-			
-			// BULLET POINT AT THE BEGINNING
-            str += "Please note:<ul><li>Your participation is entirely voluntary</li><li>The "+$("select[name='selectResearch']").val()+" will last approximately " + $("input[name='duration']").val() + "</li>";
-            
-            if($("input[name='recordDemographics']").prop('checked')) str += "<li>We will record personal demographics (age, gender, etc.)</li>";
-            if($("input[name='recordPhotos']").prop('checked')) str += "<li>We will take photos during the session</li>";
-            if($("input[name='recordVideos']").prop('checked')) str += "<li>We will record videos during the session</li>";
-            if($("input[name='recordAudio']").prop('checked')) str += "<li>We will record audio during the session</li>";
-            if($("input[name='recordMotion']").prop('checked')) str += "<li>We will track your body motion during the session</li>";
-            if($("input[name='recordEye']").prop('checked')) str += "<li>We will track your eye and head motion during the session</li>";
-            if($("input[name='recordPhysio']").prop('checked')) str += "<li>We will take physiological measurements of your body</li>";
-            if($("input[name='recordScreen']").prop('checked')) str += "<li>We will record the screen and/or activities on your device that are necessary for the study</li>";
-            
-            if($("select[name='compensation']").val()=="one credit point"){
-                str += "<li>You will receive one credit point for your study course as compensation</li>";
+            if(data["funding"] != ""){ 
+                str += "This study is funded and financed by the research project " + data["funding"] + ". ";
             } 
             
-            if($("select[name='compensation']").val()=="half credit point"){
-                str += "<li>You will receive 1/2 credit point for your study course as compensation</li>";
+            // BULLET POINT AT THE BEGINNING
+            str += "Please note:<ul><li>Your participation is entirely voluntary</li><li>The " + data["type"] + " will last approximately " + data["duration"] + "</li>";
+            
+            if(data["record"]["demographics"])
+                str += "<li>We will record personal demographics (age, gender, etc.)</li>";
+            if(data["record"]["photos"])
+                str += "<li>We will take photos during the session</li>";
+            if(data["record"]["videos"]) 
+                str += "<li>We will record videos during the session</li>";
+            if(data["record"]["audio"])
+                str += "<li>We will record audio during the session</li>";
+            if(data["record"]["motion"])
+                str += "<li>We will track your body motion during the session</li>";
+            if(data["record"]["eyetracking"])
+                str += "<li>We will track your eye and head motion during the session</li>";
+            if(data["record"]["physiological"])
+                str += "<li>We will take physiological measurements of your body</li>";
+            if(data["record"]["screenrecoding"])
+                str += "<li>We will record the screen and/or activities on your device that are necessary for the study</li>";
+            
+            if(data["compensation"] == "points" | data["compensation"] == "moneyPoints"){
+                str += "<li>You will receive 1 credit point per hour for your study course as compensation</li>";
             }
             
             str += "<li>We may publish our results from this and other sessions in our reports, but all such reports will be confidential and will neither include your name nor cannot be associated with your identity</li></ul>";
-			
+            
             str += "<p>If you have any questions or complaints about the whole informed consent process of this research study or your rights as a human research subject, please contact ";
-			
-            if($("input[name='ethicalComittee']").val()!=""){
-                str += "our ethical comitte office: " + $("input[name='ethicalComittee']").val() + ". ";
-            } else if ($("input[name='departmentHead']").val()!="") {
-                str += $("input[name='thePIname']").val() + " (E-Mail: " + $("input[name='thePIemail']").val() +") or "+ $("input[name='departmentHead']").val()+ ". ";
+            
+            if(data["ethicalComittee"] != ""){
+                str += "our ethical comitte office: " + data["ethicalComittee"] + ". ";
+            } else if (data["departmentHead"] != "") {
+                str += data["thePIname"] + " (E-Mail: " + data["thePIemail"] +") or "+ data["departmentHead"] + ". ";
             
             } else {
-                str += $("input[name='thePIname']").val() + " (E-Mail: " + $("input[name='thePIemail']").val() +"). ";
+                str += data["thePIname"]+ " (E-Mail: " + data["thePIemail"] +"). ";
             
             }
-            str += "You should carefully read the information below. Please take as much time as you need to read the consent form.</p></div>";
+            str += "You should carefully read the settings below. Please take as much time as you need to read the consent form.</p></div>";
             
             var itemCount = 1;
-			
+            
             // GOAL AND PURPOSE
             str += "<div class='pageBreak'><h3>" + itemCount + ". Purpose and Goal of this Research</h2>";
-            str += "<p>"+$("input[name='purpose']").val()+" "+$("input[name='goal']").val() + " Your participation will help us achieve this goal. ";
+            str += "<p>"+data["purpose"]+" "+ data["goal"] + " Your participation will help us achieve this goal. ";
             str += "The results of this research may be presented at scientific or professional meetings or published in scientific proceedings and journals. </p></div>";
             
-			itemCount++;
-			
-			// PARTICIPATION AND COMPENSATION
+            itemCount++;
+            
+            // PARTICIPATION AND COMPENSATION
             str += "<div class='pageBreak'><h3>" + itemCount + ". Participation and Compensation</h3>";
-            str += "<p>Your participation in this "+$("select[name='selectResearch']").val()+" is completely voluntary. ";
-			str += "You will be one of approximately " + $("input[name='participants']").val() + " people being ";
-			
-            switch( $("select[name='selectResearch']").val()){
+            str += "<p>Your participation in this " + data["type"] + " is completely voluntary. ";
+            str += "You will be one of approximately " + data["participants"] + " people being ";
+            
+            switch(data["type"]){
                 case "online study": str += "surveyed "; break;
                 case "user study": str += "tested "; break;
                 case "field study":  str += "surveyed "; break;
                 case "interview":  str += "interviewed "; break;
             }
-			str += "for this research. ";
+            str += "for this research. ";
             
-			if($("select[name='compensation']").val()!="no compensation"){
-				if($("select[name='compensation']").val()=="one credit point"){
-					str += "You will receive one credit point required for your study course at the University of Regensburg. You may withdraw and discontinue participation at any time without justification for withdrawing. You will still receive your extra one credit point that your professor had offered in exchange for your participation. If you decline to participate or withdraw from the "+$("select[name='selectResearch']").val()+", no one on the campus will be told. ";
-				} else if($("select[name='compensation']").val()=="half credit point"){
-					str += "You will receive 1/2 credit point required for your study course at the University of Regensburg. You may withdraw and discontinue participation at any time without justification for withdrawing. You will still receive your 1/2 credit point that your professor had offered in exchange for your participation. If you decline to participate or withdraw from the "+$("select[name='selectResearch']").val()+", no one on the campus will be told. ";
-				} else {
-					str += "You will receive " + $("select[name='compensation']").val() + " as compensation for your participation. You may withdraw and discontinue participation at any time without penalty or losing the compensation. If you decline to participate or withdraw from the "+$("select[name='selectResearch']").val()+", no one on the campus will be told. ";
-				}
-			} else {
-				str += "You will receive no compensation. You may withdraw and discontinue participation at any time without penalty. If you decline to participate or withdraw from the "+$("select[name='selectResearch']").val()+", no one on the campus will be told. ";
-			}
+            if(data["compensation"] == "none"){
+                str += "You will receive no compensation. You may withdraw and discontinue participation at any time without penalty. If you decline to participate or withdraw from the " + data["type"] + ", no one on the campus will be told. ";
+            } else {
+                if(data["compensation"] == "points" | data["compensation"] == "moneyPoints"){
+                    str += "You will receive one credit point per hour required for your study course at the " + data["institution"]  + ". You may withdraw and discontinue participation at any time without justification for withdrawing. You will still receive your extra one credit point that your professor had offered in exchange for your participation. If you decline to participate or withdraw from the " + data["type"] + ", no one on the campus will be told. ";
+                } 
+                if(data["compensation"] == "money" | data["compensation"] == "moneyPoints"){
+                    str += "You will receive " + data["monetaryCompensation"] + " as compensation for your participation. You may withdraw and discontinue participation at any time without penalty or losing the compensation. If you decline to participate or withdraw from the " + data["type"] + ", no one on the campus will be told. ";
+                }
+            }
             
             str += "You may refuse to answer any questions you do not want to answer. ";
             
-            if($("select[name='selectResearch']").val()=="experimental study")    
+            if(data["type"] == "experimental study")    
                 str += "The investigator may withdraw you from this research if your physician tells us that continued participation may injure your health. ";
                 
-            if($("select[name='selectResearch']").val()=="interview")    
+            if(data["type"] == "interview")    
                 str += "I have the right not to answer questions, and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
                 
             itemCount++;
-			// PROCEDURE
-			
-            str += "</p></div><div class='pageBreak'><h3>" + itemCount + ". Procedure</h3>";
-            str += "After confirming your informed consent, you will be guided through the following steps:<div style='padding-left: 10px; padding-top: 0px'>"+$("textarea[name='procedure']").val().replace(/\n/g, "<br />")+"</div><p>The complete procedure of this "+$("select[name='selectResearch']").val()+" will last approximately " + $("input[name='duration']").val() + ".</p>";
-            str += "</div>";
-			
-            itemCount++;
-			// RISKS AND BENEFITS
-			
-            str += "<div class='pageBreak'><h3>" + itemCount + ". Risks and Benefits</h3>";
-            str += "<p>There are no risks associated with this "+ $("select[name='selectResearch']").val() + ". Discomforts or inconveniences will be minor and are not likely to happen. If any discomforts become a problem, you may discontinue your participation. ";
+            // PROCEDURE
             
-			// if($("select[name='selectResearch']").val()!="online study"){
-            //    str += "In order to minimize any risk of infection, the hygiene rules must be followed. The hygiene regulations of the " + $("select[name='selectInstitution']").val() + " apply. Violation of the hygiene regulations can mean an immediate termination of the study. ";
-            //  } 
-			
-            if($("select[name='compensation']").val()=="no compensation") 
-                str += "You will not directly benefit through participation in this "+ $("select[name='selectResearch']").val() +". We hope that the information obtained from your participation may help to bring forward the research in this field. ";
+            str += "</p></div><div class='pageBreak'><h3>" + itemCount + ". Procedure</h3>";
+            str += "After confirming your informed consent, you will be guided through the following steps:<div style='padding-left: 10px; padding-top: 0px'>" + data["procedure"].replace(/\n/g, "<br />") + "</div><p>The complete procedure of this " + data["type"] + " will last approximately " + data["duration"] + ".</p>";
+            str += "</div>";
+            
+            itemCount++;
+            // RISKS AND BENEFITS
+            
+            str += "<div class='pageBreak'><h3>" + itemCount + ". Risks and Benefits</h3>";
+            str += "<p>There are no risks associated with this " + data["type"] + ". Discomforts or inconveniences will be minor and are not likely to happen. If any discomforts become a problem, you may discontinue your participation. ";
+            
+            if(data["compensation"] == "none") 
+                str += "You will not directly benefit through participation in this "+ $("select[name='type']").val() +". We hope that the settings obtained from your participation may help to bring forward the research in this field. ";
             else    
-                str += "Your benefit in participating is your compensation of " + $("select[name='compensation']").val() + ". ";
+                str += "Your benefit in participating is your compensation descibed above";
                 
             str += "</p></div>";
-			
+            
             itemCount++;
             // DATA PROTECTION
-			
+            
             str += "<div class='pageBreak'><h3>" + itemCount + ". Data Protection and Confidentiality</h3>";
             str += "<p>";
-			
-            if($("input[name='recordDemographics']").prop('checked')) 
-				str += "Personal data (age, gender, etc.) will be recorded during participation. ";
-			
-			if($("select[name='selectResearch']").val() != "online study"){
+            
+            if(data["record"]["demographics"]) {
+                str += "Personal data (age, gender, etc.) will be recorded during participation. ";
+            }
+            
+            if(data["type"] == "online study"){
                 str += "The contact details of the study participants can be used to track potential infection chains. ";
             } 
-			
-            str += "The researcher will not identify you by your real name in any reports using information obtained from this "+ $("select[name='selectResearch']").val() + ", and your confidentiality as a participant in this " + $("select[name='selectResearch']").val() + " will remain secure and encrypted. " ;
             
-            str += "All data you provide in this " + $("select[name='selectResearch']").val() + " will be published anonymized and treated confidentially in compliance with the General Data Protection Regulation (GDPR) of the European Union (EU). ";
+            str += "The researcher will not identify you by your real name in any reports using settings obtained from this "+ $("select[name='type']").val() + ", and your confidentiality as a participant in this " + $("select[name='type']").val() + " will remain secure and encrypted. " ;
+            
+            str += "All data you provide in this " + $("select[name='type']").val() + " will be published anonymized and treated confidentially in compliance with the General Data Protection Regulation (GDPR) of the European Union (EU). ";
                         
-            if($("select[name='dataPublic']").val()=="yes")
+            if(data["anonymization"] == "yes")
                 str += "Subsequent uses of records and data will be subject to standard data use policies. ";
                         
-            if($("select[name='dataPublic']").val()=="anonymized")
+            if(data["anonymization"] == "anonymized")
                 str += "Subsequent uses of records and data will be subject to standard data use policies that protect the participating individuals' anonymity. ";
                 
             str += "In all cases, uses of records and data will be subject to the GDPR. ";
             str += "Faculty and administrators from the campus will not have access to raw data or transcripts. This precaution will prevent your individual comments from having any negative repercussions. ";
             
-            if($("select[name='selectResearch']").val()=="interview"){
-				str += "The interview transcript will be primarily analyzed by ";
-				
-				if($("input[name='thePIname']").val()){
-					str += $("input[name='thePIname']").val();
+            if(data["type"] == "interview"){
+                str += "The interview transcript will be primarily analyzed by ";
+                
+                if(data["thePIname"] != ""){
+                    str += data["thePIname"];
                 }
-				if($("input[name='secondResearcherName']").val()){
-					str += " and " + $("input[name='secondResearcherName']").val();
+                if(data["secondResearcherName"] != ""){
+                    str += " and " + data["secondResearcherName"];
                 }
-                if($("input[name='thirdResearcherName']").val()){
-                    str += " and " + $("input[name='thirdResearcherName']").val();
+                if(data["thirdResearcherName"] != ""){
+                    str += " and " + data["thirdResearcherName"];
                 }
-				str += ". ";
+                str += ". ";
 
-                str += "Access to the raw interview transcript will be limited to the authors of this research, academic colleagues, and researchers with whom he might collaborate as part of the research process. Any summary interview content, or direct quotations from the interview, that are made available through academic publications or other outlets will be anonymized so that you cannot be identified, and care will be taken to ensure that other information in the interview that could identify you is not revealed. I have the right not to answer questions, and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
+                str += "Access to the raw interview transcript will be limited to the authors of this research, academic colleagues, and researchers with whom he might collaborate as part of the research process. Any summary interview content, or direct quotations from the interview, that are made available through academic publications or other outlets will be anonymized so that you cannot be identified, and care will be taken to ensure that other settings in the interview that could identify you is not revealed. I have the right not to answer questions, and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
             }    
-			
-            if($("select[name='selectResearch']").val()=="online study"){
+            
+            if(data["type"] == "online study"){
                 str+= "This site uses cookies and other tracking technologies to conduct the research, to improve the user experience, the ability to interact with the system and to provide additional content from third parties. Despite careful control of content, the researchers assume no liability for damages, which directly or indirectly result from the use of this online application. ";
-			}
+            }
             
             var records ="";
-			
-            if($("select[name='selectResearch']").val()!="online study"){
+            
+            if(data["type"] != "online study"){
                 records = "We will record data, ";
-                if($("input[name='recordPhotos']").prop('checked')) records += "take photos, ";
-                if($("input[name='recordVideos']").prop('checked')) records += "record videos, ";
-                if($("input[name='recordAudio']").prop('checked')) records += "record audio, ";
-                if($("input[name='recordMotion']").prop('checked')) records += "record your body motion, ";
-                if($("input[name='recordEye']").prop('checked')) records += "record your eye motion, ";
-                if($("input[name='recordPhysio']").prop('checked')) records += "take physiological measurements, ";
-                if($("input[name='recordScreen']").prop('checked')) records += "record the screen and/or activities on your device, ";
-                records += " and will potentially take notes during the " + $("select[name='selectResearch']").val() + ". ";
+                if(data["record"]["photos"]) records += "take photos, ";
+                if(data["record"]["videos"]) records += "record videos, ";
+                if(data["record"]["audio"]) records += "record audio, ";
+                if(data["record"]["motion"]) records += "record your body motion, ";
+                if(data["record"]["eyetracking"]) records += "record your eye motion, ";
+                if(data["record"]["physiological"]) records += "take physiological measurements, ";
+                if(data["record"]["screenrecoding"]) records += "record the screen and/or activities on your device, ";
+                records += " and will potentially take notes during the " + data["type"] + ". ";
                 str += records;
             }
             
             str += "No one outside this research project can view any recordings unless we have you sign a separate permission form allowing us to use them (see below). ";
             
-            if($("select[name='dataPublic']").val()=="no"){
-				str += "The records will be destroyed after the end of the research ";
-				if($("select[name='funding']").val()!="")
-					str += "as required by the funding organization ";
-				str += "or if you contact the researcher to destroy or delete them immediately. ";
-			} else {
-				str += "Records that have not been made public will be deleted after the end of the research. The records will be destroyed if you contact the researcher to destroy or delete them immediately. ";
+            if(data["anonymization"] == "no"){
+                str += "The records will be destroyed after the end of the research ";
+                if(data["funding"] != "")
+                    str += "as required by the funding organization ";
+                str += "or if you contact the researcher to destroy or delete them immediately. ";
+            } else {
+                str += "Records that have not been made public will be deleted after the end of the research. The records will be destroyed if you contact the researcher to destroy or delete them immediately. ";
             }
-			
+            
             str += "As with any publication or online-related activity, the risk of a breach of confidentiality is always possible. According to the GDPR, the researchers will inform the participant if a breach of confidential data is detected. ";
-			
+            
             str += records + "</p></div>";
             
             itemCount++;
             // IDENTIFICATION OF INVESTIGATORS
-			
+            
             str += "<div class='pageBreak'><h3>" + itemCount + ". Identification of Investigators</h3>";
-			
-			var street = "";
-			var zip = "";
-			var city = "";
-			var country = "Germany";
-			
-			switch( $("select[name='selectInstitution']").val()){
-                case "University of Applied Sciences in Frankfurt": 
-                    street = "Nibelungenplatz 1";
-                    zip = "60318";
-                    city = "Frankfurt a. M.";
-                break;
-                case "University of Regensburg": 
-                    street = "Universitätsstraße 31";
-                    zip = "93053";
-                    city = "Regensburg";
-                break;
-                case "University of Stuttgart": 
-                    street = "Pfaffenwaldring 5a";
-                    zip = "70569";
-                    city = "Stuttgart";
-                break;
-                case "LMU Munich": 
-                    street = "Frauenlobstr 7a";
-                    zip = "80337";
-                    city = "Munich";
-                break;
-            }
-			
-			str += "<p>If you have any questions or concerns about the research, please feel free to contact: </p><div class='row'>";
+            
+            var street = "";
+            var zip = "";
+            var city = "";
+            var country = "Germany";
+            
+            let institution = settings["institutions"][data["institution"]]
+            street = institution["street"];
+            zip = institution["zip"];
+            city = institution["city"];
+            
+            str += "<p>If you have any questions or concerns about the research, please feel free to contact: </p><div class='row'>";
 
-            var count = 1
-            if ($("input[name='departmentHead']").val()!="") {
+            var count = 0
+            if (data["departmentHead"] != "") {
                 count++;
             } 
-            if ($("input[name='secondResearcherName']").val()!=""){
+            if (data["secondResearcherName"] != ""){
                 count++;
             }
-            if ($("input[name='thirdResearcherName']").val()!=""){
+            if (data["thirdResearcherName"] != ""){
                 count++;
             }
 
-            if (count == 3){
+            if (count == 1){
+                cells = "<div class='col-12'>";
+            } else if (count == 2){
+                cells = "<div class='col-6'>";
+            } else if (count == 3){
                 cells = "<div class='col-4'>";
             } else {
-                cells = "<div class='col-6'>";
+                cells = "<div class='col-3'>";
             }
-			
+            
             if($("input[name='thirdResearcherName']").val()!=""){
-                str += cells +$("input[name='thirdResearcherName']").val()+"<br />" + $("input[name='secondResearcherEmail']").val() + "</div>";
+                str += cells + data["thirdResearcherName"] +"<br />" + data["secondResearcherEmail"] + "</div>";
             }
 
-			if($("input[name='secondResearcherName']").val()!=""){
-				str += cells +$("input[name='secondResearcherName']").val()+"<br />" + $("input[name='secondResearcherEmail']").val() + "</div>";
-			}
-			
-			if($("input[name='thePIname']").val()!=""){
-				str += cells+$("input[name='thePIname']").val()+"<br />Principal Investigator<br />Human-Computer Interaction<br />" + street + "<br />" + zip + " " + city + ", " + country + "<br />" + $("input[name='thePIemail']").val() + "</div>";
-			}
-			
-			if($("input[name='departmentHead']").val()!="" && $("input[name='departmentHead']").val()!=$("input[name='thePIname']").val()){
-				str += cells+$("input[name='departmentHead']").val()+"<br />Professor/Head of Department<br />Human-Computer Interaction<br />" + street + "<br />" + zip + " " + city + ", " + country + "</div>";
-			}
-			
+            if(data["secondResearcherName"] != ""){
+                str += cells + data["secondResearcherName"] +"<br />" + data["secondResearcherEmail"] + "</div>";
+            }
+            
+            if(data["thePIname"]!=""){
+                str += cells + data["thePIname"] + "<br />Principal Investigator<br />" + street + "<br />" + zip + " " + city + ", " + country + "<br />" + data["thePIemail"] + "</div>";
+            }
+            
+            if(data["departmentHead"] != "" && data["departmentHead"] != data["thePIname"]){
+                str += cells+ data["departmentHead"] +"<br />Professor/Head of Department<br />" + street + "<br />" + zip + " " + city + ", " + country + "</div>";
+            }
+            
             str += "<br /></div></div>";
-			
+            
             itemCount++;
             // INFORMED CONSENT
-			
-			if( $("select[name='selectResearch']").val() != "online study"){
-				str += "<div class='pageBreak'><h3>" + itemCount + ". Informed Consent and Agreement</h3>";
-				str += "<table>";
-				//str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p>I understand the explanation provided to me. I understand the hygiene rules of the institution and I accept to follow them. I have been given a copy of this form. I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this " + $("select[name='selectResearch']").val() +".<p /></th></tr>";
-
-                str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p>I understand the explanation provided to me. I have been given a copy of this form. I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this " + $("select[name='selectResearch']").val() +".<p /></th></tr>";
-			   
-				if($("select[name='dataPublic']").val()=="yes"){
-					str += "<tr><th><img src='img/square.jpg'  width='15px'  height='15px'/></th><th><p>I agree that my data records and measurements during the study can be published in context of this research.<p>"
-				
-					if($("select[name='selectResearch']").val()!="online study"){
-						str += "<table>"
-						if($("input[name='recordPhotos']").prop('checked')) str += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that photos during this study can be made and published.<p /></th></tr>"
-						if($("input[name='recordVideos']").prop('checked')) str += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that videos during this study can be recorded and published.<p /></th></tr>"
-						if($("input[name='recordAudio']").prop('checked')) str += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that audio files during this study can be recorded and published.<p /></th></tr>"
-
-						str += "</table>I understand that data will be anonymized cannot be associated with my name. From the consent of publication, I do not derive any rights (such as any renumeration or co-authorship). This declaration of consent is revocable at any time in line with the GDPR. In the case of revocation, the published recordings, insofar as they are subject to the disposition of the researchers, will be removed. Further recordings are no longer used or published after revocation of publication.</p></tr>"
-						
-						str += "</table>"
-					}    
-				}
-				
-				str += "<table>"
-				str += "<tr><th><br /><br />__________________________________</th><th></th></tr>"
-				str += "<tr><th>Printed Name of Subject</th><th></th></tr>"
-				str += "<tr><th><br /><br />__________________________________</th><th><br /><br />_____________________________</th></tr>"
-				str += "<tr><th>Signature of Subject</th><th>Location, Date</th></tr>"
-				str += "</table>"
-				str += "</div>";
-			}
-			
-            $("#results").html(  "<div class='frameStyle'>"+str+"</div>");
             
-			setTimeout(function () {
-				//  window.print();  
-            }, 100);
-		}
-         
-		function capital_letter(str) {
-            str = str.split(" ");
-            for (var i = 0, x = str.length; i < x; i++) {
-                str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+            if(data["type"] != "online study"){
+                str += "<div class='pageBreak'><h3>" + itemCount + ". Informed Consent and Agreement</h3>";
+                str += "<table>";
+
+                str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p>I understand the explanation provided to me. I have been given a copy of this form. I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this " + data["type"] +".<p /></th></tr>";
+               
+                if(data["anonymization"] == "yes"){
+                    str += "<tr><th><img src='img/square.jpg'  width='15px'  height='15px'/></th><th><p>I agree that my data records and measurements during the study can be published in context of this research.<p>"
+                
+                    if(data["type"] != "online study"){
+                        str += "<table>"
+                        if(data["record"]["photos"]) str += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that photos during this study can be made and published.<p /></th></tr>"
+                        if(data["record"]["videos"]) str += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that videos during this study can be recorded and published.<p /></th></tr>"
+                        if(data["record"]["audio"]) str += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that audio files during this study can be recorded and published.<p /></th></tr>"
+
+                        str += "</table>I understand that data will be anonymized cannot be associated with my name. From the consent of publication, I do not derive any rights (such as any renumeration or co-authorship). This declaration of consent is revocable at any time in line with the GDPR. In the case of revocation, the published recordings, insofar as they are subject to the disposition of the researchers, will be removed. Further recordings are no longer used or published after revocation of publication.</p></tr>"
+                        
+                        str += "</table>"
+                    }    
+                }
+                
+                str += "<table>"
+                str += "<tr><th><br /><br />__________________________________</th><th></th></tr>"
+                str += "<tr><th>Printed Name of Subject</th><th></th></tr>"
+                str += "<tr><th><br /><br />__________________________________</th><th><br /><br />_____________________________</th></tr>"
+                str += "<tr><th>Signature of Subject</th><th>Location, Date</th></tr>"
+                str += "</table>"
+                str += "</div>";
             }
-            return str.join(" ");
+            
+            $("#results").html("<div class='frameStyle'>"+str+"</div>");
+            
+            setTimeout(function () {
+                //  window.print();  
+            }, 100);
         }
-	</script>
+         
+    </script>
  </body>
 </html>
