@@ -38,101 +38,101 @@
                     <hr />
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="institutionText">Your Institution</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><select class="form-control" name="institution" required></select></div>
+                        <div class="col-8"><select class="form-control" name="institution" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="researchText">Kind of research</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><select class="form-control" name="type" required></select></div>
+                        <div class="col-8"><select class="form-control" name="type" onchange="onChange(event)" required></select></div>
                     </div>
                     
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="topicText">Title</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><input class="form-control" name="title" required></input></div>
+                        <div class="col-8"><input class="form-control" name="title" onchange="onChange(event)" required></input></div>
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="compensationText">Compensation</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><select class="form-control" name="compensation" required></select></div>
+                        <div class="col-8"><select class="form-control" name="compensation" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="monetaryCompensationText">Monetary Compensation </span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><input class="form-control" name="monetaryCompensation" required></input></div>
+                        <div class="col-8"><input class="form-control" name="monetaryCompensation" onchange="onChange(event)" required></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="recordingsText">Recorded Data</span></div>
                         <div class="col ml-4">
                             <div class="row">
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordDemographics" id="recordDemographics" checked><label class="form-check-label" for="recordDemographics">Demographics</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordAudio" id="recordAudio"><label class="form-check-label" for="recordAudio">Audio</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhotos" id="recordPhotos"><label class="form-check-label" for="recordPhotos">Photos</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordVideos" id="recordVideos"><label class="form-check-label" for="recordVideos">Videos</label></div> 
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordDemographics" id="recordDemographics" onchange="onChange(event)" checked><label class="form-check-label" for="recordDemographics">Demographics</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordAudio" id="recordAudio" onchange="onChange(event)"><label class="form-check-label" for="recordAudio">Audio</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhotos" id="recordPhotos" onchange="onChange(event)"><label class="form-check-label" for="recordPhotos">Photos</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordVideos" id="recordVideos" onchange="onChange(event)"><label class="form-check-label" for="recordVideos">Videos</label></div> 
                             </div>  
                             <div class="row">
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordMotion" id="recordMotion"><label class="form-check-label" for="recordMotion">Motion Tracking</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhysiological" id="recordPhysiological"><label class="form-check-label" for="recordPhysiological">Physio. Sensing</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordEyetracking" id="recordEyetracking"><label class="form-check-label" for="recordEyetracking">Eye/Head Tracking</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordScreenrecoding" id="recordScreenrecoding"><label class="form-check-label" for="recordScreenrecoding">Screen Recording</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordMotion" id="recordMotion" onchange="onChange(event)"><label class="form-check-label" for="recordMotion">Motion Tracking</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhysiological" id="recordPhysiological" onchange="onChange(event)"><label class="form-check-label" for="recordPhysiological">Physio. Sensing</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordEyetracking" id="recordEyetracking" onchange="onChange(event)"><label class="form-check-label" for="recordEyetracking">Eye/Head Tracking</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordScreenrecoding" id="recordScreenrecoding" onchange="onChange(event)"><label class="form-check-label" for="recordScreenrecoding">Screen Recording</label></div>
                             </div>                      
                         </div>                      
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="anonymizationText">Do you make the raw data public?</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><select class="form-control" name="anonymization" required></select></div>
+                        <div class="col-8"><select class="form-control" name="anonymization" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="durationText">Estimated Study Duration</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><input class="form-control" name="duration" required></input></div>
+                        <div class="col-8"><input class="form-control" name="duration" onchange="onChange(event)" required></input></div>
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="durationText">Estimated Number of Participants</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><input class="form-control" name="participants" required></input></div>
+                        <div class="col-8"><input class="form-control" name="participants" onchange="onChange(event)" required></input></div>
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="purposeText">Purpose (one sentence)</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><input class="form-control" name="purpose" required></input></div>
+                        <div class="col-8"><input class="form-control" name="purpose" onchange="onChange(event)" required></input></div>
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="goalText">Goal (one sentence)</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><input class="form-control" name="goal" required></input></div>
+                        <div class="col-8"><input class="form-control" name="goal" onchange="onChange(event)" required></input></div>
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="procedureText">Procedure (in 4-6 steps)</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><textarea rows="4" class="form-control" name="procedure" required></textarea></div>
+                        <div class="col-8"><textarea rows="4" class="form-control" name="procedure" onchange="onChange(event)" required></textarea></div>
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="thePIname">First Researchers' Name (The PI)</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><input class="form-control" name="thePIname" required></input></div>
+                        <div class="col-8"><input class="form-control" name="thePIname" onchange="onChange(event)" required></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="thePIemail">First Researchers' E-Mail</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><input class="form-control" type="email" name="thePIemail" required></input></div>
+                        <div class="col-8"><input class="form-control" type="email" name="thePIemail" onchange="onChange(event)" required></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="PIText">Head of the Department (if not = PI)</span></div>
-                        <div class="col-8"><input class="form-control" name="departmentHead"></input></div>
+                        <div class="col-8"><input class="form-control" name="departmentHead" onchange="onChange(event)"></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="secondResearcherName">Second Researchers's Name</span></div>
-                        <div class="col-8"><input class="form-control" name="secondResearcherName"></input></div>
+                        <div class="col-8"><input class="form-control" name="secondResearcherName" onchange="onChange(event)"></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="secondResearcherEmail">Second  Researchers's E-Mail</span></div>
-                        <div class="col-8"><input class="form-control" type="email" name="secondResearcherEmail"></input></div>
+                        <div class="col-8"><input class="form-control" type="email" name="secondResearcherEmail" onchange="onChange(event)"></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="thirdResearcherName">Thrid Researchers's Name (e.g., the student)</span></div>
-                        <div class="col-8"><input class="form-control" name="thirdResearcherName"></input></div>
+                        <div class="col-8"><input class="form-control" name="thirdResearcherName" onchange="onChange(event)"></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="thirdResearcherEmail">Thrid Researchers's E-Mail</span></div>
-                        <div class="col-8"><input class="form-control" type="email" name="thirdResearcherEmail"></input></div>
+                        <div class="col-8"><input class="form-control" type="email" name="thirdResearcherEmail" onchange="onChange(event)"></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="funding">Funding</span></div>
-                        <div class="col-8"><input class="form-control" name="funding"></input></div>
+                        <div class="col-8"><input class="form-control" name="funding" onchange="onChange(event)"></input></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="ethicalComitteeText">Ethical Comittee</span></div>
-                        <div class="col-8"><input class="form-control" name="ethicalComittee"></input></div>
+                        <div class="col-8"><input class="form-control" name="ethicalComittee" onchange="onChange(event)"></input></div>
                     </div>
                     </div>
                     <div class="row mt-3 mb-3 itemRow" id="fieldsrequired">
@@ -188,6 +188,10 @@
     
     <script>
 
+        function onChange(event){
+            data = collectData();
+        }
+
         function capitalize(s)
         {
             return s && s[0].toUpperCase() + s.slice(1);
@@ -209,7 +213,18 @@
             document.body.appendChild(downloadAnchorNode); // required for firefox
             downloadAnchorNode.click();
             downloadAnchorNode.remove();
-          }
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
 
         var inputKeys = ["title", "duration", "purpose", "goal", "departmentHead", "thePIname", "thePIemail", "participants", "monetaryCompensation", "secondResearcherName", "secondResearcherEmail", "thirdResearcherName", "thirdResearcherEmail", "ethicalComittee", "funding"];
         var inputRecord = ["demographics", "audio", "photos", "videos", "motion", "physiological", "eyetracking", "screenrecoding"]
@@ -278,7 +293,16 @@
                 }
 
                 fillData(example);
+                data = collectData();
             });
+
+            let cookieData = getCookie("data");
+            if (cookieData != null){
+                cookieData = JSON.parse(cookieData);
+                fillData(cookieData);
+            } else {
+                //console.log("No Cookie Available");
+            }
         });
 
         function myXOR(a,b) {
@@ -291,7 +315,6 @@
             request.open("GET", "settings.json", false);
             request.send(null);
             settings = JSON.parse(request.responseText);
-            console.log(settings);
 
             $("select[name='institution']").append(new Option(settings["hints"]["select"], ""));
             for (let key in settings["institutions"]) {
@@ -369,13 +392,11 @@
             let data = {};
             inputKeys.forEach((key) => {
                 data[key] = $("input[name='" + key + "']").val();
-                console.log(data[key]);
             });
 
             data["record"] = {};
             inputRecord.forEach((key) => {
                 data["record"][key] = $("input[name='record" + capitalize(key) + "']").prop('checked')
-                console.log(data["record"][key]);
             });
 
 
@@ -384,6 +405,8 @@
             data["type"] = $("select[name='type']").val();
             data["anonymization"] = $("select[name='anonymization']").val();
             data["compensation"] = $("select[name='compensation']").val();
+
+            document.cookie = "data=" + JSON.stringify(data);
 
             return data;
         }
