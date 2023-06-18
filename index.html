@@ -213,7 +213,18 @@
             document.body.appendChild(downloadAnchorNode); // required for firefox
             downloadAnchorNode.click();
             downloadAnchorNode.remove();
-          }
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
 
         var inputKeys = ["title", "duration", "purpose", "goal", "departmentHead", "thePIname", "thePIemail", "participants", "monetaryCompensation", "secondResearcherName", "secondResearcherEmail", "thirdResearcherName", "thirdResearcherEmail", "ethicalComittee", "funding"];
         var inputRecord = ["demographics", "audio", "photos", "videos", "motion", "physiological", "eyetracking", "screenrecoding"]
@@ -284,6 +295,14 @@
                 fillData(example);
                 data = collectData();
             });
+
+            let cookieData = getCookie("data");
+            if (cookieData != null){
+                cookieData = JSON.parse(cookieData);
+                fillData(cookieData);
+            } else {
+                //console.log("No Cookie Available");
+            }
         });
 
         function myXOR(a,b) {
@@ -296,7 +315,6 @@
             request.open("GET", "settings.json", false);
             request.send(null);
             settings = JSON.parse(request.responseText);
-            console.log(settings);
 
             $("select[name='institution']").append(new Option(settings["hints"]["select"], ""));
             for (let key in settings["institutions"]) {
@@ -374,13 +392,11 @@
             let data = {};
             inputKeys.forEach((key) => {
                 data[key] = $("input[name='" + key + "']").val();
-                console.log(data[key]);
             });
 
             data["record"] = {};
             inputRecord.forEach((key) => {
                 data["record"][key] = $("input[name='record" + capitalize(key) + "']").prop('checked')
-                console.log(data["record"][key]);
             });
 
 
@@ -389,6 +405,8 @@
             data["type"] = $("select[name='type']").val();
             data["anonymization"] = $("select[name='anonymization']").val();
             data["compensation"] = $("select[name='compensation']").val();
+
+            document.cookie = "data=" + JSON.stringify(data);
 
             return data;
         }
