@@ -203,6 +203,7 @@
         }
 
         function capital_letter(str) {
+            str = str.replace(/\s\s+/g, ' ');
             str = str.split(" ");
             for (var i = 0, x = str.length; i < x; i++) {
                 str[i] = str[i][0].toUpperCase() + str[i].substr(1);
@@ -270,9 +271,9 @@
                     "duration":"60 minutes",
                     "participants":"36",
                     "anonymization":"anonymized",
-                    "purpose":"The purpose of this research is to study human performance in a pointing task with different avatar hands in virtual reality.",
-                    "goal":"The goal of this research is to understand how visual signals of the own body are incorporated into the own body scheme.",
-                    "procedure":"1. You will get a virtual reality headset and will be introduced with virtual hands in the environment\n2. You will see a virtual questionnaire. Tap on the table with you index finger to fill out the questionnaire. \n3. In multiple rounds, you have to point at virtual circles highlighted in red. \n4. This procedure will repeat multiple times using different hand conditions.",
+                    "purpose":"This research aims to study human performance in a pointing task with different avatar hands in virtual reality.",
+                    "goal":"The goal of this research is to understand how visual signals of the body are incorporated into the body scheme.",
+                    "procedure":"1. You will get a virtual reality headset and will be introduced with virtual hands in the environment\n2. You will see a virtual questionnaire. Tap on the table with your index finger to fill out the questionnaire. \n3. In multiple rounds, you have to point at virtual circles highlighted in red. \n4. This procedure will repeat multiple times using different hand conditions.",
                     "compensation":"money",
                     "monetaryCompensation":"5 EUR",
                     "institution":"University of Regensburg",
@@ -448,7 +449,7 @@
             }
             
             // INVITATION (SUMMARY OF THE FOLLOWING)
-            str += "<p>You are invited to participate in the " + data["type"] + " <b>" + capital_letter(data["title"]) + "</b> initiated and conducted by " + andStudent + data["thePIname"]  + ". The research is supervised";
+            str += "<p>You are invited to participate in the " + data["type"] + " <b>" + capital_letter(data["title"]) + "</b>, initiated and conducted by " + andStudent + data["thePIname"]  + ". The research is supervised";
             if(data["departmentHead"] != ""){
                 str += " by " + data["departmentHead"];
             }
@@ -464,35 +465,37 @@
             } 
             
             // BULLET POINT AT THE BEGINNING
-            str += "Please note:<ul><li>Your participation is entirely voluntary</li><li>The " + data["type"] + " will last approximately " + data["duration"] + "</li>";
+            str += "Please note:</p><ul>";
+            str += "<li>Your participation is voluntary.</li>";
+            str += "<li>The " + data["type"] + " will last approximately " + data["duration"] + ".</li>";
             
             if(data["record"]["demographics"])
-                str += "<li>We will record personal demographics (age, gender, etc.)</li>";
+                str += "<li>We will record personal demographics (age, gender, etc.).</li>";
             if(data["record"]["photos"])
-                str += "<li>We will take photos during the session</li>";
+                str += "<li>We will take photos during the session.</li>";
             if(data["record"]["videos"]) 
-                str += "<li>We will record videos during the session</li>";
+                str += "<li>We will record videos during the session.</li>";
             if(data["record"]["audio"])
-                str += "<li>We will record audio during the session</li>";
+                str += "<li>We will record audio during the session.</li>";
             if(data["record"]["motion"])
-                str += "<li>We will track your body motion during the session</li>";
+                str += "<li>We will track your body motion during the session.</li>";
             if(data["record"]["eyetracking"])
-                str += "<li>We will track your eye and head motion during the session</li>";
+                str += "<li>We will track your eye and head motion during the session.</li>";
             if(data["record"]["physiological"])
-                str += "<li>We will take physiological measurements of your body</li>";
+                str += "<li>We will take physiological measurements of your body.</li>";
             if(data["record"]["screenrecoding"])
-                str += "<li>We will record the screen and/or activities on your device that are necessary for the study</li>";
+                str += "<li>We will record the screen and/or activities on your device that are necessary for the study.</li>";
             
             if(data["compensation"] == "points" | data["compensation"] == "moneyPoints"){
-                str += "<li>You will receive 1 credit point per hour for your study course as compensation</li>";
+                str += "<li>You will receive 1 credit point per hour for your study course as compensation.</li>";
             }
             
-            str += "<li>We may publish our results from this and other sessions in our reports, but all such reports will be confidential and will neither include your name nor cannot be associated with your identity</li></ul>";
+            str += "<li>We may publish our results from this and other sessions, but all such reports will be confidential and will neither include your name nor cannot be associated with your identity.</li></ul>";
             
-            str += "<p>If you have any questions or complaints about the whole informed consent process of this research study or your rights as a human research subject, please contact ";
+            str += "<p>If you have any questions about the whole informed consent process of this research or your rights as a human research subject, please contact ";
             
             if(data["ethicalComittee"] != ""){
-                str += "our ethical comitte office: " + data["ethicalComittee"] + ". ";
+                str += "our ethics committee office: " + data["ethicalComittee"] + ". ";
             } else if (data["departmentHead"] != "") {
                 str += data["thePIname"] + " (E-Mail: " + data["thePIemail"] +") or "+ data["departmentHead"] + ". ";
             
@@ -500,7 +503,7 @@
                 str += data["thePIname"]+ " (E-Mail: " + data["thePIemail"] +"). ";
             
             }
-            str += "You should carefully read the settings below. Please take as much time as you need to read the consent form.</p></div>";
+            str += "You should carefully read the settings below. (You may take as much time as you need to read the consent form.)</p></div>";
             
             var itemCount = 1;
             
@@ -513,7 +516,7 @@
             
             // PARTICIPATION AND COMPENSATION
             str += "<div class='pageBreak'><h3>" + itemCount + ". Participation and Compensation</h3>";
-            str += "<p>Your participation in this " + data["type"] + " is completely voluntary. ";
+            str += "<p>Your participation in this " + data["type"] + " is voluntary. ";
             str += "You will be one of approximately " + data["participants"] + " people being ";
             
             switch(data["type"]){
@@ -535,33 +538,37 @@
                 }
             }
             
-            str += "You may refuse to answer any questions you do not want to answer. ";
+            str += "If possible, you may refuse to answer any questions you do not want to answer or withdraw from participation at any time. ";
             
             if(data["type"] == "experimental study")    
                 str += "The investigator may withdraw you from this research if your physician tells us that continued participation may injure your health. ";
                 
             if(data["type"] == "interview")    
                 str += "I have the right not to answer questions, and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
-                
+            
+            str += "</p></div>";
+
             itemCount++;
             // PROCEDURE
-            
-            str += "</p></div><div class='pageBreak'><h3>" + itemCount + ". Procedure</h3>";
-            str += "After confirming your informed consent, you will be guided through the following steps:<div style='padding-left: 10px; padding-top: 0px'>" + data["procedure"].replace(/\n/g, "<br />") + "</div><p>The complete procedure of this " + data["type"] + " will last approximately " + data["duration"] + ".</p>";
+
+            str += "<div class='pageBreak'><h3>" + itemCount + ". Procedure</h3>";
+            str += "<p>After giving consent, you will be guided through the following steps:</p><p style='padding-left: 10px; padding-top: 0px'>";
+            str += data["procedure"].replace(/\n/g, "<br />");
+            str += "</p><p>The complete procedure of this " + data["type"] + " will last approximately " + data["duration"] + ".</p>";
             str += "</div>";
             
             itemCount++;
             // RISKS AND BENEFITS
             
             str += "<div class='pageBreak'><h3>" + itemCount + ". Risks and Benefits</h3>";
-            str += "<p>There are no risks associated with this " + data["type"] + ". Discomforts or inconveniences will be minor and are not likely to happen. If any discomforts become a problem, you may discontinue your participation. ";
+            str += "<p>There are no risks associated with this " + data["type"] + ". Discomforts or inconveniences will be minor and are unlikely to happen. If you feel uncomfortable, you may discontinue your participation. ";
             
             if(data["compensation"] == "none") 
-                str += "You will not directly benefit through participation in this "+ $("select[name='type']").val() +". We hope that the settings obtained from your participation may help to bring forward the research in this field. ";
+                str += "(You will not directly benefit through participation in this "+ $("select[name='type']").val() +". We hope that the settings obtained from your participation may help to bring forward the research in this field.) ";
             else    
-                str += "Your benefit in participating is your compensation descibed above";
+                str += "Your benefit in participating is your compensation described above. ";
                 
-            str += "</p></div>";
+            str += "With this research, we will advance knowledge in this research field.</p></div>";
             
             itemCount++;
             // DATA PROTECTION
@@ -577,7 +584,7 @@
                 str += "The contact details of the study participants can be used to track potential infection chains. ";
             } 
             
-            str += "The researcher will not identify you by your real name in any reports using settings obtained from this "+ $("select[name='type']").val() + ", and your confidentiality as a participant in this " + $("select[name='type']").val() + " will remain secure and encrypted. " ;
+            str += "Researchers will not identify you by your real name in any reports using settings obtained from this "+ $("select[name='type']").val() + ", and your confidentiality as a participant in this " + $("select[name='type']").val() + " will remain secure and encrypted. " ;
             
             str += "All data you provide in this " + $("select[name='type']").val() + " will be published anonymized and treated confidentially in compliance with the General Data Protection Regulation (GDPR) of the European Union (EU). ";
                         
