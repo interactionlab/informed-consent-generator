@@ -1,5 +1,5 @@
 {
-	"version": "0.1",
+	"version": "0.2",
 	"hostLogo":"logoLMU.png",
 	"hostUrl":"https://www.medien.ifi.lmu.de/",
 	"institutions": {
@@ -44,15 +44,21 @@
 		["Participation Points", "points"],
 		["None", "none"]
 	],
-	"dataAnonymization": [
+	"dataShare": [
 		["Yes (not anonymized)", "yes"],
 		["Yes (anonymized)", "anonymized"],
+		["No", "no"]
+	],
+	"dataEncryption": [
+		["Yes", "yes"],
 		["No", "no"]
 	],
 	"hints": {
 		"select": "Please select",
 		"title": "Your research title",
 		"monetaryCompensation": "Monetary compensation, e.g., 5 EUR",
+		"personalData": "age, gender, and country of birth",
+		"storageTime": "a maximum of 10 years",
 		"ethicalComittee": "Your review board",
 		"departmentHead": "When there is a prof above the prof....",
 		"thePIname": "the person, who said you should do the study (e.g., Prof. Dr. Sven Mayer)",

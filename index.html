@@ -37,7 +37,12 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col mb-1">
-                            Use this generator to obtain an informed consent form. Print it and let every participant of your user study sign it in.
+                            Use this generator to obtain an informed consent form in the context human-computer interaction studies.
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col mb-1">
+                            This generator will not be enough when coducting medical studies or working with vulnerable groups. Please consult your local ethics committee. 
                         </div>
                     </div>
                     <hr />
@@ -65,23 +70,34 @@
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="recordingsText">Recorded Data</span></div>
                         <div class="col ml-4">
-                            <div class="row">
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordDemographics" id="recordDemographics" onchange="onChange(event)" checked><label class="form-check-label" for="recordDemographics">Demographics</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordAudio" id="recordAudio" onchange="onChange(event)"><label class="form-check-label" for="recordAudio">Audio</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhotos" id="recordPhotos" onchange="onChange(event)"><label class="form-check-label" for="recordPhotos">Photos</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordVideos" id="recordVideos" onchange="onChange(event)"><label class="form-check-label" for="recordVideos">Videos</label></div> 
-                            </div>  
-                            <div class="row">
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordMotion" id="recordMotion" onchange="onChange(event)"><label class="form-check-label" for="recordMotion">Motion Tracking</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhysiological" id="recordPhysiological" onchange="onChange(event)"><label class="form-check-label" for="recordPhysiological">Physio. Sensing</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordEyetracking" id="recordEyetracking" onchange="onChange(event)"><label class="form-check-label" for="recordEyetracking">Eye/Head Tracking</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordScreenrecoding" id="recordScreenrecoding" onchange="onChange(event)"><label class="form-check-label" for="recordScreenrecoding">Screen Recording</label></div>
+                            <div class="col d-flex flex-wrap">
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordDemographics" id="recordDemographics" onchange="onChange(event)" checked><label class="form-check-label" for="recordDemographics">Demographics</label></div>
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordInteraction" id="recordInteraction" onchange="onChange(event)"><label class="form-check-label" for="recordInteraction">User Interaction</label></div>
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordAudio" id="recordAudio" onchange="onChange(event)"><label class="form-check-label" for="recordAudio">Audio</label></div>
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordPhotos" id="recordPhotos" onchange="onChange(event)"><label class="form-check-label" for="recordPhotos">Photos</label></div>
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordVideos" id="recordVideos" onchange="onChange(event)"><label class="form-check-label" for="recordVideos">Videos</label></div>
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordMotion" id="recordMotion" onchange="onChange(event)"><label class="form-check-label" for="recordMotion">Motion Tracking</label></div>
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordPhysiological" id="recordPhysiological" onchange="onChange(event)"><label class="form-check-label" for="recordPhysiological">Physio. Sensing</label></div>
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordEyetracking" id="recordEyetracking" onchange="onChange(event)"><label class="form-check-label" for="recordEyetracking">Eye/Head Tracking</label></div>
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordScreenrecoding" id="recordScreenrecoding" onchange="onChange(event)"><label class="form-check-label" for="recordScreenrecoding">Screen Recording</label></div>
                             </div>                      
                         </div>                      
                     </div> 
                     <div class="row mt-3 ">
-                        <div class="col-4"><span id="anonymizationText">Do you make the raw data public?</span><span class="text-danger">*</span><br /></div>
-                        <div class="col-8"><select class="form-control" name="anonymization" onchange="onChange(event)" required></select></div>
+                        <div class="col-4"><span id="personalDataText">Which personal data will be collected? (list all)</span><span class="text-danger">*</span><br /></div>
+                        <div class="col-8"><input class="form-control" name="personalData" onchange="onChange(event)" required></input></div>
+                    </div>
+                    <div class="row mt-3 ">
+                        <div class="col-4"><span id="storageTimeText">How long will the data stored with the researchers?</span><span class="text-danger">*</span><br /></div>
+                        <div class="col-8"><input class="form-control" name="storageTime" onchange="onChange(event)" required></input></div>
+                    </div>
+                    <div class="row mt-3 ">
+                        <div class="col-4"><span id="shareText">Do you make the raw data public?</span><span class="text-danger">*</span><br /></div>
+                        <div class="col-8"><select class="form-control" name="share" onchange="onChange(event)" required></select></div>
+                    </div>
+                    <div class="row mt-3 ">
+                        <div class="col-4"><span id="encryptionText">Will the data stored encrypted?</span><span class="text-danger">*</span><br /></div>
+                        <div class="col-8"><select class="form-control" name="encryption" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="durationText">Estimated Study Duration</span><span class="text-danger">*</span><br /></div>
@@ -185,12 +201,9 @@
                     </div>
                 </div>
             </form>
-        </div>
-
-        
+        </div>        
     </div>
 
-    
     <script>
 
         function onChange(event){
@@ -232,7 +245,7 @@
             return null;
         }
 
-        var inputKeys = ["title", "duration", "purpose", "goal", "departmentHead", "thePIname", "thePIemail", "participants", "monetaryCompensation", "secondResearcherName", "secondResearcherEmail", "thirdResearcherName", "thirdResearcherEmail", "ethicalComittee", "funding"];
+        var inputKeys = ["title", "duration", "personalData", "storageTime", "purpose", "goal", "departmentHead", "thePIname", "thePIemail", "participants", "monetaryCompensation", "secondResearcherName", "secondResearcherEmail", "thirdResearcherName", "thirdResearcherEmail", "ethicalComittee", "funding"];
         var inputRecord = ["demographics", "audio", "photos", "videos", "motion", "physiological", "eyetracking", "screenrecoding"]
 
         var settings = {};
@@ -265,41 +278,9 @@
             document.getElementById('loadFile').addEventListener('change', loadFile);
 
             $("#btnExample").click(function() {
-                let example = {
-                    "type":"field study",
-                    "title":"Fitts' Task in Virtual Reality using Avatar Hands",
-                    "duration":"60 minutes",
-                    "participants":"36",
-                    "anonymization":"anonymized",
-                    "purpose":"This research aims to study human performance in a pointing task with different avatar hands in virtual reality.",
-                    "goal":"The goal of this research is to understand how visual signals of the body are incorporated into the body scheme.",
-                    "procedure":"1. You will get a virtual reality headset and will be introduced with virtual hands in the environment\n2. You will see a virtual questionnaire. Tap on the table with your index finger to fill out the questionnaire. \n3. In multiple rounds, you have to point at virtual circles highlighted in red. \n4. This procedure will repeat multiple times using different hand conditions.",
-                    "compensation":"money",
-                    "monetaryCompensation":"5 EUR",
-                    "institution":"University of Regensburg",
-                    "departmentHead":"Prof. Dr. Sven Mayer",
-                    "thePIname":"Prof. Dr. Sven Mayer",
-                    "thePIemail":"sven.mayer@ifi.lmu.de",
-                    "secondResearcherName":"Maxy Musterfrau",
-                    "secondResearcherEmail":"maxy.musterfrau@stud.uni-regensburg.de",
-                    "thirdResearcherName":"Maxy Musterfrau",
-                    "thirdResearcherEmail":"maxy.musterfrau@stud.uni-regensburg.de",
-                    "ethicalComittee":"DFG/BMBF/Uni-Regensburg",
-                    "funding":"GEVAKUB",
-                    "record":{
-                        "demographics":true,
-                        "audio":false,
-                        "photos":true,
-                        "videos":true,
-                        "motion":true,
-                        "physiological":true,
-                        "eyetracking":false,
-                        "screenrecoding":true,
-                    }
-                }
-
-                fillData(example);
-                data = collectData();
+                fetch('./example.json')
+                    .then((response)=>response.json())
+                    .then((example)=>{fillData(example);data = collectData();});
             });
 
             let cookieData = getCookie("data");
@@ -315,12 +296,15 @@
           return ( a || b ) && !( a && b );
         }
 
-        function fillSelect(){
+        async function getJSON(file) {
+            console.log("Fetching: " + file);
+            return fetch(file)
+                .then((response)=>response.json())
+                .then((responseJson)=>{return responseJson});
+        }
 
-            var request = new XMLHttpRequest();
-            request.open("GET", "settings.json", false);
-            request.send(null);
-            settings = JSON.parse(request.responseText);
+        async function fillSelect(){
+            settings = await getJSON('./settings.json');
 
             $("select[name='institution']").append(new Option(settings["hints"]["select"], ""));
             for (let key in settings["institutions"]) {
@@ -334,10 +318,16 @@
                 $("select[name='type']").append(new Option(type[0], type[1]));
             }
             
-            $("select[name='anonymization']").append(new Option(settings["hints"]["select"], ""));
-            for (let i = 0; i < settings["dataAnonymization"].length; i++) {
-                anonymization = settings["dataAnonymization"][i]
-                $("select[name='anonymization']").append(new Option(anonymization[0], anonymization[1]));
+            $("select[name='share']").append(new Option(settings["hints"]["select"], ""));
+            for (let i = 0; i < settings["dataShare"].length; i++) {
+                share = settings["dataShare"][i]
+                $("select[name='share']").append(new Option(share[0], share[1]));
+            }
+
+            $("select[name='encryption']").append(new Option(settings["hints"]["select"], ""));
+            for (let i = 0; i < settings["dataEncryption"].length; i++) {
+                encryption = settings["dataEncryption"][i]
+                $("select[name='encryption']").append(new Option(encryption[0], encryption[1]));
             }
 
             $("select[name='compensation']").append(new Option(settings["hints"]["select"], ""));
@@ -390,12 +380,15 @@
 
             $("select[name='institution'] option[value='" + data["institution"] + "']").attr("selected", true);
             $("select[name='type'] option[value='" + data["type"] + "']").attr("selected", true);
-            $("select[name='anonymization'] option[value='" + data["anonymization"] + "']").attr("selected", true);
+            $("select[name='share'] option[value='" + data["share"] + "']").attr("selected", true);
+            $("select[name='encryption'] option[value='" + data["encryption"] + "']").attr("selected", true);
             $("select[name='compensation'] option[value='" + data["compensation"] + "']").attr("selected", true);
         }
 
         function collectData(){
             let data = {};
+            data["version"] = settings["version"];
+
             inputKeys.forEach((key) => {
                 data[key] = $("input[name='" + key + "']").val();
             });
@@ -405,11 +398,11 @@
                 data["record"][key] = $("input[name='record" + capitalize(key) + "']").prop('checked')
             });
 
-
             data["procedure"] = $("textarea[name='procedure']").val();
             data["institution"] = $("select[name='institution']").val();
             data["type"] = $("select[name='type']").val();
-            data["anonymization"] = $("select[name='anonymization']").val();
+            data["share"] = $("select[name='share']").val();
+            data["encryption"] = $("select[name='encryption']").val();
             data["compensation"] = $("select[name='compensation']").val();
 
             document.cookie = "data=" + JSON.stringify(data);
@@ -470,7 +463,7 @@
             str += "<li>The " + data["type"] + " will last approximately " + data["duration"] + ".</li>";
             
             if(data["record"]["demographics"])
-                str += "<li>We will record personal demographics (age, gender, etc.).</li>";
+                str += "<li>We will record personal demographics (" + data["personalData"] + ").</li>";
             if(data["record"]["photos"])
                 str += "<li>We will take photos during the session.</li>";
             if(data["record"]["videos"]) 
@@ -484,14 +477,22 @@
             if(data["record"]["physiological"])
                 str += "<li>We will take physiological measurements of your body.</li>";
             if(data["record"]["screenrecoding"])
-                str += "<li>We will record the screen and/or activities on your device that are necessary for the study.</li>";
+                str += "<li>We will record the screen on your device that are necessary for the study.</li>";
+            if(data["record"]["interaction"])
+                str += "<li>>We will record interaction data (e.g., clickes, timings) during the session.</li>";
             
             if(data["compensation"] == "points" | data["compensation"] == "moneyPoints"){
                 str += "<li>You will receive 1 credit point per hour for your study course as compensation.</li>";
             }
-            
-            str += "<li>We may publish our results from this and other sessions, but all such reports will be confidential and will neither include your name nor cannot be associated with your identity.</li></ul>";
-            
+
+            str += "<li>We may publish results from this and other sessions.</li>"
+            if(data["share"] == "yes"){
+                str += "<li>All data you provide in this " + data["type"] + " will be published <b>not anonymized</b></li>.";
+            } else if(data["share"] == "anonymized"){
+                str += "<li>All data you provide in this " + data["type"] + " will be published anonymized; thus, they will neither include your name nor cannot be associated with your identity.</li>";
+
+            }
+            str += "</ul>"
             str += "<p>If you have any questions about the whole informed consent process of this research or your rights as a human research subject, please contact ";
             
             if(data["ethicalComittee"] != ""){
@@ -503,7 +504,7 @@
                 str += data["thePIname"]+ " (E-Mail: " + data["thePIemail"] +"). ";
             
             }
-            str += "You should carefully read the settings below. (You may take as much time as you need to read the consent form.)</p></div>";
+            str += "You should carefully read the settings below. You may take as much time as you need to read the consent form. If you do not fully agree with something, or if your questions have not all been answered to your satisfaction, then you should not give your consent. </p></div>";
             
             var itemCount = 1;
             
@@ -528,13 +529,13 @@
             str += "for this research. ";
             
             if(data["compensation"] == "none"){
-                str += "You will receive no compensation. You may withdraw and discontinue participation at any time without penalty. If you decline to participate or withdraw from the " + data["type"] + ", no one on the campus will be told. ";
+                str += "You will receive no compensation. You may withdraw and discontinue participation at any time without penalty. If you decline to participate or withdraw from the " + data["type"] + ", this will be confidential. ";
             } else {
                 if(data["compensation"] == "points" | data["compensation"] == "moneyPoints"){
-                    str += "You will receive one credit point per hour required for your study course at the " + data["institution"]  + ". You may withdraw and discontinue participation at any time without justification for withdrawing. You will still receive your extra one credit point that your professor had offered in exchange for your participation. If you decline to participate or withdraw from the " + data["type"] + ", no one on the campus will be told. ";
+                    str += "You will receive one credit point per hour required for your study course at the " + data["institution"]  + ". You may withdraw and discontinue participation at any time without justification for withdrawing. You will still receive your extra one credit point that your professor had offered in exchange for your participation. If you decline to participate or withdraw from the " + data["type"] + ", this will be confidential. ";
                 } 
                 if(data["compensation"] == "money" | data["compensation"] == "moneyPoints"){
-                    str += "You will receive " + data["monetaryCompensation"] + " as compensation for your participation. You may withdraw and discontinue participation at any time without penalty or losing the compensation. If you decline to participate or withdraw from the " + data["type"] + ", no one on the campus will be told. ";
+                    str += "You will receive " + data["monetaryCompensation"] + " as compensation for your participation. You may withdraw and discontinue participation at any time without penalty or losing the compensation. If you decline to participate or withdraw from the " + data["type"] + ", this will be confidential. ";
                 }
             }
             
@@ -546,7 +547,9 @@
             if(data["type"] == "interview")    
                 str += "I have the right not to answer questions, and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
             
-            str += "</p></div>";
+            str += "</p>";
+            str += "<p>At any time and without giving any reason, you can notify us that you want to withdraw the consent given (GDPR Art. 21). In case of withdrawal, your data stored based on your consent will be deleted or anonymized where this is legally permissible (GDPR Art. 17). If deletion is impossible or only possible with unreasonable technical effort, your data will be anonymized by deleting the personal identification information. However, anonymization of your data cannot entirely exclude the possibility of subsequent tracing of information to you via other sources. Finally, once the data is anonymized, the deletion of the data is not possible anymore as we will not be able to identify which data is yours. </p>"
+            str += "</div>";
 
             itemCount++;
             // PROCEDURE
@@ -564,7 +567,7 @@
             str += "<p>There are no risks associated with this " + data["type"] + ". Discomforts or inconveniences will be minor and are unlikely to happen. If you feel uncomfortable, you may discontinue your participation. ";
             
             if(data["compensation"] == "none") 
-                str += "(You will not directly benefit through participation in this "+ $("select[name='type']").val() +". We hope that the settings obtained from your participation may help to bring forward the research in this field.) ";
+                str += "(You will not directly benefit through participation in this " + data["type"] +". We hope that the settings obtained from your participation may help to bring forward the research in this field.) ";
             else    
                 str += "Your benefit in participating is your compensation described above. ";
                 
@@ -575,29 +578,70 @@
             
             str += "<div class='pageBreak'><h3>" + itemCount + ". Data Protection and Confidentiality</h3>";
             str += "<p>";
-            
+            str += "The General Data Protection Regulation (GDPR) of the European Union (EU) governs that data collection process.  The legal basis for processing the personal data is the consent in accordance with GDPR Art. 6 (1). The GDPR agreneets a set of right to the data subjects, including the right to access, rectification, and erasure of personal data. ";
+
+            str += "<ul>"
+            str += "<li>You have the right to access your personal data at any time (GDPR Art. 15). </li>";
+            str += "<li>You have the right to correct inaccurate personal data at any time (GDPR Art. 16). </li>";
+            str += "<li>You have the right to have your personal data deleted (GDPR Art. 17). </li>";
+            str += "<li>You have the right to limit the processing of your personal data (GDPR Art. 18). </li>";
+            str += "<li>You have the right to have your data transforared to others (GDPR Art. 20). </li>";
+            str += "<li>You have the right to withdraw the consent given (GDPR Art. 21). </li>";
+
+            str += "</ul><p>";
+            str += "If you wish to exercise any of your rights, please contact the researchers. "
+
+            str += "</p><p>";
             if(data["record"]["demographics"]) {
-                str += "Personal data (age, gender, etc.) will be recorded during participation. ";
+                str += "Personal data (" + data["personalData"]+ ") will be recorded during participation. ";
             }
-            
             if(data["type"] == "online study"){
                 str += "The contact details of the study participants can be used to track potential infection chains. ";
-            } 
+            }
+            str += "Researchers will not identify you by your real name in any reports using settings obtained from this "+ data["type"] + ", and your confidentiality as a participant in this " + data["type"] + " will remain secure. ";
+
+            if(data["encryption"] == "yes"){
+                str += "All data you provide in this " + data["type"] + " will be encrypted. ";
+            }
             
-            str += "Researchers will not identify you by your real name in any reports using settings obtained from this "+ $("select[name='type']").val() + ", and your confidentiality as a participant in this " + $("select[name='type']").val() + " will remain secure and encrypted. " ;
-            
-            str += "All data you provide in this " + $("select[name='type']").val() + " will be published anonymized and treated confidentially in compliance with the General Data Protection Regulation (GDPR) of the European Union (EU). ";
+            str += "Data collected in this " + data["type"] + " will be treated in compliance with the GDPR. ";
                         
-            if(data["anonymization"] == "yes")
+            str += "</p><p>"
+            records = "";
+            if(data["record"]["photos"]) records += "take photos, ";
+            if(data["record"]["videos"]) records += "record videos, ";
+            if(data["record"]["audio"]) records += "record audio, ";
+            if(data["record"]["motion"]) records += "record your body motion, ";
+            if(data["record"]["eyetracking"]) records += "record your eye motion, ";
+            if(data["record"]["physiological"]) records += "take physiological measurements, ";
+            if(data["record"]["screenrecoding"]) records += "record the screen and/or activities on your device, ";
+            if(data["record"]["interaction"]) records += "record your interaction, ";
+
+            if (records != ""){
+                if(data["type"] == "online study"){
+                    records += "and browser meta data"
+                } else {
+                    records += "and will potentially take notes"
+                }
+                str += "We will record data, " + records + " during the " + data["type"] + ". ";
+            } else {
+                if(data["type"] == "online study"){
+                    str += "We will record browser meta data during the " + data["type"] + ". ";
+                }
+            }
+
+            if(data["share"] == "yes"){
+                str += "All data you provide in this " + data["type"] + " will be published <b>not anonymized</b>. ";
                 str += "Subsequent uses of records and data will be subject to standard data use policies. ";
-                        
-            if(data["anonymization"] == "anonymized")
+            }else if(data["share"] == "anonymized"){
+                str += "All data you provide in this " + data["type"] + " will be published anonymized. ";
                 str += "Subsequent uses of records and data will be subject to standard data use policies that protect the participating individuals' anonymity. ";
-                
-            str += "In all cases, uses of records and data will be subject to the GDPR. ";
-            str += "Faculty and administrators from the campus will not have access to raw data or transcripts. This precaution will prevent your individual comments from having any negative repercussions. ";
+                str += "We will remove or code any personal information that could identify you before publishing the data to ensure that no one can identify you from the information we share. We will use current scientific standards and known methods for anonymization. When your data are anonymized, they are altered in a manner that they can no longer be traced back to your person or only with disproportionate technical effort. Despite these measures, we cannot guarantee the anonymity of your personal data.  "
+            } else {
+                str += "All data you provide in this " + data["type"] + " will not be published and kept confidential. ";
+            }
             
-            if(data["type"] == "interview"){
+            if(data["type"] == "interview" && data["share"] != "yes"){
                 str += "The interview transcript will be primarily analyzed by ";
                 
                 if(data["thePIname"] != ""){
@@ -611,39 +655,38 @@
                 }
                 str += ". ";
 
-                str += "Access to the raw interview transcript will be limited to the authors of this research, academic colleagues, and researchers with whom he might collaborate as part of the research process. Any summary interview content, or direct quotations from the interview, that are made available through academic publications or other outlets will be anonymized so that you cannot be identified, and care will be taken to ensure that other settings in the interview that could identify you is not revealed. I have the right not to answer questions, and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
+                str += "Access to the raw interview transcript will be limited to the authors of this research, academic colleagues, and researchers with whom he might collaborate as part of the research process. "
+                str += "Any summary interview content, or direct quotations from the interview, that are made available through academic publications or other outlets will be anonymized so that you cannot be identified, and care will be taken to ensure that other settings in the interview that could identify you is not revealed. I have the right not to answer questions, and if I feel uncomfortable in any way during the interview session, I have the right to withdraw from the interview. ";
             }    
             
             if(data["type"] == "online study"){
                 str+= "This site uses cookies and other tracking technologies to conduct the research, to improve the user experience, the ability to interact with the system and to provide additional content from third parties. Despite careful control of content, the researchers assume no liability for damages, which directly or indirectly result from the use of this online application. ";
             }
-            
-            var records ="";
-            
-            if(data["type"] != "online study"){
-                records = "We will record data, ";
-                if(data["record"]["photos"]) records += "take photos, ";
-                if(data["record"]["videos"]) records += "record videos, ";
-                if(data["record"]["audio"]) records += "record audio, ";
-                if(data["record"]["motion"]) records += "record your body motion, ";
-                if(data["record"]["eyetracking"]) records += "record your eye motion, ";
-                if(data["record"]["physiological"]) records += "take physiological measurements, ";
-                if(data["record"]["screenrecoding"]) records += "record the screen and/or activities on your device, ";
-                records += " and will potentially take notes during the " + data["type"] + ". ";
-                str += records;
-            }
-            
-            str += "No one outside this research project can view any recordings unless we have you sign a separate permission form allowing us to use them (see below). ";
-            
-            if(data["anonymization"] == "no"){
-                str += "The records will be destroyed after the end of the research ";
-                if(data["funding"] != "")
-                    str += "as required by the funding organization ";
-                str += "or if you contact the researcher to destroy or delete them immediately. ";
+
+            str += "</p><p>"
+            if (data["share"] != "yes"){
+                str += "Your non-anonymized data will be stored for " + data["storageTime"] + " from the time your consent is given, unless you withdraw your consent before this period has elapsed. Your non-anonymized data will be stored in a secure location and will be accessible only to the researchers involved in this work. ";
             } else {
-                str += "Records that have not been made public will be deleted after the end of the research. The records will be destroyed if you contact the researcher to destroy or delete them immediately. ";
+                str += "Your non-anonymized data will be stored indefinitely, unless you withdraw your consent. ";
             }
-            
+
+            str += "</p><p>"
+            if (data["share"] == "yes"){
+                str += "Non-anonymized data collected can be shared publicly unless you have not signed the separate permission form allowing us to so (see below). ";
+            } else if (data["share"] == "anonymized"){
+                str += "Anonymized data collected can be shared publicly. ";
+            } else {
+                str += "The data collected cannot be viewed or used for futher research by everyone outside the researchers involved in this work. "
+            }
+
+            if(data["share"] == "no"){
+                str += "The data collected will be deleted after the end of the research. ";
+                str += "or if you contact the researcher to delete them. ";
+            } else {
+                str += "Data collected that have not been made public will be deleted after the end of the research. ";
+            }
+
+            str += "</p><p>";
             str += "As with any publication or online-related activity, the risk of a breach of confidentiality is always possible. According to the GDPR, the researchers will inform the participant if a breach of confidential data is detected. ";
             
             str += records + "</p></div>";
@@ -653,15 +696,11 @@
             
             str += "<div class='pageBreak'><h3>" + itemCount + ". Identification of Investigators</h3>";
             
-            var street = "";
-            var zip = "";
-            var city = "";
-            var country = "Germany";
-            
             let institution = settings["institutions"][data["institution"]]
-            street = institution["street"];
-            zip = institution["zip"];
-            city = institution["city"];
+            var street = institution["street"];
+            var zip = institution["zip"];
+            var city = institution["city"];
+            var country = "Germany";
             
             str += "<p>If you have any questions or concerns about the research, please feel free to contact: </p><div class='row'>";
 
@@ -686,7 +725,7 @@
                 cells = "<div class='col-3'>";
             }
             
-            if($("input[name='thirdResearcherName']").val()!=""){
+            if (data["thirdResearcherName"] != ""){
                 str += cells + data["thirdResearcherName"] +"<br />" + data["thirdResearcherEmail"] + "</div>";
             }
 
@@ -711,21 +750,24 @@
                 str += "<div class='pageBreak'><h3>" + itemCount + ". Informed Consent and Agreement</h3>";
                 str += "<table>";
 
-                str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p>I understand the explanation provided to me. I have been given a copy of this form. I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this " + data["type"] +".<p /></th></tr>";
-               
-                if(data["anonymization"] == "yes"){
-                    str += "<tr><th><img src='img/square.jpg'  width='15px'  height='15px'/></th><th><p>I agree that my data records and measurements during the study can be published in context of this research.<p>"
-                
-                    if(data["type"] != "online study"){
-                        str += "<table>"
-                        if(data["record"]["photos"]) str += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that photos during this study can be made and published.<p /></th></tr>"
-                        if(data["record"]["videos"]) str += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that videos during this study can be recorded and published.<p /></th></tr>"
-                        if(data["record"]["audio"]) str += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that audio files during this study can be recorded and published.<p /></th></tr>"
+                str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p> I understand the explanation provided to me. I have been given a copy of this form. I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this " + data["type"] +". <p /></th></tr>";
 
-                        str += "</table>I understand that data will be anonymized cannot be associated with my name. From the consent of publication, I do not derive any rights (such as any renumeration or co-authorship). This declaration of consent is revocable at any time in line with the GDPR. In the case of revocation, the published recordings, insofar as they are subject to the disposition of the researchers, will be removed. Further recordings are no longer used or published after revocation of publication.</p></tr>"
-                        
-                        str += "</table>"
-                    }    
+                str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p>I voluntarily consent to my data being recorded and subsequently processed in line with the GDPR. I have been informed about the consequences of withdrawing my consent.<p /></th></tr>";
+               
+                if(data["share"] == "yes"){
+                    str += "<tr><th><img src='img/square.jpg'  width='15px'  height='15px'/></th><th><p>I agree that my data records and measurements during the study can be published in context of this research in non-anonymized from.<p>"
+                
+                    record = "";
+                    if(data["record"]["photos"]) record += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that photos during this study can be made and published.<p /></th></tr>"
+                    if(data["record"]["videos"]) record += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that videos during this study can be recorded and published.<p /></th></tr>"
+                    if(data["record"]["audio"]) record += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that audio files during this study can be recorded and published.<p /></th></tr>"
+
+                    if (record != ""){
+                        str += "<table>" + record + "</table>";
+                    }
+                    str += "I understand that data will be anonymized cannot be associated with my name. From the consent of publication, I do not derive any rights (such as any renumeration or co-authorship). This declaration of consent is revocable at any time in line with the GDPR. In the case of revocation, the published recordings, insofar as they are subject to the disposition of the researchers, will be removed. Further recordings are no longer used or published after revocation of publication.</p></tr>"
+                    
+                    str += "</table>"
                 }
                 
                 str += "<table>"
