@@ -53,6 +53,7 @@
 		["Yes", "yes"],
 		["No", "no"]
 	],
+	"researcherCount":2,
 	"hints": {
 		"select": "Please select",
 		"title": "Your research title",

@@ -71,7 +71,8 @@
                         <div class="col-4"><span id="recordingsText">Recorded Data</span></div>
                         <div class="col ml-4">
                             <div class="col d-flex flex-wrap">
-                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordDemographics" id="recordDemographics" onchange="onChange(event)" checked><label class="form-check-label" for="recordDemographics">Demographics</label></div>
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordDemographics" id="recordDemographics" onchange="onChange(event)" checked required><label class="form-check-label" for="recordDemographics">Demographics<span class="text-danger">*</span></label></div>
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordContact" id="recordContact" onchange="onChange(event)"><label class="form-check-label" for="recordContact">Contact information</label></div><div class="p-2"><input type="checkbox" class="form-check-input" name="recordNotes" id="recordNotes" onchange="onChange(event)"><label class="form-check-label" for="recordNotes">Manual notes</label></div>
                                 <div class="p-2"><input type="checkbox" class="form-check-input" name="recordInteraction" id="recordInteraction" onchange="onChange(event)"><label class="form-check-label" for="recordInteraction">User Interaction</label></div>
                                 <div class="p-2"><input type="checkbox" class="form-check-input" name="recordAudio" id="recordAudio" onchange="onChange(event)"><label class="form-check-label" for="recordAudio">Audio</label></div>
                                 <div class="p-2"><input type="checkbox" class="form-check-input" name="recordPhotos" id="recordPhotos" onchange="onChange(event)"><label class="form-check-label" for="recordPhotos">Photos</label></div>
@@ -80,6 +81,7 @@
                                 <div class="p-2"><input type="checkbox" class="form-check-input" name="recordPhysiological" id="recordPhysiological" onchange="onChange(event)"><label class="form-check-label" for="recordPhysiological">Physio. Sensing</label></div>
                                 <div class="p-2"><input type="checkbox" class="form-check-input" name="recordEyetracking" id="recordEyetracking" onchange="onChange(event)"><label class="form-check-label" for="recordEyetracking">Eye/Head Tracking</label></div>
                                 <div class="p-2"><input type="checkbox" class="form-check-input" name="recordScreenrecoding" id="recordScreenrecoding" onchange="onChange(event)"><label class="form-check-label" for="recordScreenrecoding">Screen Recording</label></div>
+                                <div class="p-2"><input type="checkbox" class="form-check-input" name="recordNotes" id="recordNotes" onchange="onChange(event)"><label class="form-check-label" for="recordNotes">Manual notes</label></div>
                             </div>                      
                         </div>                      
                     </div> 
@@ -131,21 +133,9 @@
                         <div class="col-4"><span id="PIText">Head of the Department (if not = PI)</span></div>
                         <div class="col-8"><input class="form-control" name="departmentHead" onchange="onChange(event)"></input></div>
                     </div>
-                    <div class="row mt-3 ">
-                        <div class="col-4"><span id="secondResearcherName">Second Researchers's Name</span></div>
-                        <div class="col-8"><input class="form-control" name="secondResearcherName" onchange="onChange(event)"></input></div>
-                    </div>
-                    <div class="row mt-3 ">
-                        <div class="col-4"><span id="secondResearcherEmail">Second  Researchers's E-Mail</span></div>
-                        <div class="col-8"><input class="form-control" type="email" name="secondResearcherEmail" onchange="onChange(event)"></input></div>
-                    </div>
-                    <div class="row mt-3 ">
-                        <div class="col-4"><span id="thirdResearcherName">Thrid Researchers's Name (e.g., the student)</span></div>
-                        <div class="col-8"><input class="form-control" name="thirdResearcherName" onchange="onChange(event)"></input></div>
-                    </div>
-                    <div class="row mt-3 ">
-                        <div class="col-4"><span id="thirdResearcherEmail">Thrid Researchers's E-Mail</span></div>
-                        <div class="col-8"><input class="form-control" type="email" name="thirdResearcherEmail" onchange="onChange(event)"></input></div>
+                    <div class="row mt-3" id="addResearchersContainer">
+                        <div class="col-4"><span id="thePIname">All other researchers' involved</span><span class="text-danger">*</span></div>
+                        <div class="col-8"><button class="btn btn-success" id="btnAddResearcher" type="button" id="button-add-researcher">+ Add Addional Researcher</button></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="funding">Funding</span></div>
@@ -165,27 +155,19 @@
                     <div class="row mt-3 itemRow uiEdit">
                         <div class="col-8">
                             <a id="btnExample" class="btn btn-secondary btn-md float-left mr-3 " >Example</a> 
-                            <a class="btn btn-secondary btn-md float-left mr-3 btnSave" >Save (*.json)</a>
+                            <a id="btnSave" class="btn btn-secondary btn-md float-left mr-3 btnSave" >Save Settings (*.json)</a>
+                            <a id="btnLoad" class="btn btn-secondary btn-md float-left mr-3">Load Settings (*.json)</a>
+                            <input class="form-control form-control-sm" id="fileInput" type="file" type="hidden" style='display: none;'>
                         </div>
                         <div class="d-grid gap-2 col-4 mx-auto">
-                            <button id="btnGenerate" class="btn btn-primary btn-md float-right" type="Submit" value="">Generate</button>
-                        </div>
-                    </div>
-                    <div class="row mt-3 itemRow uiEdit">
-                        <div class="col-2">
-                            <label for="loadFile" class="form-label">Load (*.json)</label>
-                        </div>
-                        <div class="col-6">
-                            <input class="form-control form-control-sm" id="loadFile" type="file">
-                        </div>
-                        <div class="col-4">
+                            <button id="btnGenerate" class="btn btn-primary btn-md float-right" type="Submit" value="">Generate From</button>
                         </div>
                     </div>
 
                     <div class="row mt-2 itemRow uiView">
                         <div class="col" >
                             <button id="btnBack" class="btn btn-primary btn-md float-left btnBack" >Back</button> 
-                            <button class="btn btn-secondary btn-md float-left mr-3 btnSave" >Save (*.json)</button>
+                            <button id="btnSave" class="btn btn-secondary btn-md float-left mr-3 btnSave" >Save (*.json)</button>
                             <button id="btnPrint" class="btn btn-primary btn-md float-right" value="">Print</button>
                         </div>
                     </div>
@@ -225,7 +207,7 @@
         }
 
         function downloadObjectAsJson(data, fileName){
-            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 4));
             var downloadAnchorNode = document.createElement('a');
             downloadAnchorNode.setAttribute("href", dataStr);
             downloadAnchorNode.setAttribute("download", fileName);
@@ -245,67 +227,14 @@
             return null;
         }
 
-        var inputKeys = ["title", "duration", "personalData", "storageTime", "purpose", "goal", "departmentHead", "thePIname", "thePIemail", "participants", "monetaryCompensation", "secondResearcherName", "secondResearcherEmail", "thirdResearcherName", "thirdResearcherEmail", "ethicalComittee", "funding"];
-        var inputRecord = ["demographics", "audio", "photos", "videos", "motion", "physiological", "eyetracking", "screenrecoding"]
-
-        var settings = {};
-        var data = {};
-        $(document).ready(function() {
-            
-            fillSelect();
-
-
-            $("#hostUrl").attr("href", settings["hostUrl"]);
-            $("#hostLogo").attr("src", "img/" + settings["hostLogo"]);
-
-            $(".btnSave").click(function() {
-                data = collectData();
-                downloadObjectAsJson(data, "exportInformedConsent.json");
-            });
-
-            function loadFile(event) {
-                var reader = new FileReader();
-
-                reader.onload = function(event) {
-                    var jsonObj = JSON.parse(event.target.result);
-                    data = jsonObj;
-                    fillData(data);
-                };
-
-                reader.readAsText(event.target.files[0]);
-            };
-
-            document.getElementById('loadFile').addEventListener('change', loadFile);
-
-            $("#btnExample").click(function() {
-                fetch('./example.json')
-                    .then((response)=>response.json())
-                    .then((example)=>{fillData(example);data = collectData();});
-            });
-
-            let cookieData = getCookie("data");
-            if (cookieData != null){
-                cookieData = JSON.parse(cookieData);
-                fillData(cookieData);
-            } else {
-                //console.log("No Cookie Available");
-            }
-        });
+        var inputKeys = ["title", "duration", "personalData", "storageTime", "purpose", "goal", "departmentHead", "thePIname", "thePIemail", "participants", "monetaryCompensation", "ethicalComittee", "funding"];
+        var inputRecord = ["demographics", "contact", "audio", "photos", "videos", "motion", "physiological", "eyetracking", "screenrecoding", "notes", "interaction"];
 
         function myXOR(a,b) {
           return ( a || b ) && !( a && b );
         }
 
-        async function getJSON(file) {
-            console.log("Fetching: " + file);
-            return fetch(file)
-                .then((response)=>response.json())
-                .then((responseJson)=>{return responseJson});
-        }
-
-        async function fillSelect(){
-            settings = await getJSON('./settings.json');
-
+        function fillSelect(){
             $("select[name='institution']").append(new Option(settings["hints"]["select"], ""));
             for (let key in settings["institutions"]) {
                 let institution = settings["institutions"][key]
@@ -348,23 +277,78 @@
                 }
             }
 
-            $(".uiEdit").show();
-            $(".uiView").hide();
-            $(".btnBack").click(function(e){
-                e.preventDefault();
-                $(".uiEdit").show();
-                $(".uiView").hide();
-                $("#input").show(); 
-                $("#fieldsrequired").show();
-                $("#btnGenerate").show();
-                $("#results").html("");
-            });
-            
-            $("#btnPrint").click(function(e){
-                $('.print_special').css({ border : 'none'});
-                window.print(); 
-                e.preventDefault();
-            });
+
+            $("#hostUrl").attr("href", settings["hostUrl"]);
+            $("#hostLogo").attr("src", "img/" + settings["hostLogo"]);
+
+            let cookieData = getCookie("data");
+
+            if (cookieData != null){
+                cookieData = JSON.parse(cookieData);
+                fillData(cookieData);
+            } else {
+                for (let i = 0; i < settings["researcherCount"]; i++){
+                    addResearcher();
+                }
+            }
+        }
+
+        function addResearcher (){
+            var lstResearchers = document.getElementsByClassName("researchersContainer");
+                var lastElement = null;
+                if (lstResearchers.length == 0){
+                    lastElement = document.getElementById("addResearchersContainer");
+                } else {
+                    lastElement = lstResearchers[lstResearchers.length-1];
+                }
+                var link = `<div class="row mt-3 researchersContainer">
+                        <div class="col-4"></div>
+                        <div class="col-8">
+                            <div class="row mt-3">
+                                <div class="col-2"><span class="researcherName">Name</span><span class="text-danger">*</span></div>
+                                <div class="col-10">
+                                    <div class="input-group">
+                                    <input class="form-control" name="researcherName" onchange="onChange(event)"></input>
+                                    <button class="btn btn-danger btnRemoveResearcher" onclick="removeResearcher(1)" type="button">-</button>
+                                    </div>
+                                </div>    
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-2"><span class="researcherEmail">E-Mail</span><span class="text-danger">*</span></div>
+                                <div class="col-10"><input class="form-control" name="researcherEmail" input type="email" onchange="onChange(event)"></input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                lastElement.insertAdjacentHTML("afterend", link);
+                correctResercherNumbers();
+        }
+
+        function removeResearcher(value){
+            var lstResearchers = document.getElementsByClassName("researchersContainer");
+            if (lstResearchers.length > 0){
+                lstResearchers[value].remove();
+            }
+            correctResercherNumbers();
+            data = collectData();
+        }
+
+        function correctResercherNumbers (){
+            var lstResearchers = document.getElementsByClassName("researcherName");
+            for (var i = 0; i < lstResearchers.length; i++){
+                var researcherName = lstResearchers[i];
+                researcherName.innerHTML = "Name " + (i+1);
+            }
+            var lstResearchers = document.getElementsByClassName("btnRemoveResearcher");
+            for (var i = 0; i < lstResearchers.length; i++){
+                var researcherName = lstResearchers[i];
+                researcherName.setAttribute("onclick", "removeResearcher(" + (i) + ")"); 
+            }
+            var lstResearchers = document.getElementsByClassName("researcherEmail");
+            for (var i = 0; i < lstResearchers.length; i++){
+                var researcherName = lstResearchers[i];
+                researcherName.innerHTML = "E-mail " + (i+1);
+            }
         }
         
         function fillData(data){
@@ -383,6 +367,17 @@
             $("select[name='share'] option[value='" + data["share"] + "']").attr("selected", true);
             $("select[name='encryption'] option[value='" + data["encryption"] + "']").attr("selected", true);
             $("select[name='compensation'] option[value='" + data["compensation"] + "']").attr("selected", true);
+
+            document.querySelectorAll(".researchersContainer").forEach(el => el.remove());
+            if (data["researchers"] != null){
+                data["researchers"].forEach((researcher) => {
+                    addResearcher();
+                    var lstResearchers = document.getElementsByClassName("researchersContainer");
+                    var lastElement = lstResearchers[lstResearchers.length-1];
+                    lastElement.getElementsByClassName("form-control")[0].value = researcher["name"];
+                    lastElement.getElementsByClassName("form-control")[1].value = researcher["email"];
+                });
+            }
         }
 
         function collectData(){
@@ -405,9 +400,25 @@
             data["encryption"] = $("select[name='encryption']").val();
             data["compensation"] = $("select[name='compensation']").val();
 
+            data["researchers"] = [];
+            var lstResearchers = document.getElementsByClassName("researchersContainer");
+            for (var i = 0; i < lstResearchers.length; i++){
+                var researcher = lstResearchers[i];
+                var name = researcher.getElementsByClassName("form-control")[0].value;
+                var email = researcher.getElementsByClassName("form-control")[1].value;
+                data["researchers"].push({"name": name, "email": email});
+            }
+
             document.cookie = "data=" + JSON.stringify(data);
 
             return data;
+        }
+
+        const makeCommaSeparatedString = (arr, andSeparator, useOxfordComma) => {
+            const listStart = arr.slice(0, -1).join(', ');
+            const listEnd = arr.slice(-1);
+            const conjunction = arr.length <= 1 ? '' : useOxfordComma && arr.length > 2 ? ', ' + andSeparator + ' ' : ' ' + andSeparator + ' ';
+            return [listStart, listEnd].join(conjunction)
         }
 
         function generate(){
@@ -432,17 +443,17 @@
  
             // TITLE
             str += "<div class='pageBreak'><h1>Informed Consent of Participation</h1>";
-            var andStudent = "";
-            if(data["thirdResearcherName"] != ""){
-                andStudent += data["thirdResearcherName"] + " and ";
-            }
-
-            if(data["secondResearcherName"] != ""){
-                andStudent += data["secondResearcherName"] + " and ";
+            
+            var additionalResearcher = "";
+            data["researchers"].forEach((researcher) => {
+                additionalResearcher += researcher["name"] + ", ";
+            });
+            if (additionalResearcher != ""){
+                additionalResearcher = additionalResearcher + " and " ;
             }
             
             // INVITATION (SUMMARY OF THE FOLLOWING)
-            str += "<p>You are invited to participate in the " + data["type"] + " <b>" + capital_letter(data["title"]) + "</b>, initiated and conducted by " + andStudent + data["thePIname"]  + ". The research is supervised";
+            str += "<p>You are invited to participate in the " + data["type"] + " <b>" + capital_letter(data["title"]) + "</b>, initiated and conducted by " + additionalResearcher + data["thePIname"]  + ". The research is supervised";
             if(data["departmentHead"] != ""){
                 str += " by " + data["departmentHead"];
             }
@@ -607,29 +618,26 @@
             str += "Data collected in this " + data["type"] + " will be treated in compliance with the GDPR. ";
                         
             str += "</p><p>"
-            records = "";
-            if(data["record"]["photos"]) records += "take photos, ";
-            if(data["record"]["videos"]) records += "record videos, ";
-            if(data["record"]["audio"]) records += "record audio, ";
-            if(data["record"]["motion"]) records += "record your body motion, ";
-            if(data["record"]["eyetracking"]) records += "record your eye motion, ";
-            if(data["record"]["physiological"]) records += "take physiological measurements, ";
-            if(data["record"]["screenrecoding"]) records += "record the screen and/or activities on your device, ";
-            if(data["record"]["interaction"]) records += "record your interaction, ";
-
-            if (records != ""){
-                if(data["type"] == "online study"){
-                    records += "and browser meta data"
-                } else {
-                    records += "and will potentially take notes"
-                }
-                str += "We will record data, " + records + " during the " + data["type"] + ". ";
-            } else {
-                if(data["type"] == "online study"){
-                    str += "We will record browser meta data during the " + data["type"] + ". ";
-                }
+            records = [];
+            if(data["record"]["demographics"]) records.push("record demographics");
+            if(data["record"]["contact"]) records.push("record contact information");
+            if(data["record"]["photos"]) records.push("take photos");
+            if(data["record"]["videos"]) records.push("record videos");
+            if(data["record"]["audio"]) records.push("record audio");
+            if(data["record"]["motion"]) records.push("record your body motion");
+            if(data["record"]["eyetracking"]) records.push("record your eye motion");
+            if(data["record"]["physiological"]) records.push("take physiological measurements");
+            if(data["record"]["screenrecoding"]) records.push("record the screen and/or activities on your device");
+            if(data["record"]["interaction"]) records.push("record your interactions");
+            if(data["record"]["notes"]) records.push("make manual notes");
+            if(data["type"] == "online study"){
+                records.push("browser meta data");
             }
 
+            records = makeCommaSeparatedString(records, "and", true);
+
+            str += "We will " + records + " during the " + data["type"] + ". ";
+            
             if(data["share"] == "yes"){
                 str += "All data you provide in this " + data["type"] + " will be published <b>not anonymized</b>. ";
                 str += "Subsequent uses of records and data will be subject to standard data use policies. ";
@@ -704,41 +712,38 @@
             
             str += "<p>If you have any questions or concerns about the research, please feel free to contact: </p><div class='row'>";
 
-            var count = 0
-            if (data["departmentHead"] != "") {
+            var count = 1
+            if(data["departmentHead"] != "" && data["departmentHead"] != data["thePIname"]){
                 count++;
             } 
-            if (data["secondResearcherName"] != ""){
-                count++;
-            }
-            if (data["thirdResearcherName"] != ""){
+            if (data["researchers"].length > 0){
                 count++;
             }
 
             if (count == 1){
-                cells = "<div class='col-12'>";
+                cellPI = "<div class='col-12'>";
             } else if (count == 2){
-                cells = "<div class='col-6'>";
-            } else if (count == 3){
-                cells = "<div class='col-4'>";
+                cellPI = "<div class='col-4'>";
+                cell = "<div class='col-8'>";
             } else {
-                cells = "<div class='col-3'>";
-            }
-            
-            if (data["thirdResearcherName"] != ""){
-                str += cells + data["thirdResearcherName"] +"<br />" + data["thirdResearcherEmail"] + "</div>";
+                cellPI = "<div class='col-4'>";
+                cell = "<div class='col-4'>";
             }
 
-            if(data["secondResearcherName"] != ""){
-                str += cells + data["secondResearcherName"] +"<br />" + data["secondResearcherEmail"] + "</div>";
+            if (data["researchers"].length > 0){
+                var allReserchers = ""
+                data["researchers"].forEach((researcher) => {
+                    allReserchers += researcher["name"] + " (" + researcher["email"] + ")<br>";
+                });
+                str += cell + allReserchers + "</div>";
             }
             
             if(data["thePIname"]!=""){
-                str += cells + data["thePIname"] + "<br />Principal Investigator<br />" + street + "<br />" + zip + " " + city + ", " + country + "<br />" + data["thePIemail"] + "</div>";
+                str += cellPI + data["thePIname"] + "<br />Principal Investigator<br />" + street + "<br />" + zip + " " + city + ", " + country + "<br />" + data["thePIemail"] + "</div>";
             }
             
             if(data["departmentHead"] != "" && data["departmentHead"] != data["thePIname"]){
-                str += cells+ data["departmentHead"] +"<br />Professor/Head of Department<br />" + street + "<br />" + zip + " " + city + ", " + country + "</div>";
+                str += cell + data["departmentHead"] +"<br />Professor/Head of Department<br />" + street + "<br />" + zip + " " + city + ", " + country + "</div>";
             }
             
             str += "<br /></div></div>";
@@ -746,38 +751,38 @@
             itemCount++;
             // INFORMED CONSENT
             
-            if(data["type"] != "online study"){
-                str += "<div class='pageBreak'><h3>" + itemCount + ". Informed Consent and Agreement</h3>";
-                str += "<table>";
+            str += "<div class='pageBreak'><h3>" + itemCount + ". Informed Consent and Agreement</h3>";
+            str += "This consent form will be retained securely and in compliance with the GDPR for no longer than necessary."
+            str += "<table>";
 
-                str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p> I understand the explanation provided to me. I have been given a copy of this form. I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this " + data["type"] +". <p /></th></tr>";
+            str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p> I understand the explanation provided to me. I have been given a copy of this form. I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this " + data["type"] +". <p /></th></tr>";
 
-                str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p>I voluntarily consent to my data being recorded and subsequently processed in line with the GDPR. I have been informed about the consequences of withdrawing my consent.<p /></th></tr>";
-               
-                if(data["share"] == "yes"){
-                    str += "<tr><th><img src='img/square.jpg'  width='15px'  height='15px'/></th><th><p>I agree that my data records and measurements during the study can be published in context of this research in non-anonymized from.<p>"
-                
-                    record = "";
-                    if(data["record"]["photos"]) record += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that photos during this study can be made and published.<p /></th></tr>"
-                    if(data["record"]["videos"]) record += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that videos during this study can be recorded and published.<p /></th></tr>"
-                    if(data["record"]["audio"]) record += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that audio files during this study can be recorded and published.<p /></th></tr>"
+            str += "<tr><th><img src='img/square.jpg' width='15px'  heighz='15px'/></th><th><p>I voluntarily consent to my data being recorded and subsequently processed in line with the GDPR. I have been informed about the consequences of withdrawing my consent.<p /></th></tr>";
+            
+            if(data["share"] == "yes"){
+                str += "<tr><th><img src='img/square.jpg'  width='15px'  height='15px'/></th><th><p>I agree that my data records and measurements during the study can be published in context of this research in non-anonymized from.<p>"
+            
+                record = "";
+                if(data["record"]["photos"]) record += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that photos during this study can be made and published.<p /></th></tr>"
+                if(data["record"]["videos"]) record += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that videos during this study can be recorded and published.<p /></th></tr>"
+                if(data["record"]["audio"]) record += "<tr><th><img src='img/square.jpg' width='15px'  height='15px'/></th><th><p>I additionally agree that audio files during this study can be recorded and published.<p /></th></tr>"
 
-                    if (record != ""){
-                        str += "<table>" + record + "</table>";
-                    }
-                    str += "I understand that data will be anonymized cannot be associated with my name. From the consent of publication, I do not derive any rights (such as any renumeration or co-authorship). This declaration of consent is revocable at any time in line with the GDPR. In the case of revocation, the published recordings, insofar as they are subject to the disposition of the researchers, will be removed. Further recordings are no longer used or published after revocation of publication.</p></tr>"
-                    
-                    str += "</table>"
+                if (record != ""){
+                    str += "<table>" + record + "</table>";
                 }
+                str += "I understand that data will be anonymized cannot be associated with my name. From the consent of publication, I do not derive any rights (such as any renumeration or co-authorship). This declaration of consent is revocable at any time in line with the GDPR. In the case of revocation, the published recordings, insofar as they are subject to the disposition of the researchers, will be removed. Further recordings are no longer used or published after revocation of publication.</p></tr>"
                 
-                str += "<table>"
-                str += "<tr><th><br /><br />__________________________________</th><th></th></tr>"
-                str += "<tr><th>Printed Name of Subject</th><th></th></tr>"
-                str += "<tr><th><br /><br />__________________________________</th><th><br /><br />_____________________________</th></tr>"
-                str += "<tr><th>Signature of Subject</th><th>Location, Date</th></tr>"
                 str += "</table>"
-                str += "</div>";
             }
+                
+            str += "<table>"
+            str += "<tr><th><br /><br />__________________________________</th><th></th></tr>"
+            str += "<tr><th>Printed Name of Subject</th><th></th></tr>"
+            str += "<tr><th><br /><br />__________________________________</th><th><br /><br />_____________________________</th></tr>"
+            str += "<tr><th>Signature of Subject</th><th>Location, Date</th></tr>"
+            str += "</table>"
+            str += "</div>";
+            
             
             $("#results").html("<div class='frameStyle'>"+str+"</div>");
             
@@ -785,6 +790,63 @@
                 //  window.print();  
             }, 100);
         }
+
+        var settings = {};
+        var data = {};
+        $(document).ready(function() {
+            
+            fetch('./settings.json')
+                .then((response)=>response.json())
+                .then((responseJson)=>{settings = responseJson; fillSelect();});
+
+            $(".uiEdit").show();
+            $(".uiView").hide();
+            $(".btnBack").click(function(e){
+                e.preventDefault();
+                $(".uiEdit").show();
+                $(".uiView").hide();
+                $("#input").show(); 
+                $("#fieldsrequired").show();
+                $("#btnGenerate").show();
+                $("#results").html("");
+            });
+            
+            $("#btnPrint").click(function(e){
+                $('.print_special').css({ border : 'none'});
+                window.print(); 
+                e.preventDefault();
+            });
+
+            $("#btnAddResearcher").click(function(e){addResearcher ();});
+            
+            $(".btnSave").click(function() {
+                data = collectData();
+                downloadObjectAsJson(data, "exportInformedConsent.json");
+            });
+
+            $("#btnLoad").click(function() { 
+                $("#fileInput").click();
+            });
+
+            $('#fileInput').change(function (e) { 
+                var [file] = document.querySelector('#fileInput').files;
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    var jsonObj = JSON.parse(event.target.result);
+                    data = jsonObj;
+                    fillData(data);
+                };
+
+                reader.readAsText(event.target.files[0]);
+            });
+
+            $("#btnExample").click(function() {
+                fetch('./example.json')
+                    .then((response)=>response.json())
+                    .then((example)=>{fillData(example);data = collectData();});
+            });
+        });
          
     </script>
  </body>
