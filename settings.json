@@ -57,7 +57,7 @@
 	"hints": {
 		"select": "Please select",
 		"title": "Your research title",
-		"monetaryCompensation": "Monetary compensation, e.g., 5 EUR",
+		"monetaryCompensation": "Monetary compensation, e.g., 12 EUR/hour",
 		"personalData": "age, gender, and country of birth",
 		"storageTime": "a maximum of 10 years",
 		"ethicalComittee": "Your review board",
