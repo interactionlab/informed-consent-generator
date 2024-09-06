@@ -463,7 +463,7 @@
             if(data["institution"] != ""){
                 str += " at the " + data["institution"];
             }
-            if(data["departmentHead"] != ""){
+            if(data["departmentHead"] != "" && data["thePIname"] != data["departmentHead"]){
                 str += " under " + data["departmentHead"];
             }
             str += ". ";
