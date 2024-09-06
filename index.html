@@ -180,7 +180,7 @@
                         </div>
                     </div>
                     <div class="col" > 
-                        <small><a href="https://github.com/interactionlab/informed-consent-generator/">Source Code on GitHub</a></small><small> running <span id="version">v0.2</span></small>
+                        <small><a href="https://github.com/interactionlab/informed-consent-generator/">Source Code on GitHub</a></small><small> running <span id="version"></span></small>
                     </div>
                 </div>
             </form>
@@ -236,6 +236,8 @@
         }
 
         function fillSelect(){
+            document.getElementById("version").innerHTML = settings["version"];
+
             $("select[name='institution']").append(new Option(settings["hints"]["select"], ""));
             for (let key in settings["institutions"]) {
                 let institution = settings["institutions"][key]
@@ -383,8 +385,9 @@
 
         function collectData(){
             let data = {};
+            
             data["version"] = settings["version"];
-            document.getElementById("version").innerHTML = settings["version"];
+            data["versionData"] = settings["versionData"];
 
             inputKeys.forEach((key) => {
                 data[key] = $("input[name='" + key + "']").val();
@@ -847,6 +850,7 @@
                     .then((response)=>response.json())
                     .then((example)=>{fillData(example);data = collectData();});
             });
+
         });
          
     </script>

@@ -1,5 +1,6 @@
 {
-	"version": "0.2",
+	"version": "0.2.1",
+    "versionData": "0.3",
 	"hostLogo":"logoLMU.png",
 	"hostUrl":"https://www.medien.ifi.lmu.de/",
 	"institutions": {
