@@ -456,14 +456,15 @@
             
             // INVITATION (SUMMARY OF THE FOLLOWING)
             str += "<p>You are invited to participate in the " + data["type"] + " <b>" + capital_letter(data["title"]) + "</b>, initiated and conducted by " + additionalResearcher + data["thePIname"]  + ". The research is supervised";
-            if(data["departmentHead"] != ""){
-                str += " by " + data["departmentHead"];
-            }
+            
             if(data["thePIname"] != ""){
                 str += " by " + data["thePIname"];
             }
             if(data["institution"] != ""){
                 str += " at the " + data["institution"];
+            }
+            if(data["departmentHead"] != ""){
+                str += " under " + data["departmentHead"];
             }
             str += ". ";
             if(data["funding"] != ""){ 
@@ -492,7 +493,7 @@
             if(data["record"]["screenrecoding"])
                 str += "<li>We will record the screen on your device that are necessary for the study.</li>";
             if(data["record"]["interaction"])
-                str += "<li>>We will record interaction data (e.g., clickes, timings) during the session.</li>";
+                str += "<li>We will record interaction data (e.g., clickes, timings) during the session.</li>";
             
             if(data["compensation"] == "points" | data["compensation"] == "moneyPoints"){
                 str += "<li>You will receive 1 credit point per hour for your study course as compensation.</li>";
@@ -598,7 +599,7 @@
             str += "<li>You have the right to correct inaccurate personal data at any time (GDPR Art. 16). </li>";
             str += "<li>You have the right to have your personal data deleted (GDPR Art. 17). </li>";
             str += "<li>You have the right to limit the processing of your personal data (GDPR Art. 18). </li>";
-            str += "<li>You have the right to have your data transforared to others (GDPR Art. 20). </li>";
+            str += "<li>You have the right to have your data transferred to others (GDPR Art. 20). </li>";
             str += "<li>You have the right to withdraw the consent given (GDPR Art. 21). </li>";
 
             str += "</ul><p>";
