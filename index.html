@@ -99,7 +99,7 @@
                         <div class="col-8"><select class="form-control" name="share" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><span id="encryptionText">Will the data stored encrypted?</span><span class="text-danger">*</span><br /></div>
+                        <div class="col-4"><span id="encryptionText">Will the data be stored encrypted?</span><span class="text-danger">*</span><br /></div>
                         <div class="col-8"><select class="form-control" name="encryption" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
@@ -282,6 +282,7 @@
 
 
             $("#hostUrl").attr("href", settings["hostUrl"]);
+            console.log(settings["hostLogo"]);
             $("#hostLogo").attr("src", "img/" + settings["hostLogo"]);
 
             let cookieData = getCookie("data");
@@ -498,8 +499,14 @@
             if(data["record"]["interaction"])
                 str += "<li>We will record interaction data (e.g., clickes, timings) during the session.</li>";
             
-            if(data["compensation"] == "points" | data["compensation"] == "moneyPoints"){
+            if(data["compensation"] == "points"){
                 str += "<li>You will receive 1 credit point per hour for your study course as compensation.</li>";
+            } else if(data["compensation"] == "moneyPoints"){
+                str += "<li>You will receive 1 credit point per hour for your study course as compensation or " + data["monetaryCompensation"] + " as monetary compensation.</li>";
+            } else if(data["compensation"] == "money"){
+                str += "<li>You will receive " + data["monetaryCompensation"] + " as compensation.</li>";
+            } else {
+                str += "<li>You will receive no compensation.</li>";
             }
 
             str += "<li>We may publish results from this and other sessions.</li>"
@@ -546,14 +553,18 @@
             str += "for this research. ";
             
             if(data["compensation"] == "none"){
-                str += "You will receive no compensation. You may withdraw and discontinue participation at any time without penalty. If you decline to participate or withdraw from the " + data["type"] + ", this will be confidential. ";
+                str += "You will receive no compensation. ";
+            } else if(data["compensation"] == "points"){
+                str += "You will receive one credit point per hour required for your study course at the " + data["institution"]  + ". You may withdraw and discontinue participation at any time without justification for withdrawing. You will still receive your credit points. ";
+            } else if(data["compensation"] == "money"){
+                str += "You will receive " + data["monetaryCompensation"] + " as compensation for your participation. ";
+            } else if(data["compensation"] == "moneyPoints"){
+                str += "You will receive " + data["monetaryCompensation"] + " as compensation for your participation or one credit point per hour required for your study course at the " + data["institution"]  + ". ";
+            }
+            if(data["compensation"] == "none"){
+                str += "You may withdraw and discontinue participation at any time. ";
             } else {
-                if(data["compensation"] == "points" | data["compensation"] == "moneyPoints"){
-                    str += "You will receive one credit point per hour required for your study course at the " + data["institution"]  + ". You may withdraw and discontinue participation at any time without justification for withdrawing. You will still receive your extra one credit point that your professor had offered in exchange for your participation. If you decline to participate or withdraw from the " + data["type"] + ", this will be confidential. ";
-                } 
-                if(data["compensation"] == "money" | data["compensation"] == "moneyPoints"){
-                    str += "You will receive " + data["monetaryCompensation"] + " as compensation for your participation. You may withdraw and discontinue participation at any time without penalty or losing the compensation. If you decline to participate or withdraw from the " + data["type"] + ", this will be confidential. ";
-                }
+                str += "You may withdraw and discontinue participation at any time without penalty or losing the compensation. ";
             }
             
             str += "If possible, you may refuse to answer any questions you do not want to answer or withdraw from participation at any time. ";
@@ -595,7 +606,7 @@
             
             str += "<div class='pageBreak'><h3>" + itemCount + ". Data Protection and Confidentiality</h3>";
             str += "<p>";
-            str += "The General Data Protection Regulation (GDPR) of the European Union (EU) governs that data collection process.  The legal basis for processing the personal data is the consent in accordance with GDPR Art. 6 (1). The GDPR agreneets a set of right to the data subjects, including the right to access, rectification, and erasure of personal data. ";
+            str += "The General Data Protection Regulation (GDPR) of the European Union (EU) governs that data collection process.  The legal basis for processing the personal data is the consent in accordance with GDPR Art. 6 (1). The GDPR guarantees a set of right to the data subjects, including the right to access, rectification, and erasure of personal data. ";
 
             str += "<ul>"
             str += "<li>You have the right to access your personal data at any time (GDPR Art. 15). </li>";

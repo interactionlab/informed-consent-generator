@@ -41,7 +41,7 @@
 	],
 	"compensation":[
 		["Money", "money"],
-		["Money & Participation Points", "moneyPoints"],
+		["Money or Participation Points", "moneyPoints"],
 		["Participation Points", "points"],
 		["None", "none"]
 	],
