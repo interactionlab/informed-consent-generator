@@ -416,3 +416,43 @@ label.errorStar {
 input.error, select.error { 
 	border: 2px solid red; 
 }
+/* ---------------------------------------------------------------------------
+   Live split-view preview (wide screens only; progressive enhancement)
+--------------------------------------------------------------------------- */
+#livePreview { display: none; }
+
+@media (min-width: 1200px) {
+  body.has-live-preview #mainFrame.vertical-center { display: block; min-height: 0; }
+
+  body.has-live-preview #demographicsPage {
+    max-width: min(95vw, 1600px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 3vw, 3.5rem);
+    align-items: start;
+  }
+
+  body.has-live-preview #demographicsForm { min-width: 0; }
+
+  body.has-live-preview #livePreview {
+    display: block;
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem 1.75rem;
+    font-family: Arial, sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  body.has-live-preview #livePreview .frameStyle { border: none; margin: 0 auto; padding: 0; text-align: justify; max-width: 820px; }
+  body.has-live-preview #livePreview h1 { font-size: 1.25rem; }
+  body.has-live-preview #livePreview h3 { font-size: 1rem; margin-top: 1em; }
+  body.has-live-preview #livePreview img { max-height: 70px; max-width: 120px; }
+  body.has-live-preview .livePreview-empty { color: #777; font-style: italic; }
+}
