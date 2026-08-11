@@ -45,6 +45,13 @@
 			"street":"Pfaffenwaldring 5a",
 			"zip":"70569",
 			"city":"Stuttgart"
+		},
+		"Technical University of Munich": {
+			"name": "Technical University of Munich",
+			"logo": "logoTUM.svg",
+			"street":"Boltzmannstr. 3",
+			"zip":"D - 85748",
+			"city":"Garching"
 		}
 	},
 	"types": [
