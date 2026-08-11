@@ -11,12 +11,26 @@
 			"zip":"52066",
 			"city":"Aachen"
 		},
+		"Humboldt University of Berlin": {
+			"name": "Humboldt University of Berlin",
+			"logo": "logoHUBerlin.png",
+			"street":"Rudower Chaussee 25",
+			"zip":"12489",
+			"city":"Berlin"
+		},
 		"LMU Munich": {
 			"name": "LMU Munich",
 			"logo": "logoLMU.png",
 			"street":"Frauenlobstr 7a",
 			"zip":"80337",
 			"city":"Munich"
+		},
+		"Technical University of Munich": {
+			"name": "Technical University of Munich",
+			"logo": "logoTUM.svg",
+			"street":"Boltzmannstr. 3",
+			"zip":"85748",
+			"city":"Garching"
 		},
 		"TU Dortmund University": {
 			"name": "TU Dortmund University",
@@ -45,13 +59,6 @@
 			"street":"Pfaffenwaldring 5a",
 			"zip":"70569",
 			"city":"Stuttgart"
-		},
-		"Technical University of Munich": {
-			"name": "Technical University of Munich",
-			"logo": "logoTUM.svg",
-			"street":"Boltzmannstr. 3",
-			"zip":"D - 85748",
-			"city":"Garching"
 		}
 	},
 	"types": [
