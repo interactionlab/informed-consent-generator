@@ -77,7 +77,13 @@ function collectData(){
         data["researchers"].push({"name": name, "email": email});
     }
 
-    document.cookie = "data=" + JSON.stringify(data);
+    // Persist the entered data so a reload restores it. sessionStorage keeps it in
+    // the browser only; unlike a cookie it is never sent to the server.
+    try {
+        sessionStorage.setItem("icgData", JSON.stringify(data));
+    } catch (e) {
+        /* storage unavailable (private mode / quota): persistence is best-effort */
+    }
 
     return data;
 }

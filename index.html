@@ -248,16 +248,6 @@
             downloadAnchorNode.remove();
         }
 
-        function getCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for(var i=0;i < ca.length;i++) {
-                var c = ca[i];
-                while (c.charAt(0)==' ') c = c.substring(1,c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-            }
-            return null;
-        }
 
         var inputKeys = ["title", "duration", "personalData", "storageTime", "purpose", "goal", "departmentHead", "thePIname", "thePIemail", "participants", "monetaryCompensation", "ethicalComittee", "funding"];
         var inputRecord = ["demographics", "contact", "audio", "photos", "videos", "motion", "physiological", "eyetracking", "screenrecording", "notes", "interaction"];
@@ -315,12 +305,19 @@
             $("#hostUrl").attr("href", settings["hostUrl"]);
             $("#hostLogo").attr("src", "img/" + settings["hostLogo"]);
 
-            let cookieData = getCookie("data");
+            let savedData = null;
+            try { savedData = sessionStorage.getItem("icgData"); } catch (e) { /* storage unavailable */ }
 
-            if (cookieData != null){
-                cookieData = JSON.parse(cookieData);
-                fillData(cookieData);
-            } else {
+            let restored = false;
+            if (savedData != null) {
+                try {
+                    fillData(JSON.parse(savedData));
+                    restored = true;
+                } catch (e) {
+                    // corrupt saved data: fall through to a blank form
+                }
+            }
+            if (!restored) {
                 for (let i = 0; i < settings["researcherCount"]; i++){
                     addResearcher();
                 }
@@ -486,9 +483,13 @@
                 var reader = new FileReader();
 
                 reader.onload = function(event) {
-                    var jsonObj = JSON.parse(event.target.result);
-                    data = jsonObj;
-                    fillData(data);
+                    try {
+                        var jsonObj = JSON.parse(event.target.result);
+                        data = jsonObj;
+                        fillData(data);
+                    } catch (e) {
+                        alert("Could not read that file. Please choose a settings JSON exported by this tool.");
+                    }
                 };
 
                 reader.readAsText(event.target.files[0]);
