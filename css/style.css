@@ -93,14 +93,25 @@ td.additional {
 		display: none !important;
 	}
 
+	/* Restore the chain explicitly as block. #mainFrame carries .vertical-center
+	   (display: flex; align-items: center; min-height: 100vh), and a flex
+	   container with centred items does not paginate: content taller than one
+	   page is centred and clipped rather than flowing on. That is why the
+	   preview itself only laid out part of the document. */
 	body,
 	#mainFrame,
 	#demographicsPage,
 	#demographicsForm,
-	#results,
+	#results {
+		display: block !important;
+		align-items: normal !important;
+		justify-content: normal !important;
+	}
+
 	#results * {
 		display: revert !important;
 	}
+
 
 	/* Strip on-screen framing. position: static matters: .whiteBox was absolutely positioned with height 100%, which clips multi-page output in Safari. */
 	html,
@@ -147,9 +158,17 @@ td.additional {
 		margin: 20px;
 	}
 
+	/* .pageBreak wraps each numbered section, and previously carried
+	   break-inside: avoid. Section 5 (Data Protection) is longer than a printed
+	   page, so that asks the browser not to break a block it cannot fit.
+	   Chrome breaks it anyway; Safari drops everything after it, which is why
+	   sections 6 and 7, including the signature block, never appeared.
+	   Sections may now flow across pages. Headings are still kept with their
+	   text by the break-after rule below, which is what the avoid was really
+	   trying to achieve. */
 	.pageBreak {
-		page-break-inside: avoid;
-		break-inside: avoid;
+		page-break-inside: auto;
+		break-inside: auto;
 	}
 
 	h1, h2, h3, h4, h5 {
