@@ -68,6 +68,13 @@ td.additional {
 	color: rgba(220,53,69,1);
 }
 
+/* Bootstrap's .nav-link sets color/padding/text, but (unlike .btn) never strips the browser's native <button> chrome. Without this, these would still render as boxy native buttons underneath the nav-link text styling. */
+.navbar button.nav-link {
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+
 .plain-fieldset {
 	border: 0;
 	margin: 0;
@@ -248,6 +255,26 @@ hr {
 
 @media (min-width: 1200px) {
   body.has-live-preview #btnPrintPreview { display: inline-block; }
+
+  /* The live preview + navbar Print button already cover what Generate and
+     its resulting view (the Back/Save/Print row, #results) are for on wide
+     screens - generate() itself also skips the view switch here (see
+     index.html) as a safety net against implicit form submission still
+     reaching a hidden submit button via Enter. #btnPrintPreview is
+     deliberately not part of .uiView, so it stays visible: it's the one
+     print control on wide screens, taking the place of the one this hides. */
+  body.has-live-preview #btnGenerate,
+  body.has-live-preview .uiView {
+    display: none !important;
+  }
+
+  /* If Generate was clicked while narrow (hiding #input via inline style)
+     and the window is then widened past this breakpoint, nothing else
+     would put #input back - the rule above only stops .uiView from
+     showing, it doesn't undo an #input hide that already happened. */
+  body.has-live-preview #input {
+    display: block !important;
+  }
 
   body.has-live-preview #mainFrame.vertical-center { display: block; min-height: 0; }
 

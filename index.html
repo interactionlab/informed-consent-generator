@@ -53,8 +53,19 @@
         <div class="container-fluid justify-content-start gap-3">
             <a id="hostUrl" target="_blank" rel="noopener noreferrer"><img id="hostLogo" height="40" alt="Media Informatics Groups"></a>
             <h1 id="pageTitle" class="navbar-brand mb-0" tabindex="-1">Informed Consent Generator</h1>
-            <!-- Only ever visible once the live preview is (wide screens, see style.css): "unlocks" print without going through Generate. -->
-            <button id="btnPrintPreview" type="button" class="btn btn-primary btn-sm ms-auto">Print</button>
+            <!-- Edit-mode toolbar: each list item is hidden once generate() switches to view mode (see the uiEdit/uiView show()/hide() calls in the script below).
+                 Wrapped in navbar-nav/nav-item (no navbar-collapse/toggler - we don't want a hamburger menu, flex-wrap handles narrow widths)
+                 because Bootstrap's navbar-themed .nav-link color/hover variables are only defined under .navbar-nav, not .navbar itself. -->
+            <ul class="navbar-nav flex-row gap-3">
+                <li class="nav-item uiEdit"><button id="btnExample" type="button" class="nav-link">Example</button></li>
+                <li class="nav-item uiEdit"><button id="btnSaveSettings" type="button" class="nav-link btnSave">Save Settings (*.json)</button></li>
+                <li class="nav-item uiEdit"><button id="btnLoad" type="button" class="nav-link">Load Settings (*.json)</button></li>
+            </ul>
+            <input id="fileInput" type="file" accept=".json,application/json" style="display: none;">
+            <button id="btnGenerate" type="submit" form="demographicsForm" class="btn btn-primary btn-sm uiEdit">Generate From</button>
+            <!-- Takes Generate's place on wide screens (see style.css): same spot, same btn-primary weight - not .uiEdit, since it must
+                 stay visible exactly where #btnGenerate is hidden there, rather than sit off in the corner via ms-auto. -->
+            <button id="btnPrintPreview" type="button" class="btn btn-primary btn-sm">Print</button>
         </div>
     </nav>
 
@@ -180,19 +191,6 @@
                             <span class="text-danger">* required fields</span> <br />
                         </div>
                     </div>
-                    <hr class="uiEdit">
-                    <div class="row mt-3 itemRow uiEdit">
-                        <div class="col-8">
-                            <button id="btnExample" type="button" class="btn btn-secondary btn-md float-left mr-3 ">Example</button>
-                            <button id="btnSaveSettings" type="button" class="btn btn-secondary btn-md float-left mr-3 btnSave">Save Settings (*.json)</button>
-                            <button id="btnLoad" type="button" class="btn btn-secondary btn-md float-left mr-3">Load Settings (*.json)</button>
-                            <input class="form-control form-control-sm" id="fileInput" type="file" accept=".json,application/json" style='display: none;'>
-                        </div>
-                        <div class="d-grid gap-2 col-4 mx-auto">
-                            <button id="btnGenerate" class="btn btn-primary btn-md float-right" type="submit">Generate From</button>
-                        </div>
-                    </div>
-
                     <div class="row mt-2 itemRow uiView">
                         <div class="col" >
                             <button id="btnBackView" type="button" class="btn btn-primary btn-md float-left btnBack" >Back</button>
@@ -200,7 +198,7 @@
                             <button id="btnPrint" type="button" class="btn btn-primary btn-md float-right">Print</button>
                         </div>
                     </div>
-                <article id="results" tabindex="-1"></article>
+                <article id="results" tabindex="-1" class="uiView"></article>
                 <footer class="row mt-2 mb-2 itemRow" id="githublink">
                     <div class="row mt-2 itemRow uiView">
                         <div class="col" >
@@ -434,6 +432,16 @@
 
         function generate(){
             renderResult();
+
+            // On wide screens the live preview + navbar Print button already
+            // cover what this view switch is for, and #btnGenerate/.uiView
+            // are hidden there (see style.css) - but a hidden (not disabled)
+            // submit button still lets Enter in a text field implicitly
+            // submit the form, so this guards against hiding #input with
+            // nothing on screen to replace it with.
+            if (document.body.classList.contains("has-live-preview") && window.matchMedia("(min-width: 1200px)").matches) {
+                return;
+            }
 
             $(".uiView").show();
             $(".uiEdit").hide();
