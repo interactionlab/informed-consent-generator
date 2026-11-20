@@ -311,6 +311,8 @@
             }
         }
 
+        var researcherIdCounter = 0;
+
         function addResearcher (){
             var lstResearchers = document.getElementsByClassName("researchersContainer");
                 var lastElement = null;
@@ -319,21 +321,24 @@
                 } else {
                     lastElement = lstResearchers[lstResearchers.length-1];
                 }
+                var uid = researcherIdCounter++;
+                var nameId = "researcherName" + uid;
+                var emailId = "researcherEmail" + uid;
                 var link = `<div class="row mt-3 researchersContainer">
                         <div class="col-4"></div>
                         <div class="col-8">
                             <div class="row mt-3">
-                                <div class="col-2"><span class="researcherName danger">Name</span></div>
+                                <div class="col-2"><label class="researcherName danger" for="${nameId}">Name</label></div>
                                 <div class="col-10">
                                     <div class="input-group">
-                                    <input class="form-control" name="researcherName" onchange="onChange(event)" required />
+                                    <input class="form-control" id="${nameId}" name="researcherName" onchange="onChange(event)" required />
                                     <button class="btn btn-danger btnRemoveResearcher" onclick="removeResearcher(1)" type="button">-</button>
                                     </div>
-                                </div>    
+                                </div>
                             </div>
                             <div class="row mt-3">
-                                <div class="col-2"><span class="researcherEmail danger">E-Mail</span></div>
-                                <div class="col-10"><input class="form-control" name="researcherEmail"  type="email" onchange="onChange(event)" required />
+                                <div class="col-2"><label class="researcherEmail danger" for="${emailId}">E-Mail</label></div>
+                                <div class="col-10"><input class="form-control" id="${emailId}" name="researcherEmail"  type="email" onchange="onChange(event)" required />
                                 </div>
                             </div>
                         </div>
