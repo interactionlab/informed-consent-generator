@@ -75,6 +75,34 @@ td.additional {
 	cursor: pointer;
 }
 
+/* Per-field "what does this mean" hint, shown via Bootstrap's Tooltip component (see index.html) rather than the plain title attribute, since Tooltip triggers on both hover and keyboard focus by default - a bare title does the former reliably but not the latter consistently across browsers. */
+.field-help {
+	/* appearance: none strips remaining native widget chrome that background/
+	   border alone don't touch in every browser (Safari in particular). */
+	appearance: none;
+	-webkit-appearance: none;
+	background: none;
+	border: 0;
+	outline: none;
+	box-shadow: none;
+	padding: 0 0 0 0.35em;
+	margin: 0;
+	color: #6c757d;
+	line-height: 1;
+	cursor: help;
+	vertical-align: middle;
+	display: inline-block;
+}
+.field-help:hover, .field-help:focus {
+	color: #0d6efd;
+}
+/* Keyboard-only focus indicator, deliberately styled rather than relying on
+   whatever ring the browser would otherwise draw on a button this small. */
+.field-help:focus-visible {
+	outline: 2px solid #0d6efd;
+	outline-offset: 2px;
+	border-radius: 50%;
+}
 .plain-fieldset {
 	border: 0;
 	margin: 0;
