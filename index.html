@@ -229,15 +229,6 @@
             return s && s[0].toUpperCase() + s.slice(1);
         }
 
-        function capital_letter(str) {
-            str = str.replace(/\s\s+/g, ' ');
-            str = str.split(" ");
-            for (var i = 0, x = str.length; i < x; i++) {
-                str[i] = str[i][0].toUpperCase() + str[i].substr(1);
-            }
-            return str.join(" ");
-        }
-
         function downloadObjectAsJson(data, fileName){
             var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 4));
             var downloadAnchorNode = document.createElement('a');
@@ -251,10 +242,6 @@
 
         var inputKeys = ["title", "duration", "personalData", "storageTime", "purpose", "goal", "departmentHead", "thePIname", "thePIemail", "participants", "monetaryCompensation", "ethicalComittee", "funding"];
         var inputRecord = ["demographics", "contact", "audio", "photos", "videos", "motion", "physiological", "eyetracking", "screenrecording", "notes", "interaction"];
-
-        function myXOR(a,b) {
-          return ( a || b ) && !( a && b );
-        }
 
         function fillSelect(){
             document.getElementById("version").innerHTML = settings["version"];
@@ -413,13 +400,6 @@
 
 
 
-        const makeCommaSeparatedString = (arr, andSeparator, useOxfordComma) => {
-            const listStart = arr.slice(0, -1).join(', ');
-            const listEnd = arr.slice(-1);
-            const conjunction = arr.length <= 1 ? '' : useOxfordComma && arr.length > 2 ? ', ' + andSeparator + ' ' : ' ' + andSeparator + ' ';
-            return [listStart, listEnd].join(conjunction)
-        }
-
         function generate(){
 
             $(".uiView").show();
@@ -478,8 +458,7 @@
                 $("#fileInput").click();
             });
 
-            $('#fileInput').change(function (e) { 
-                var [file] = document.querySelector('#fileInput').files;
+            $('#fileInput').change(function (e) {
                 var reader = new FileReader();
 
                 reader.onload = function(event) {
