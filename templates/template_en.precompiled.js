@@ -228,7 +228,7 @@ templates['template_en'] = template({"1":function(container,depth0,helpers,parti
     };
 
   return "You will receive one credit point per hour required for your study course at the "
-    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"intitution") || (depth0 != null ? lookupProperty(depth0,"intitution") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"intitution","hash":{},"data":data,"loc":{"start":{"line":70,"column":134},"end":{"line":70,"column":148}}}) : helper)))
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"institution") || (depth0 != null ? lookupProperty(depth0,"institution") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"institution","hash":{},"data":data,"loc":{"start":{"line":70,"column":134},"end":{"line":70,"column":149}}}) : helper)))
     + ". You may withdraw and discontinue participation at any time without justification for withdrawing. You will still receive your credit points.\n            ";
 },"64":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
