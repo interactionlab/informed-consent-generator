@@ -315,7 +315,7 @@ templates['template_en'] = template({"1":function(container,depth0,helpers,parti
     };
 
   return "All the data you provide in this "
-    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data,"loc":{"start":{"line":115,"column":78},"end":{"line":115,"column":86}}}) : helper)))
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data,"loc":{"start":{"line":115,"column":77},"end":{"line":115,"column":85}}}) : helper)))
     + " will be encrypted. ";
 },"88":function(container,depth0,helpers,partials,data) {
     return " and record browser meta data";
@@ -642,7 +642,7 @@ templates['template_en'] = template({"1":function(container,depth0,helpers,parti
     + ", and\n            your confidentiality as a participant in this "
     + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":114,"column":58},"end":{"line":114,"column":66}}}) : helper)))
     + " will remain secure.\n            "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(lookupProperty(helpers,"equal")||(depth0 && lookupProperty(depth0,"equal"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"encryption") : depth0),"true",{"name":"equal","hash":{},"data":data,"loc":{"start":{"line":115,"column":18},"end":{"line":115,"column":43}}}),{"name":"if","hash":{},"fn":container.program(86, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":115,"column":12},"end":{"line":115,"column":113}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(lookupProperty(helpers,"equal")||(depth0 && lookupProperty(depth0,"equal"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"encryption") : depth0),"yes",{"name":"equal","hash":{},"data":data,"loc":{"start":{"line":115,"column":18},"end":{"line":115,"column":42}}}),{"name":"if","hash":{},"fn":container.program(86, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":115,"column":12},"end":{"line":115,"column":112}}})) != null ? stack1 : "")
     + "\n            Data collected in this "
     + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":116,"column":35},"end":{"line":116,"column":43}}}) : helper)))
     + " will be treated in compliance with the GDPR. </p>\n        <p>We will record\n            "
