@@ -1,5 +1,8 @@
 html, body{
-	background-color: white;
+	/* var(--bs-body-bg) instead of a literal white: adapts automatically when
+	   data-bs-theme="dark" is set (see the theme toggle in index.html), rather
+	   than permanently overriding Bootstrap's own color-mode-aware background. */
+	background-color: var(--bs-body-bg);
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -10,8 +13,13 @@ html, body{
 	font-size: 0.95em;
 }
 
+/* The generated/previewed consent document always represents a printed page
+   on white paper, regardless of which UI theme is active - it doesn't follow
+   dark mode or high-contrast mode the way the surrounding app chrome does. */
 #results{
 	width: 100%;
+	background: #fff;
+	color: #000;
 }
 .frameStyle {
     padding: 20px;
@@ -65,7 +73,7 @@ td.additional {
 
 .danger::after {
 	content: '*';
-	color: rgba(220,53,69,1);
+	color: var(--bs-danger-text-emphasis, #dc3545);
 }
 
 /* Bootstrap's .nav-link sets color/padding/text, but (unlike .btn) never strips the browser's native <button> chrome. Without this, these would still render as boxy native buttons underneath the nav-link text styling. */
@@ -87,19 +95,19 @@ td.additional {
 	box-shadow: none;
 	padding: 0 0 0 0.35em;
 	margin: 0;
-	color: #6c757d;
+	color: var(--bs-secondary-color);
 	line-height: 1;
 	cursor: help;
 	vertical-align: middle;
 	display: inline-block;
 }
 .field-help:hover, .field-help:focus {
-	color: #0d6efd;
+	color: var(--bs-primary);
 }
 /* Keyboard-only focus indicator, deliberately styled rather than relying on
    whatever ring the browser would otherwise draw on a button this small. */
 .field-help:focus-visible {
-	outline: 2px solid #0d6efd;
+	outline: 2px solid var(--bs-primary);
 	outline-offset: 2px;
 	border-radius: 50%;
 }
@@ -108,6 +116,52 @@ td.additional {
 	margin: 0;
 	padding: 0;
 	min-width: 0;
+}
+
+/* The theme-toggle icons (☀ ☾ ◐ ◑) are Unicode symbols rather than Latin
+   text, so most browsers substitute a fallback symbol/emoji font for them -
+   one with much taller line-height metrics than the surrounding text, which
+   was inflating the whole navbar's height (it follows its tallest child).
+   Capping the toggle button's own height, with overflow hidden as a hard
+   backstop, keeps that glyph metrics blow-up from affecting anything outside
+   the button itself. */
+#bd-theme {
+	height: 2rem;
+	overflow: hidden;
+}
+#bd-theme-icon,
+.theme-check,
+.dropdown-item span[aria-hidden] {
+	display: inline-block;
+	line-height: 1;
+	font-size: 1rem;
+}
+
+/* High-contrast theme (the third option in the navbar's theme toggle): a
+   self-contained look, not a modifier of light or dark - pure black text on
+   pure white, with thicker, solid-black borders everywhere a form control or
+   button would otherwise use a lighter gray. Doesn't touch #results/
+   #livePreview, which stay the fixed "printed page" look regardless of theme. */
+:root[data-theme="high-contrast"] {
+	--bs-body-bg: #fff;
+	--bs-body-color: #000;
+	--bs-border-color: #000;
+	--bs-secondary-color: #000;
+	--bs-link-color: #00008b;
+	--bs-link-hover-color: #00008b;
+}
+[data-theme="high-contrast"] .form-control,
+[data-theme="high-contrast"] .form-select,
+[data-theme="high-contrast"] .btn,
+[data-theme="high-contrast"] .nav-link {
+	border-width: 2px;
+}
+[data-theme="high-contrast"] .form-control,
+[data-theme="high-contrast"] .form-select {
+	border-color: #000;
+}
+[data-theme="high-contrast"] .field-help {
+	color: #000;
 }
 
 @page {
@@ -331,6 +385,7 @@ hr {
     max-height: calc(100vh - var(--navbar-height, 56px) - 4rem);
     overflow: auto;
     background: #fff;
+    color: #000; /* always the fixed "printed page" look, same reasoning as #results - without this it inherits the active theme's (light-colored, in dark mode) body text color onto this white background */
     border: 1px solid #ddd;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);

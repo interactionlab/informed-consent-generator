@@ -3,6 +3,19 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <!-- Applies the saved theme before first paint, so there's no flash of the wrong theme while the rest of the page (and its own theme-toggle wiring, further down) loads. -->
+    <script>
+    (function () {
+        try {
+            var t = localStorage.getItem("icgTheme") || "light";
+            var resolved = t === "dark" ? "dark"
+                : t === "auto" ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+                : "light"; // light, high-contrast
+            document.documentElement.setAttribute("data-bs-theme", resolved);
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) { /* storage unavailable: stays on the light default */ }
+    })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Valentin Schwind">
     <meta name="author" content="Florian Heller">
@@ -49,30 +62,53 @@
     <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
 </head>
  <body>
-    <nav class="navbar navbar-light bg-light sticky-top border-bottom">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top border-bottom">
         <div class="container-fluid justify-content-start gap-3">
             <a id="hostUrl" target="_blank" rel="noopener noreferrer"><img id="hostLogo" height="40" alt="Media Informatics Groups"></a>
             <h1 id="pageTitle" class="navbar-brand mb-0" tabindex="-1">Informed Consent Generator</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Everything below ≥992px (navbar-expand-lg) shows inline in one row as
+                 before; below that it collapses behind the hamburger toggler above,
+                 which is what actually fixes the wrapping-onto-two-lines problem that
+                 "no toggler" caused once enough items accumulated in this bar. -->
+            <div class="collapse navbar-collapse" id="navbarContent">
             <!-- Edit-mode toolbar: each list item is hidden once generate() switches to view mode (see the uiEdit/uiView show()/hide() calls in the script below).
-                 Wrapped in navbar-nav/nav-item (no navbar-collapse/toggler - we don't want a hamburger menu, flex-wrap handles narrow widths)
-                 because Bootstrap's navbar-themed .nav-link color/hover variables are only defined under .navbar-nav, not .navbar itself. -->
-            <ul class="navbar-nav flex-row gap-3">
+                 Wrapped in navbar-nav/nav-item because Bootstrap's navbar-themed .nav-link color/hover variables are only defined
+                 under .navbar-nav, not .navbar itself. No flex-row here any more - navbar-expand-lg already handles row-vs-column
+                 responsively (row when expanded, column when collapsed behind the toggler), so forcing it would fight that. -->
+            <ul class="navbar-nav gap-lg-3">
                 <li class="nav-item uiEdit"><button id="btnExample" type="button" class="nav-link">Example</button></li>
                 <li class="nav-item uiEdit"><button id="btnSaveSettings" type="button" class="nav-link btnSave">Save Settings (*.json)</button></li>
                 <li class="nav-item uiEdit"><button id="btnLoad" type="button" class="nav-link">Load Settings (*.json)</button></li>
             </ul>
             <!-- Replaces the edit toolbar above once generate() switches to view mode on narrow screens (force-hidden on wide, where
                  there's no view mode to go back from - see the .uiView rule in style.css). -->
-            <ul class="navbar-nav flex-row gap-3 uiView">
+            <ul class="navbar-nav gap-lg-3 uiView">
                 <li class="nav-item"><button id="btnBackView" type="button" class="nav-link btnBack">Back</button></li>
                 <li class="nav-item"><button id="btnSaveView" type="button" class="nav-link btnSave">Save (*.json)</button></li>
             </ul>
             <input id="fileInput" type="file" accept=".json,application/json" style="display: none;">
-            <button id="btnGenerate" type="submit" form="demographicsForm" class="btn btn-primary btn-sm uiEdit">Generate From</button>
+            <button id="btnGenerate" type="submit" form="demographicsForm" class="btn btn-primary btn-sm uiEdit my-2 my-lg-0">Generate From</button>
             <!-- Takes Generate's place on wide screens (see style.css): same spot, same btn-primary weight - not .uiEdit, since it must
                  stay visible exactly where #btnGenerate is hidden there, rather than sit off in the corner via ms-auto. On narrow
                  screens it's synced with the uiView show()/hide() calls below instead, same timing #btnPrint used to have. -->
-            <button id="btnPrintPreview" type="button" class="btn btn-primary btn-sm">Print</button>
+            <button id="btnPrintPreview" type="button" class="btn btn-primary btn-sm my-2 my-lg-0">Print</button>
+            <ul class="navbar-nav ms-lg-auto">
+                <li class="nav-item dropdown">
+                    <button class="btn btn-link nav-link px-0 px-lg-2 py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
+                        <span id="bd-theme-icon" aria-hidden="true">☀</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="themeToggle" aria-labelledby="bd-theme">
+                        <li><button type="button" class="dropdown-item d-flex align-items-center active" data-theme-value="light" aria-pressed="true"><span class="me-2" aria-hidden="true">☀</span>Light<span class="ms-auto theme-check" aria-hidden="true">✓</span></button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-theme-value="dark" aria-pressed="false"><span class="me-2" aria-hidden="true">☾</span>Dark<span class="ms-auto theme-check d-none" aria-hidden="true">✓</span></button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-theme-value="auto" aria-pressed="false"><span class="me-2" aria-hidden="true">◐</span>Auto<span class="ms-auto theme-check d-none" aria-hidden="true">✓</span></button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-theme-value="high-contrast" aria-pressed="false"><span class="me-2" aria-hidden="true">◑</span>High contrast<span class="ms-auto theme-check d-none" aria-hidden="true">✓</span></button></li>
+                    </ul>
+                </li>
+            </ul>
+            </div>
         </div>
     </nav>
 
@@ -487,6 +523,53 @@
             document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
                 new bootstrap.Tooltip(el);
             });
+
+            // Theme toggle. The <head> script already applied the saved theme
+            // (if any) before first paint; this just syncs the dropdown's visual/
+            // ARIA state to match it, and wires up switching themes from here on.
+            (function () {
+                var THEME_KEY = "icgTheme";
+                var ICONS = { light: "☀", dark: "☾", auto: "◐", "high-contrast": "◑" };
+                var LABELS = { light: "light", dark: "dark", auto: "auto", "high-contrast": "high contrast" };
+                var buttons = document.querySelectorAll("#themeToggle button[data-theme-value]");
+                var mainBtn = document.getElementById("bd-theme");
+                var mainIcon = document.getElementById("bd-theme-icon");
+                var media = window.matchMedia("(prefers-color-scheme: dark)");
+
+                function resolvedBsTheme(theme) {
+                    if (theme === "dark") return "dark";
+                    if (theme === "auto") return media.matches ? "dark" : "light";
+                    return "light"; // light, high-contrast
+                }
+
+                function applyTheme(theme) {
+                    document.documentElement.setAttribute("data-bs-theme", resolvedBsTheme(theme));
+                    document.documentElement.setAttribute("data-theme", theme);
+                    buttons.forEach(function (btn) {
+                        var active = btn.getAttribute("data-theme-value") === theme;
+                        btn.classList.toggle("active", active);
+                        btn.setAttribute("aria-pressed", active ? "true" : "false");
+                        var check = btn.querySelector(".theme-check");
+                        if (check) check.classList.toggle("d-none", !active);
+                    });
+                    if (mainIcon) mainIcon.textContent = ICONS[theme] || ICONS.light;
+                    if (mainBtn) mainBtn.setAttribute("aria-label", "Toggle theme (" + (LABELS[theme] || "light") + ")");
+                    try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* best-effort persistence */ }
+                }
+
+                var saved = "light";
+                try { saved = localStorage.getItem(THEME_KEY) || "light"; } catch (e) { /* storage unavailable */ }
+                applyTheme(saved);
+
+                buttons.forEach(function (btn) {
+                    btn.addEventListener("click", function () { applyTheme(btn.getAttribute("data-theme-value")); });
+                });
+
+                // "Auto" follows the OS preference live, not just at page load.
+                media.addEventListener("change", function () {
+                    if (document.documentElement.getAttribute("data-theme") === "auto") applyTheme("auto");
+                });
+            })();
 
             fetch('./settings.json')
                 .then((response)=>response.json())
