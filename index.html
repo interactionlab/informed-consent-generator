@@ -53,6 +53,8 @@
         <div class="container-fluid justify-content-start gap-3">
             <a id="hostUrl" target="_blank" rel="noopener noreferrer"><img id="hostLogo" height="40" alt="Media Informatics Groups"></a>
             <h1 id="pageTitle" class="navbar-brand mb-0" tabindex="-1">Informed Consent Generator</h1>
+            <!-- Only ever visible once the live preview is (wide screens, see style.css): "unlocks" print without going through Generate. -->
+            <button id="btnPrintPreview" type="button" class="btn btn-primary btn-sm ms-auto">Print</button>
         </div>
     </nav>
 
@@ -401,25 +403,46 @@
 
 
 
+        // Shared by generate() and the navbar's #btnPrintPreview button (see
+        // preview.js): both need #results populated from the current form
+        // data, but only generate() should switch the page into view mode.
+        function renderResult(){
+            var template = Handlebars.templates.template_en;
+            data = collectData();
+
+            let institution = settings["institutions"][data["institution"]]
+            if (template != null) {
+                try {
+                    let result = template({...data, ...institution});
+                    $("#results").html(result);
+                } catch (e) {
+                    /* incomplete data: leave whatever was last successfully rendered */
+                }
+            }
+        }
+
+        // Ctrl+P / the browser's own Print menu bypass #btnPrintPreview and
+        // #btnPrint entirely and print whatever is currently in the DOM.
+        // Without this, printing before ever clicking Generate or Print left
+        // #results empty, so the print allowlist (see style.css) showed a
+        // blank page. beforeprint fires right before any print action,
+        // regardless of how it was triggered, so re-render here as a safety
+        // net on top of what the buttons already do explicitly.
+        window.addEventListener("beforeprint", function () {
+            renderResult();
+        });
+
         function generate(){
+            renderResult();
 
             $(".uiView").show();
             $(".uiEdit").hide();
             $("#input").hide();
             $("#fieldsrequired").hide();
-          
-            var template = Handlebars.templates.template_en;
-            data = collectData();
-          
-            let institution = settings["institutions"][data["institution"]]
-            if (template != null) {
-                let result = template({...data, ...institution});
-                $("#results").html(result);
-                // Move focus (and the screen reader's point of regard) to the
-                // generated document, since the view just swapped from the
-                // form to the result with no page navigation to announce it.
-                document.getElementById("results").focus();
-            }
+            // Move focus (and the screen reader's point of regard) to the
+            // generated document, since the view just swapped from the
+            // form to the result with no page navigation to announce it.
+            document.getElementById("results").focus();
 
             setTimeout(function () {
                      // window.print();

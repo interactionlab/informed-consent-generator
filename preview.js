@@ -46,6 +46,19 @@
     page.appendChild(preview);
     document.body.classList.add('has-live-preview');
 
+    // "Unlocks" print on wide screens: skips the Generate step and the
+    // edit/view mode switch entirely, but still runs the form's native
+    // required-field validation first, same guarantee Generate gives via its
+    // own type="submit" button.
+    var printBtn = document.getElementById('btnPrintPreview');
+    if (printBtn) {
+      printBtn.addEventListener('click', function () {
+        if (!form.reportValidity()) return;
+        renderResult();
+        window.print();
+      });
+    }
+
     // #livePreview's sticky offset and max-height (see style.css) need the
     // navbar's actual rendered height, which depends on font metrics and the
     // logo image rather than being a fixed number. Keep it in sync.

@@ -244,8 +244,11 @@ hr {
    Live split-view preview (wide screens only; progressive enhancement)
 --------------------------------------------------------------------------- */
 #livePreview { display: none; }
+#btnPrintPreview { display: none; }
 
 @media (min-width: 1200px) {
+  body.has-live-preview #btnPrintPreview { display: inline-block; }
+
   body.has-live-preview #mainFrame.vertical-center { display: block; min-height: 0; }
 
   body.has-live-preview #demographicsPage {
