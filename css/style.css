@@ -189,11 +189,6 @@ td.additional {
 	}
 
 	h2 {
-		font-size: 16pt !important;
-		font-weight: bold;
-	}
-
-	h3 {
 		font-size: 14pt !important;
 		font-weight: bold;
 		padding-top: 3mm;
@@ -203,17 +198,12 @@ td.additional {
 #results h1 {
     font-size: 24px;
     font-weight: bold;
-    
+
 }
 #results h2 {
-   font-size: 20px;
-    font-weight: bold;
-    
-}
-#results h3 {
     font-size: 15px;
     font-weight: bold;
-    
+
 }
 #results table, th{
     text-align: left;
