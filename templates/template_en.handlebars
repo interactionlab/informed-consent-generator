@@ -184,8 +184,8 @@
         <table>
             <tbody>
             <tr>
-                <td class="check">&#9744;</td>
-                 <td>I understand the explanation provided to me. 
+                <td class="check" aria-hidden="true">&#9744;</td>
+                 <td>I understand the explanation provided to me.
                 {{#if (equal type 'online study')}}
                    I was able to save a copy of this form. I reached out to the listed researchers and have had all my questions answered to my satisfaction.
                 {{else}}
@@ -195,31 +195,31 @@
                 </td>
             </tr>
             <tr>
-                <td class="check">&#9744;</td>
+                <td class="check" aria-hidden="true">&#9744;</td>
                 <td>I voluntarily consent to my data being recorded and subsequently processed in line with the GDPR. I have been informed about the consequences of withdrawing my consent.
                 </td>
             </tr>
             {{#if (equal share 'yes')}}
                 <tr>
-                    <td class="check">&#9744;</td>
+                    <td class="check" aria-hidden="true">&#9744;</td>
                     <td>I agree that my data records and measurements during the study can be published in context of this research in non-anonymized from.</td>
                 </tr>
 
                 {{#if record.photos}}
                     <tr>
-                        <td class="check additional">&#9744;</td>
+                        <td class="check additional" aria-hidden="true">&#9744;</td>
                         <td class="additional">I additionally agree that photos during this study can be made and published.</td>
                     </tr>
                 {{/if}}
                 {{#if record.videos}}
                     <tr>
-                        <td class="check additional">&#9744;</td>
+                        <td class="check additional" aria-hidden="true">&#9744;</td>
                         <td class="additional">I additionally agree that videos during this study can be recorded and published.</td>
                     </tr>
                 {{/if}}
                 {{#if record.audio}}
                     <tr>
-                        <td class="check additional">&#9744;</td>
+                        <td class="check additional" aria-hidden="true">&#9744;</td>
                         <td class="additional">I additionally agree that audio files during this study can be recorded and published.</td>
                     </tr>
                 {{/if}}
