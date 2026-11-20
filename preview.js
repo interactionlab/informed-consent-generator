@@ -40,6 +40,7 @@
 
     var preview = document.createElement('div');
     preview.id = 'livePreview';
+    preview.setAttribute('role', 'region');
     preview.setAttribute('aria-label', 'Live preview of the consent document');
     preview.innerHTML = '<p class="livePreview-empty">A live preview of the consent document appears here and updates as you fill in the form.</p>';
     page.appendChild(preview);

@@ -76,6 +76,13 @@ td.additional {
 	color: rgba(220,53,69,1);
 }
 
+.plain-fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	min-width: 0;
+}
+
 @page {
     size: auto;   /* auto is the initial value */
     margin: 0;  /* this affects the margin in the printer settings */

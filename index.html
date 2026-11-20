@@ -100,7 +100,8 @@
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="recordingsText">Recorded Data</span></div>
-                        <div class="col-8">
+                        <fieldset class="col-8 plain-fieldset">
+                            <legend class="visually-hidden">Recorded Data</legend>
                             <div class="row row-cols-3">
                                 <div class="col"><input type="checkbox" class="form-check-input" name="recordDemographics" id="recordDemographics" onchange="onChange(event)" checked required><label class="form-check-label" for="recordDemographics">Demographics<span class="text-danger">*</span></label></div>
                                 <div class="col"><input type="checkbox" class="form-check-input" name="recordContact" id="recordContact" onchange="onChange(event)"><label class="form-check-label" for="recordContact">Contact information</label></div>
@@ -114,7 +115,7 @@
                                 <div class="col"><input type="checkbox" class="form-check-input" name="recordScreenrecording" id="recordScreenrecording" onchange="onChange(event)"><label class="form-check-label" for="recordScreenrecording">Screen Recording</label></div>
                                 <div class="col"><input type="checkbox" class="form-check-input" name="recordNotes" id="recordNotes" onchange="onChange(event)"><label class="form-check-label" for="recordNotes">Manual notes</label></div>
                             </div>
-                        </div>                      
+                        </fieldset>
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><label id="personalDataText" for="personalData" class="danger">Which personal data will be collected? (list all)</label></div>
@@ -332,7 +333,7 @@
                                 <div class="col-10">
                                     <div class="input-group">
                                     <input class="form-control" id="${nameId}" name="researcherName" onchange="onChange(event)" required />
-                                    <button class="btn btn-danger btnRemoveResearcher" onclick="removeResearcher(1)" type="button">-</button>
+                                    <button class="btn btn-danger btnRemoveResearcher" aria-label="Remove researcher" onclick="removeResearcher(1)" type="button">-</button>
                                     </div>
                                 </div>
                             </div>
