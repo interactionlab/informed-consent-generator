@@ -141,7 +141,7 @@
                         <div class="col-8"><input class="form-control" id="storageTime" name="storageTime" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="shareText" for="share" class="danger">Do you make the raw data public?</label></div>
+                        <div class="col-4"><label id="shareText" for="share" class="danger">Will the raw data be public?</label></div>
                         <div class="col-8"><select class="form-select" id="share"  name="share" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
@@ -169,20 +169,20 @@
                         <div class="col-8"><textarea rows="4" class="form-control" id="procedure" name="procedure" onchange="onChange(event)" required></textarea></div>
                     </div> 
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="thePInameLabel" for="thePIname" class="danger">First Researchers' Name (The PI)</label></div>
+                        <div class="col-4"><label id="thePInameLabel" for="thePIname" class="danger">Principal Investigator Name</label></div>
                         <div class="col-8"><input class="form-control" id="thePIname" name="thePIname" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="thePIemailLabel" for="thePIemail" class="danger">First Researchers' E-Mail</label></div>
+                        <div class="col-4"><label id="thePIemailLabel" for="thePIemail" class="danger">Principal Investigator E-Mail</label></div>
                         <div class="col-8"><input class="form-control" type="email" id="thePIemail" name="thePIemail" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="PIText" for="departmentHead">Head of the Department (if not = PI)</label></div>
+                        <div class="col-4"><label id="PIText" for="departmentHead">Head of the Department (if not the principal investigator)</label></div>
                         <div class="col-8"><input class="form-control" id="departmentHead" name="departmentHead" onchange="onChange(event)" /></div>
                     </div>
                     <div class="row mt-3" id="addResearchersContainer">
-                        <div class="col-4"><span id="additionalResearchers" class="danger">All other researchers' involved</span></div>
-                        <div class="col-8"><button class="btn btn-success" id="btnAddResearcher" type="button" >+ Add Additional Researcher</button></div>
+                        <div class="col-4"><span id="additionalResearchers" class="danger">All involved researchers</span></div>
+                        <div class="col-8"><button class="btn btn-success" id="btnAddResearcher" type="button" >+ Add Researcher</button></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><label id="fundingLabel" for="funding">Funding</label></div>
