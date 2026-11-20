@@ -175,7 +175,7 @@
             <p><b>Principal Investigator:</b> {{thePIname}} ({{street}}, {{zip}} {{city}}{{#if country}}, {{country}}{{/if}}, {{thePIemail}})</p>
         {{/if}}
         {{#if departmentHead}}
-            {{#if (unequal departmentHead thePIname)}}
+            {{#if (unequalTrim departmentHead thePIname)}}
                 <p><b>Department Head:</b> {{departmentHead}} ({{street}}, {{zip}} {{city}}, {{country}})</p>
             {{/if}}
         {{/if}}
