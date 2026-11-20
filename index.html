@@ -4,10 +4,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="author" content="Valentin Schwind">
     <meta name="author" content="Florian Heller">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate a GDPR-compliant informed consent form for human-computer interaction (HCI) research studies.">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
@@ -47,7 +46,7 @@
     <link rel="stylesheet" href="./css/style.css" />
     <meta property="og:site_name" content="Informed Consent Generator"> 
     <title>Informed Consent Generator</title>
-    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
 </head>
  <body>
     <nav class="navbar navbar-light bg-light sticky-top border-bottom">
@@ -57,10 +56,10 @@
         </div>
     </nav>
 
-    <div id="mainFrame" class="vertical-center">
+    <main id="mainFrame" class="vertical-center">
         <a id="downloadAnchorElem" style="display:none"></a>
         <div id="demographicsPage" class="whiteBox container rounded">
-            <form id="demographicsForm" class="form-horizontal" action="javascript:generate(this);">
+            <form id="demographicsForm" class="form-horizontal">
                 <div id="input">
                     <div class="row mt-3">
                         <div class="col mb-1">
@@ -135,7 +134,7 @@
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><label id="numberOfParticipantsText" for="participants" class="danger">Estimated Number of Participants</label></div>
-                        <div class="col-8"><input class="form-control" id="participants" name="participants" onchange="onChange(event)" required /></div>
+                        <div class="col-8"><input class="form-control" type="number" min="1" id="participants" name="participants" onchange="onChange(event)" required /></div>
                     </div> 
                     <div class="row mt-3 ">
                         <div class="col-4"><label id="purposeText" for="purpose" class="danger">Purpose (one sentence)</label></div>
@@ -185,34 +184,34 @@
                             <button id="btnExample" type="button" class="btn btn-secondary btn-md float-left mr-3 ">Example</button>
                             <button id="btnSaveSettings" type="button" class="btn btn-secondary btn-md float-left mr-3 btnSave">Save Settings (*.json)</button>
                             <button id="btnLoad" type="button" class="btn btn-secondary btn-md float-left mr-3">Load Settings (*.json)</button>
-                            <input class="form-control form-control-sm" id="fileInput" type="file" style='display: none;'>
+                            <input class="form-control form-control-sm" id="fileInput" type="file" accept=".json,application/json" style='display: none;'>
                         </div>
                         <div class="d-grid gap-2 col-4 mx-auto">
-                            <button id="btnGenerate" class="btn btn-primary btn-md float-right" type="Submit" value="">Generate From</button>
+                            <button id="btnGenerate" class="btn btn-primary btn-md float-right" type="submit">Generate From</button>
                         </div>
                     </div>
 
                     <div class="row mt-2 itemRow uiView">
                         <div class="col" >
-                            <button id="btnBackView" class="btn btn-primary btn-md float-left btnBack" >Back</button>
-                            <button id="btnSaveView" class="btn btn-secondary btn-md float-left mr-3 btnSave" >Save (*.json)</button>
-                            <button id="btnPrint" class="btn btn-primary btn-md float-right" value="">Print</button>
+                            <button id="btnBackView" type="button" class="btn btn-primary btn-md float-left btnBack" >Back</button>
+                            <button id="btnSaveView" type="button" class="btn btn-secondary btn-md float-left mr-3 btnSave" >Save (*.json)</button>
+                            <button id="btnPrint" type="button" class="btn btn-primary btn-md float-right">Print</button>
                         </div>
                     </div>
-                <div id="results" tabindex="-1"></div>
-                <div class="row mt-2 mb-2 itemRow" id="githublink">
+                <article id="results" tabindex="-1"></article>
+                <footer class="row mt-2 mb-2 itemRow" id="githublink">
                     <div class="row mt-2 itemRow uiView">
                         <div class="col" >
-                            <button id="btnBackFooter" class="btn btn-primary btn-md float-left btnBack" >Back</button>
+                            <button id="btnBackFooter" type="button" class="btn btn-primary btn-md float-left btnBack" >Back</button>
                         </div>
                     </div>
                     <div class="col" >
                         <small><a href="https://github.com/interactionlab/informed-consent-generator/">Original Source Code on GitHub</a></small><small> running <span id="version"></span></small>
                     </div>
-                </div>
+                </footer>
             </form>
-        </div>        
-    </div>
+        </div>
+    </main>
 
     <script src="./templating.js"></script>
     <script>
@@ -430,10 +429,15 @@
         var settings = {};
         var data = {};
         $(document).ready(function() {
-            
+
             fetch('./settings.json')
                 .then((response)=>response.json())
                 .then((responseJson)=>{settings = responseJson; fillSelect();});
+
+            $("#demographicsForm").on("submit", function(e) {
+                e.preventDefault();
+                generate();
+            });
 
             $(".uiEdit").show();
             $(".uiView").hide();

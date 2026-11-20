@@ -38,9 +38,9 @@
     var form = document.getElementById('demographicsForm');
     if (!page || !form) return;
 
-    var preview = document.createElement('div');
+    var preview = document.createElement('article');
     preview.id = 'livePreview';
-    preview.setAttribute('role', 'region');
+    preview.setAttribute('role', 'region'); // explicit role keeps it exposed as a named landmark rather than <article>'s own implicit role
     preview.setAttribute('aria-label', 'Live preview of the consent document');
     preview.innerHTML = '<p class="livePreview-empty">A live preview of the consent document appears here and updates as you fill in the form.</p>';
     page.appendChild(preview);
