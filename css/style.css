@@ -254,7 +254,10 @@ hr {
 #btnPrintPreview { display: none; }
 
 @media (min-width: 1200px) {
-  body.has-live-preview #btnPrintPreview { display: inline-block; }
+  /* !important: #btnPrintPreview is now also synced with the narrow-screen
+     uiView show()/hide() calls (see index.html), which can set an inline
+     display:none that would otherwise win over this plain override. */
+  body.has-live-preview #btnPrintPreview { display: inline-block !important; }
 
   /* The live preview + navbar Print button already cover what Generate and
      its resulting view (the Back/Save/Print row, #results) are for on wide

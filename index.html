@@ -61,10 +61,17 @@
                 <li class="nav-item uiEdit"><button id="btnSaveSettings" type="button" class="nav-link btnSave">Save Settings (*.json)</button></li>
                 <li class="nav-item uiEdit"><button id="btnLoad" type="button" class="nav-link">Load Settings (*.json)</button></li>
             </ul>
+            <!-- Replaces the edit toolbar above once generate() switches to view mode on narrow screens (force-hidden on wide, where
+                 there's no view mode to go back from - see the .uiView rule in style.css). -->
+            <ul class="navbar-nav flex-row gap-3 uiView">
+                <li class="nav-item"><button id="btnBackView" type="button" class="nav-link btnBack">Back</button></li>
+                <li class="nav-item"><button id="btnSaveView" type="button" class="nav-link btnSave">Save (*.json)</button></li>
+            </ul>
             <input id="fileInput" type="file" accept=".json,application/json" style="display: none;">
             <button id="btnGenerate" type="submit" form="demographicsForm" class="btn btn-primary btn-sm uiEdit">Generate From</button>
             <!-- Takes Generate's place on wide screens (see style.css): same spot, same btn-primary weight - not .uiEdit, since it must
-                 stay visible exactly where #btnGenerate is hidden there, rather than sit off in the corner via ms-auto. -->
+                 stay visible exactly where #btnGenerate is hidden there, rather than sit off in the corner via ms-auto. On narrow
+                 screens it's synced with the uiView show()/hide() calls below instead, same timing #btnPrint used to have. -->
             <button id="btnPrintPreview" type="button" class="btn btn-primary btn-sm">Print</button>
         </div>
     </nav>
@@ -191,20 +198,8 @@
                             <span class="text-danger">* required fields</span> <br />
                         </div>
                     </div>
-                    <div class="row mt-2 itemRow uiView">
-                        <div class="col" >
-                            <button id="btnBackView" type="button" class="btn btn-primary btn-md float-left btnBack" >Back</button>
-                            <button id="btnSaveView" type="button" class="btn btn-secondary btn-md float-left mr-3 btnSave" >Save (*.json)</button>
-                            <button id="btnPrint" type="button" class="btn btn-primary btn-md float-right">Print</button>
-                        </div>
-                    </div>
                 <article id="results" tabindex="-1" class="uiView"></article>
                 <footer class="row mt-2 mb-2 itemRow" id="githublink">
-                    <div class="row mt-2 itemRow uiView">
-                        <div class="col" >
-                            <button id="btnBackFooter" type="button" class="btn btn-primary btn-md float-left btnBack" >Back</button>
-                        </div>
-                    </div>
                     <div class="col" >
                         <small><a href="https://github.com/interactionlab/informed-consent-generator/">Original Source Code on GitHub</a></small><small> running <span id="version"></span></small>
                     </div>
@@ -443,7 +438,10 @@
                 return;
             }
 
-            $(".uiView").show();
+            // #btnPrintPreview isn't itself .uiView (that class is force-hidden
+            // on wide screens, and this button must stay visible there), so it's
+            // synced explicitly alongside every .uiView show()/hide() instead.
+            $(".uiView, #btnPrintPreview").show();
             $(".uiEdit").hide();
             $("#input").hide();
             $("#fieldsrequired").hide();
@@ -471,11 +469,11 @@
             });
 
             $(".uiEdit").show();
-            $(".uiView").hide();
+            $(".uiView, #btnPrintPreview").hide();
             $(".btnBack").click(function(e){
                 e.preventDefault();
                 $(".uiEdit").show();
-                $(".uiView").hide();
+                $(".uiView, #btnPrintPreview").hide();
                 $("#input").show();
                 $("#fieldsrequired").show();
                 $("#btnGenerate").show();
@@ -484,12 +482,6 @@
                 // the form, so move focus there instead of leaving it on a
                 // button that just disappeared from view.
                 document.getElementById("pageTitle").focus();
-            });
-            
-            $("#btnPrint").click(function(e){
-                $('.print_special').css({ border : 'none'});
-                window.print(); 
-                e.preventDefault();
             });
 
             $("#btnAddResearcher").click(function(e){addResearcher ();});
