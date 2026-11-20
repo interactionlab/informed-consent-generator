@@ -181,8 +181,8 @@
                         <div class="col-8"><input class="form-control" id="departmentHead" name="departmentHead" onchange="onChange(event)" /></div>
                     </div>
                     <div class="row mt-3" id="addResearchersContainer">
-                        <div class="col-4"><span id="additionalResearchers" class="danger">All involved researchers</span></div>
-                        <div class="col-8"><button class="btn btn-success" id="btnAddResearcher" type="button" >+ Add Researcher</button></div>
+                        <div class="col-4"></div>
+                        <div class="col-8 text-end"><button class="btn btn-success" id="btnAddResearcher" type="button" >+ Add Researcher</button></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><label id="fundingLabel" for="funding">Funding</label></div>
@@ -305,13 +305,6 @@
         var researcherIdCounter = 0;
 
         function addResearcher (){
-            var lstResearchers = document.getElementsByClassName("researchersContainer");
-                var lastElement = null;
-                if (lstResearchers.length === 0){
-                    lastElement = document.getElementById("addResearchersContainer");
-                } else {
-                    lastElement = lstResearchers[lstResearchers.length-1];
-                }
                 var uid = researcherIdCounter++;
                 var nameId = "researcherName" + uid;
                 var emailId = "researcherEmail" + uid;
@@ -334,8 +327,32 @@
                             </div>
                         </div>
                     </div>`;
-                lastElement.insertAdjacentHTML("afterend", link);
+                // Always insert directly above the fixed "+ Add Researcher" row,
+                // rather than after whichever researcher was last - that row
+                // naturally ends up below every researcher as the list grows.
+                document.getElementById("addResearchersContainer").insertAdjacentHTML("beforebegin", link);
                 correctResercherNumbers();
+                ensureResearchersLabel();
+        }
+
+        // Keeps "All involved researchers" living in the first researcher's own
+        // col-4 (same row as "Name 1"), rather than a separate heading row -
+        // re-homes it there whenever the list changes, recreating it if it was
+        // just destroyed along with whichever block used to hold it. Once the
+        // list is empty, it falls back to the "+ Add Researcher" row's own
+        // col-4 instead of disappearing, so that row still reads as a
+        // placeholder for the group rather than an unlabeled button.
+        function ensureResearchersLabel() {
+            var lst = document.getElementsByClassName("researchersContainer");
+            var label = document.getElementById("additionalResearchers");
+            var targetCol4 = lst.length > 0
+                ? lst[0].querySelector(".col-4")
+                : document.getElementById("addResearchersContainer").querySelector(".col-4");
+            if (label) {
+                if (label.parentElement !== targetCol4) targetCol4.appendChild(label);
+            } else {
+                targetCol4.insertAdjacentHTML("afterbegin", '<span id="additionalResearchers" class="danger">All involved researchers</span>');
+            }
         }
 
         function removeResearcher(value){
@@ -344,6 +361,7 @@
                 lstResearchers[value].remove();
             }
             correctResercherNumbers();
+            ensureResearchersLabel();
             data = collectData();
         }
 
@@ -392,6 +410,10 @@
                     lastElement.getElementsByClassName("form-control")[1].value = researcher["email"];
                 });
             }
+            // Covers the case data.researchers is missing/empty: addResearcher()'s
+            // own call never ran above, so nothing else would re-home the label
+            // onto the now-empty "+ Add Researcher" row otherwise.
+            ensureResearchersLabel();
         }
 
 
