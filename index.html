@@ -92,6 +92,11 @@
                         </div>
                     </div>
                     <hr />
+                    <div class="row mt-3 mb-1 itemRow" id="fieldsrequired">
+                        <div class="col" >
+                            <span class="text-danger">* required fields</span>
+                        </div>
+                    </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><label id="institutionText" for="institution" class="danger">Institution</label></div>
                         <div class="col-8"><select class="form-select" id="institution" name="institution" onchange="onChange(event)" required></select></div>
@@ -192,11 +197,6 @@
                         <div class="col-4"><label id="ethicalComitteeText" for="ethicalComittee">Ethical Committee</label></div>
                         <div class="col-8"><input class="form-control" id="ethicalComittee" name="ethicalComittee" onchange="onChange(event)" /></div>
                     </div>
-                    </div>
-                    <div class="row mt-3 mb-3 itemRow" id="fieldsrequired">
-                        <div class="col" >
-                            <span class="text-danger">* required fields</span> <br />
-                        </div>
                     </div>
                 <article id="results" tabindex="-1" class="uiView"></article>
                 <footer class="row mt-2 mb-2 itemRow" id="githublink">
