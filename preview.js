@@ -49,8 +49,13 @@
     function schedule() { clearTimeout(t); t = setTimeout(renderLivePreview, 150); }
     form.addEventListener('input', schedule);
     form.addEventListener('change', schedule);
-    // The Example button fills fields from JavaScript, and assigning .value fires neither input nor change, so the preview never hears about it and a character has to be typed by hand to force a redraw.
-    // The example is also fetched asynchronously, so a fixed delay would only be a guess at network timing. Poll briefly until the fields populate, then render.
+    // The Example button and "Load Settings" both fill fields from JavaScript
+    // (fillData), and assigning .value/.prop fires neither input nor change,
+    // so the preview never hears about it and a character has to be typed by
+    // hand to force a redraw.
+    // Both are also asynchronous (a fetch for Example, a FileReader read for
+    // Load Settings), so a fixed delay would only be a guess at that timing.
+    // Poll briefly until the fields populate, then render.
     function renderWhenFilled() {
       var tries = 0;
       var iv = setInterval(function () {
@@ -68,6 +73,12 @@
       if (e.target.closest('#btnAddResearcher, .btnRemoveResearcher')) schedule();
       if (e.target.closest('#btnExample')) renderWhenFilled();
     });
+
+    // #btnLoad only opens the native file picker; the actual fillData() call
+    // happens later, once the user has chosen a file, as a "change" event on
+    // the (hidden) #fileInput itself. That's the real signal to wait on.
+    var fileInput = document.getElementById('fileInput');
+    if (fileInput) fileInput.addEventListener('change', renderWhenFilled);
 
     var iv = setInterval(function () {
       if (typeof settings !== 'undefined' && settings && settings.institutions) { clearInterval(iv); renderLivePreview(); }
