@@ -63,7 +63,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col">
-                            <h1 id="demographicsTitle" class="display-6">Informed Consent Generator</h1>
+                            <h1 id="demographicsTitle" class="display-6" tabindex="-1">Informed Consent Generator</h1>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -203,7 +203,7 @@
                             <button id="btnPrint" class="btn btn-primary btn-md float-right" value="">Print</button>
                         </div>
                     </div>
-                <div id="results"></div>
+                <div id="results" tabindex="-1"></div>
                 <div class="row mt-2 mb-2 itemRow" id="githublink">
                     <div class="row mt-2 itemRow uiView">
                         <div class="col" >
@@ -420,6 +420,10 @@
             if (template != null) {
                 let result = template({...data, ...institution});
                 $("#results").html(result);
+                // Move focus (and the screen reader's point of regard) to the
+                // generated document, since the view just swapped from the
+                // form to the result with no page navigation to announce it.
+                document.getElementById("results").focus();
             }
 
             setTimeout(function () {
@@ -441,10 +445,14 @@
                 e.preventDefault();
                 $(".uiEdit").show();
                 $(".uiView").hide();
-                $("#input").show(); 
+                $("#input").show();
                 $("#fieldsrequired").show();
                 $("#btnGenerate").show();
                 $("#results").html("");
+                // Same reasoning as generate(): the view just swapped back to
+                // the form, so move focus there instead of leaving it on a
+                // button that just disappeared from view.
+                document.getElementById("demographicsTitle").focus();
             });
             
             $("#btnPrint").click(function(e){
