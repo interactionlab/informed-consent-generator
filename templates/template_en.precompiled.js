@@ -131,7 +131,7 @@ templates['template_en'] = template({"1":function(container,depth0,helpers,parti
 
   return "<li>All data you provide in this "
     + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data,"loc":{"start":{"line":38,"column":72},"end":{"line":38,"column":80}}}) : helper)))
-    + " will be published <b>not anonymized</b></li>.\n            ";
+    + " will be published <b>not anonymized</b>.</li>\n            ";
 },"41":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
