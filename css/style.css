@@ -4,7 +4,7 @@ html, body{
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	height:100% !important; /* important to vertically align the container */
+	min-height:100% !important; /* was height:100%, which clamped body to one viewport tall and made position:sticky elements (the navbar) detach once content overflowed past that point */
 	margin:0 auto;
     padding:0;
 	font-size: 0.95em;
@@ -39,9 +39,8 @@ html, body{
 }
 
 #hostLogo {
-	max-height: 120px;
-	max-width: 150px;
-	margin-bottom: 50px;
+	max-height: 40px;
+	width: auto;
 }
 
 .check {
@@ -239,6 +238,14 @@ ul.checks li:before {
   align-items: center;
 }
 
+/* Guarantees a gap below the sticky navbar regardless of whether
+   .vertical-center's flex-centering is active: it only inserts space above
+   content shorter than the viewport, so content taller than 100vh (routine
+   once the live preview is showing) ends up flush against the navbar. */
+#mainFrame {
+  padding-top: 1.5rem;
+}
+
 hr {
   -moz-border-bottom-colors: none;
   -moz-border-image: none;
@@ -273,21 +280,7 @@ div.stimuliContainer {
 	html, body{
 		background: white !important
 	}
-	.whiteBox{
-		background: transparent; 
-		position: absolute;
-		height: 100%;
-		border-radius: .0em !important;
-	}
 
-	#trialPage{
-		min-height: 600px;
-		margin: 0 auto;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-	}
-	
 	input[type=radio] {
 		-ms-transform: scale(1.15) !important; /* IE 9 */
 		-webkit-transform: scale(1.15) !important; /* Chrome, Safari, Opera */
@@ -463,9 +456,14 @@ input.error, select.error {
 
   body.has-live-preview #livePreview {
     display: block;
+    /* --navbar-height is kept in sync with the sticky navbar's real rendered
+       height by preview.js, since that height depends on font metrics and
+       the logo image and isn't safe to hardcode. The 56px fallback (classic
+       Bootstrap navbar height) only matters for the instant before that
+       JS runs. */
     position: sticky;
-    top: 1rem;
-    max-height: calc(100vh - 2rem);
+    top: calc(var(--navbar-height, 56px) + 1rem);
+    max-height: calc(100vh - var(--navbar-height, 56px) - 4rem);
     overflow: auto;
     background: #fff;
     border: 1px solid #ddd;

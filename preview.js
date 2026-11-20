@@ -46,6 +46,18 @@
     page.appendChild(preview);
     document.body.classList.add('has-live-preview');
 
+    // #livePreview's sticky offset and max-height (see style.css) need the
+    // navbar's actual rendered height, which depends on font metrics and the
+    // logo image rather than being a fixed number. Keep it in sync.
+    function syncNavbarHeight() {
+      var nav = document.querySelector('nav.navbar');
+      if (!nav) return;
+      document.documentElement.style.setProperty('--navbar-height', nav.offsetHeight + 'px');
+    }
+    syncNavbarHeight();
+    window.addEventListener('resize', syncNavbarHeight);
+    window.addEventListener('load', syncNavbarHeight); // the logo image can finish loading late and change the navbar's height
+
     var t;
     function schedule() { clearTimeout(t); t = setTimeout(renderLivePreview, 150); }
     form.addEventListener('input', schedule);

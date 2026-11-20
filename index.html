@@ -50,22 +50,18 @@
     <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
 </head>
  <body>
-    
+    <nav class="navbar navbar-light bg-light sticky-top border-bottom">
+        <div class="container-fluid justify-content-start gap-3">
+            <a id="hostUrl" target="_blank" rel="noopener noreferrer"><img id="hostLogo" height="40" alt="Media Informatics Groups"></a>
+            <h1 id="pageTitle" class="navbar-brand mb-0" tabindex="-1">Informed Consent Generator</h1>
+        </div>
+    </nav>
+
     <div id="mainFrame" class="vertical-center">
         <a id="downloadAnchorElem" style="display:none"></a>
         <div id="demographicsPage" class="whiteBox container rounded">
             <form id="demographicsForm" class="form-horizontal" action="javascript:generate(this);">
                 <div id="input">
-                    <div class="row">
-                        <div class="col mt-4 mb-2 ">
-                            <a id="hostUrl" target="_blank" rel="noopener noreferrer"><img id="hostLogo" class="float-right  mr-3" width="140px" alt="Media Informatics Groups"></a>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <h1 id="demographicsTitle" class="display-6" tabindex="-1">Informed Consent Generator</h1>
-                        </div>
-                    </div>
                     <div class="row mt-3">
                         <div class="col mb-1">
                             Obtaining informed consent ensures the users' autonomy and privacy, and that the users are aware of potential risks and benefits of your HCI study. That consent should be freely given, specific, informed and unambiguous by way of a request presented in clear and plain language. Consent should be given by an affirmative act, such as checking a box online or signing the form. Please reach out to your supervisor in case of any requests.
@@ -452,7 +448,7 @@
                 // Same reasoning as generate(): the view just swapped back to
                 // the form, so move focus there instead of leaving it on a
                 // button that just disappeared from view.
-                document.getElementById("demographicsTitle").focus();
+                document.getElementById("pageTitle").focus();
             });
             
             $("#btnPrint").click(function(e){
