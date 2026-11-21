@@ -1,14 +1,14 @@
 <div class="frameStyle">
     <div class="row" id="firstItem">
-        <div class="col mt-2 mb-2 "><img alt="Logo" class="float-right" src="./img/{{logo}}"></div>
+        <div class="col mt-2 mb-2 ">{{#if logo}}<img alt="Logo" class="float-right" src="./img/{{logo}}">{{/if}}</div>
     </div>
     <div class="pageBreak"><h1>Consenso Informato alla Partecipazione</h1>
         <p>
-            Lei è invitato/a a partecipare al seguente {{typeLabel}} <b>{{title}}</b>, avviato e condotto da
-            {{joinResearchers researchers prefix}}.
+            Lei è invitato/a a partecipare al seguente {{missing (typeLabel) "[Tipo di Studio]"}} <b>{{missing title "[Titolo]"}}</b>, avviato e condotto da
+            {{missing (joinResearchers researchers prefix) "[Ricercatori]"}}.
             La ricerca è supervisionata da
             {{#if (notBlank thePIname)}}{{thePIname}}{{else}}il responsabile della ricerca{{/if}}
-            presso {{institution}}{{~#if (notBlank departmentHead)}}
+            presso {{missing institution "[Istituzione]"}}{{~#if (notBlank departmentHead)}}
                 {{~#if (notBlank thePIname)}}
                 {{~#if (unequalTrim departmentHead thePIname)}}, sotto la direzione di {{departmentHead}}{{/if~}}
                 {{~/if}}
@@ -20,8 +20,8 @@
         </p>
         <ul>
             <li>La Sua partecipazione è volontaria.</li>
-            <li>Il/La {{typeLabel}} durerà circa {{duration}}.</li>
-            {{#if record.demographics}}<li>Registreremo dati demografici personali ({{personalData}}).</li>{{/if}}
+            <li>Il/La {{missing (typeLabel) "[Tipo di Studio]"}} durerà circa {{missing duration "[Durata]"}}.</li>
+            {{#if record.demographics}}<li>Registreremo dati demografici personali ({{missing personalData "[Dati Personali]"}}).</li>{{/if}}
             {{#if record.photos}}<li>Scatteremo fotografie durante la sessione.</li>{{/if}}
             {{#if record.videos}}<li>Registreremo video durante la sessione.</li>{{/if}}
             {{#if record.audio}}<li>Registreremo audio durante la sessione.</li>{{/if}}
@@ -31,12 +31,12 @@
             {{#if record.screenrecording}}<li>Registreremo lo schermo del Suo dispositivo, nella misura necessaria per lo studio.</li>{{/if}}
             {{#if record.interaction}}<li>Registreremo dati di interazione (ad es. clic, tempistiche) durante la sessione.</li>{{/if}}
             {{#if (equal compensation 'points')}}<li>Riceverà 1 punto di credito all'ora per il Suo corso di studi come compenso.</li>
-            {{else if (equal compensation 'moneyPoints')}}<li>Riceverà 1 punto di credito all'ora per il Suo corso di studi come compenso, oppure {{monetaryCompensation}} come compenso economico.</li>
-            {{else if (equal compensation 'money')}}<li>Riceverà {{monetaryCompensation}} come compenso.</li>
+            {{else if (equal compensation 'moneyPoints')}}<li>Riceverà 1 punto di credito all'ora per il Suo corso di studi come compenso, oppure {{missing monetaryCompensation "[Compenso Monetario]"}} come compenso economico.</li>
+            {{else if (equal compensation 'money')}}<li>Riceverà {{missing monetaryCompensation "[Compenso Monetario]"}} come compenso.</li>
             {{else}}<li>Non riceverà alcun compenso.</li>{{/if}}
             <li>Potremmo pubblicare i risultati di questa e di altre sessioni.</li>
-            {{#if (equal share 'yes')}}<li>Tutti i dati da Lei forniti in questo {{typeLabel}} saranno pubblicati <b>non in forma anonima</b>.</li>
-            {{else if (equal share 'anonymized')}}<li>Tutti i dati da Lei forniti in questo {{typeLabel}} saranno pubblicati in forma anonima; pertanto non includeranno il Suo nome né potranno essere ricondotti alla Sua identità.</li>
+            {{#if (equal share 'yes')}}<li>Tutti i dati da Lei forniti in questo {{missing (typeLabel) "[Tipo di Studio]"}} saranno pubblicati <b>non in forma anonima</b>.</li>
+            {{else if (equal share 'anonymized')}}<li>Tutti i dati da Lei forniti in questo {{missing (typeLabel) "[Tipo di Studio]"}} saranno pubblicati in forma anonima; pertanto non includeranno il Suo nome né potranno essere ricondotti alla Sua identità.</li>
             {{else}}<li>I dati raccolti non potranno essere consultati o utilizzati per ulteriori ricerche da nessuno al di fuori dei ricercatori coinvolti in questo lavoro.</li>{{/if}}
         </ul>
         <p>Se ha domande sull'intero processo di consenso informato relativo a questa ricerca o sui Suoi diritti come
@@ -56,20 +56,20 @@
             soddisfacente, non dovrebbe prestare il Suo consenso. </p>
     </div>
     <div class="pageBreak"><h2>1. Finalità e Obiettivo della Ricerca</h2>
-        <p>{{purpose}} {{goal}} La Sua partecipazione ci aiuterà a raggiungere questo obiettivo. I risultati di questa ricerca potranno essere
+        <p>{{missing purpose "[Scopo]"}} {{missing goal "[Obiettivo]"}} La Sua partecipazione ci aiuterà a raggiungere questo obiettivo. I risultati di questa ricerca potranno essere
             presentati in convegni scientifici o professionali o pubblicati in atti e riviste
             scientifiche.</p></div>
     <div class="pageBreak"><h2>2. Partecipazione e Compenso</h2>
-        <p>La Sua partecipazione a questo {{typeLabel}} è volontaria. Sarà una delle circa {{participants}} persone
+        <p>La Sua partecipazione a questo {{missing (typeLabel) "[Tipo di Studio]"}} è volontaria. Sarà una delle circa {{missing participants "[Partecipanti]"}} persone
             {{#if (equal type 'online study')}}intervistate tramite sondaggio{{/if}}
             {{#if (equal type 'user study')}}sottoposte a test{{/if}}
             {{#if (equal type 'field study')}}intervistate tramite sondaggio{{/if}}
             {{#if (equal type 'interview')}}intervistate{{/if}}
              per questa ricerca.
             {{#if (equal compensation 'none')}}Non riceverà alcun compenso.
-            {{else if (equal compensation 'points')}}Riceverà un punto di credito all'ora richiesto per il Suo corso di studi presso {{institution}}. Potrà ritirarsi e interrompere la partecipazione in qualsiasi momento senza doverne giustificare il motivo. Riceverà comunque i Suoi punti di credito.
-            {{else if (equal compensation 'moneyPoints')}}Riceverà {{monetaryCompensation}} come compenso per la Sua partecipazione, oppure un punto di credito all'ora richiesto per il Suo corso di studi presso {{institution}}.
-            {{else if (equal compensation 'money')}}Riceverà {{monetaryCompensation}} come compenso per la Sua partecipazione. {{/if}}
+            {{else if (equal compensation 'points')}}Riceverà un punto di credito all'ora richiesto per il Suo corso di studi presso {{missing institution "[Istituzione]"}}. Potrà ritirarsi e interrompere la partecipazione in qualsiasi momento senza doverne giustificare il motivo. Riceverà comunque i Suoi punti di credito.
+            {{else if (equal compensation 'moneyPoints')}}Riceverà {{missing monetaryCompensation "[Compenso Monetario]"}} come compenso per la Sua partecipazione, oppure un punto di credito all'ora richiesto per il Suo corso di studi presso {{missing institution "[Istituzione]"}}.
+            {{else if (equal compensation 'money')}}Riceverà {{missing monetaryCompensation "[Compenso Monetario]"}} come compenso per la Sua partecipazione. {{/if}}
             {{#if (equal compensation 'none')}}Potrà ritirarsi e interrompere la partecipazione in qualsiasi momento.
             {{else}}Potrà ritirarsi e interrompere la partecipazione in qualsiasi momento senza alcuna penalità e senza perdere il compenso. {{/if}}
             Se possibile, potrà rifiutarsi di rispondere a qualsiasi domanda non desideri rispondere, oppure ritirarsi dalla partecipazione in qualsiasi momento.
@@ -83,13 +83,13 @@
             non sarà più possibile poiché non saremo più in grado di identificare quali dati siano i Suoi. </p></div>
     <div class="pageBreak"><h2>3. Procedura</h2>
         <p>Dopo aver prestato il consenso, sarà guidato/a attraverso i seguenti passaggi:</p>
-        <p style="padding-left: 10px; padding-top: 0px">{{breaklines procedure}}</p>
-        <p>La procedura completa di questo {{typeLabel}} durerà circa {{duration}}.</p></div>
+        <p style="padding-left: 10px; padding-top: 0px">{{missing (breaklines procedure) "[Procedura]"}}</p>
+        <p>La procedura completa di questo {{missing (typeLabel) "[Tipo di Studio]"}} durerà circa {{missing duration "[Durata]"}}.</p></div>
     <div class="pageBreak"><h2>4. Rischi e Benefici</h2>
-        <p>Non sono associati rischi a questo {{typeLabel}}. Eventuali disagi o inconvenienti saranno minimi ed è
+        <p>Non sono associati rischi a questo {{missing (typeLabel) "[Tipo di Studio]"}}. Eventuali disagi o inconvenienti saranno minimi ed è
             improbabile che si verifichino. Se dovesse sentirsi a disagio, potrà interrompere la Sua partecipazione.
             {{#if (equal compensation 'none')}}
-                (Non trarrà un beneficio diretto dalla partecipazione a questo {{typeLabel}}. Ci auguriamo che i risultati ottenuti dalla Sua partecipazione possano contribuire a far progredire la ricerca in questo campo.)
+                (Non trarrà un beneficio diretto dalla partecipazione a questo {{missing (typeLabel) "[Tipo di Studio]"}}. Ci auguriamo che i risultati ottenuti dalla Sua partecipazione possano contribuire a far progredire la ricerca in questo campo.)
             {{else}}
                 Il Suo beneficio nella partecipazione è il compenso sopra descritto.
             {{/if}}
@@ -107,24 +107,24 @@
             <li>Ha il diritto di opporsi al trattamento dei Suoi dati personali (GDPR art. 21).</li>
         </ul>
         <p>Se desidera esercitare uno qualsiasi dei Suoi diritti, La preghiamo di contattare i ricercatori. </p>
-        <p>{{#if record.demographics}}Registreremo dati personali ({{personalData}}) durante la partecipazione. {{/if}}
+        <p>{{#if record.demographics}}Registreremo dati personali ({{missing personalData "[Dati Personali]"}}) durante la partecipazione. {{/if}}
             {{#if (equal type 'online study')}}I dati di contatto dei partecipanti allo studio potranno essere utilizzati per tracciare eventuali catene di contagio. {{/if}}
-            I ricercatori non La identificheranno con il Suo nome reale in alcun resoconto relativo ai risultati ottenuti da questo {{typeLabel}}, e
-            la Sua riservatezza come partecipante a questo {{typeLabel}} rimarrà garantita.
-            {{#if (equal encryption 'yes')}}Tutti i dati da Lei forniti in questo {{typeLabel}} saranno crittografati. {{/if}}
-            I dati raccolti in questo {{typeLabel}} saranno trattati in conformità al GDPR. </p>
+            I ricercatori non La identificheranno con il Suo nome reale in alcun resoconto relativo ai risultati ottenuti da questo {{missing (typeLabel) "[Tipo di Studio]"}}, e
+            la Sua riservatezza come partecipante a questo {{missing (typeLabel) "[Tipo di Studio]"}} rimarrà garantita.
+            {{#if (equal encryption 'yes')}}Tutti i dati da Lei forniti in questo {{missing (typeLabel) "[Tipo di Studio]"}} saranno crittografati. {{/if}}
+            I dati raccolti in questo {{missing (typeLabel) "[Tipo di Studio]"}} saranno trattati in conformità al GDPR. </p>
         <p>Registreremo
             {{listTrueKeys record}}
             {{#if (equal type 'online study')}} e registreremo i metadati del browser{{/if}}
-             durante il/la {{typeLabel}}.
+             durante il/la {{missing (typeLabel) "[Tipo di Studio]"}}.
 
 
             {{#if (equal share 'yes')}}
-                Tutti i dati da Lei forniti in questo {{typeLabel}} saranno pubblicati <b>non in forma anonima</b>. Gli usi successivi dei dati e delle registrazioni saranno soggetti alle normali politiche di utilizzo dei dati.
+                Tutti i dati da Lei forniti in questo {{missing (typeLabel) "[Tipo di Studio]"}} saranno pubblicati <b>non in forma anonima</b>. Gli usi successivi dei dati e delle registrazioni saranno soggetti alle normali politiche di utilizzo dei dati.
             {{else if (equal share 'anonymized')}}
-                Tutti i dati da Lei forniti in questo {{typeLabel}} saranno pubblicati in forma anonima. Gli usi successivi dei dati e delle registrazioni saranno soggetti alle normali politiche di utilizzo dei dati che tutelano l'anonimato degli individui partecipanti. Rimuoveremo o codificheremo qualsiasi informazione personale che potrebbe identificarLa prima di pubblicare i dati, in modo da garantire che nessuno possa identificarLa dalle informazioni condivise. Utilizzeremo gli standard scientifici attuali e i metodi noti per l'anonimizzazione. Quando i Suoi dati sono resi anonimi, vengono modificati in modo tale da non poter più essere ricondotti alla Sua persona, se non con uno sforzo tecnico sproporzionato. Nonostante queste misure, non possiamo garantire l'anonimato dei Suoi dati personali.
+                Tutti i dati da Lei forniti in questo {{missing (typeLabel) "[Tipo di Studio]"}} saranno pubblicati in forma anonima. Gli usi successivi dei dati e delle registrazioni saranno soggetti alle normali politiche di utilizzo dei dati che tutelano l'anonimato degli individui partecipanti. Rimuoveremo o codificheremo qualsiasi informazione personale che potrebbe identificarLa prima di pubblicare i dati, in modo da garantire che nessuno possa identificarLa dalle informazioni condivise. Utilizzeremo gli standard scientifici attuali e i metodi noti per l'anonimizzazione. Quando i Suoi dati sono resi anonimi, vengono modificati in modo tale da non poter più essere ricondotti alla Sua persona, se non con uno sforzo tecnico sproporzionato. Nonostante queste misure, non possiamo garantire l'anonimato dei Suoi dati personali.
             {{else}}
-                Tutti i dati da Lei forniti in questo {{typeLabel}} non saranno pubblicati e resteranno riservati.
+                Tutti i dati da Lei forniti in questo {{missing (typeLabel) "[Tipo di Studio]"}} non saranno pubblicati e resteranno riservati.
             {{/if}}
 
             {{#if (equal type 'interview')}}
@@ -142,7 +142,7 @@
 
         <p>
             {{#if (unequal share 'yes')}}
-                I Suoi dati non anonimi saranno conservati per {{storageTime}} a partire dal momento in cui presta il consenso, salvo che Lei non revochi il consenso prima della scadenza di tale periodo. I Suoi dati non anonimi saranno conservati in un luogo sicuro e saranno accessibili solo ai ricercatori coinvolti in questo lavoro.
+                I Suoi dati non anonimi saranno conservati per {{missing storageTime "[Tempo di Conservazione]"}} a partire dal momento in cui presta il consenso, salvo che Lei non revochi il consenso prima della scadenza di tale periodo. I Suoi dati non anonimi saranno conservati in un luogo sicuro e saranno accessibili solo ai ricercatori coinvolti in questo lavoro.
             {{else}}
                 I Suoi dati non anonimi saranno conservati a tempo indeterminato, salvo che Lei non revochi il consenso.
             {{/if}}
@@ -167,15 +167,13 @@
         <p>Se ha domande o dubbi riguardo alla ricerca, non esiti a contattare: </p>
         {{#if researchers}}
             <p>{{#each researchers}}
-                {{../prefix}} {{name}} ({{email}}) <br />
+                {{../prefix}} {{missing name "[Nome]"}} ({{missing email "[Email]"}}) <br />
             {{/each}}</p>
         {{/if}}
-        {{#if thePIname}}
-            <p><b>Responsabile Scientifico:</b> {{thePIname}} ({{street}}, {{zip}} {{city}}{{#if country}}, {{country}}{{/if}}, {{thePIemail}})</p>
-        {{/if}}
+        <p><b>Responsabile Scientifico:</b> {{missing thePIname "[Nome del Responsabile]"}} ({{#with (addressLine street zip city country) as |addr|}}{{#if (notBlank addr)}}{{addr}}, {{/if}}{{/with}}{{missing thePIemail "[Email del Responsabile]"}})</p>
         {{#if departmentHead}}
             {{#if (unequalTrim departmentHead thePIname)}}
-                <p><b>Direttore del Dipartimento:</b> {{departmentHead}} ({{street}}, {{zip}} {{city}}, {{country}})</p>
+                <p><b>Direttore del Dipartimento:</b> {{departmentHead}}{{#with (addressLine street zip city country) as |addr|}}{{#if (notBlank addr)}} ({{addr}}){{/if}}{{/with}}</p>
             {{/if}}
         {{/if}}
     </div>
@@ -191,7 +189,7 @@
                 {{else}}
                     Ho ricevuto una copia di questo modulo. Ho ricevuto risposta a tutte le mie domande in modo soddisfacente.
                 {{/if}}
-                Pertanto, acconsento volontariamente a partecipare a questo {{typeLabel}}.
+                Pertanto, acconsento volontariamente a partecipare a questo {{missing (typeLabel) "[Tipo di Studio]"}}.
                 </td>
             </tr>
             <tr>

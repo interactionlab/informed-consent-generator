@@ -75,6 +75,19 @@ function registerHandlebarHelpers() {
         return String(v).trim().length > 0;
     });
 
+    // Live-preview aid: required fields the researcher hasn't filled in yet would otherwise render as blank gaps ("at .", "demographics ()."). Shows a red bracketed placeholder instead, until the field (always validated before Generate/Print) has a real value.
+    Handlebars.registerHelper("missing", function (value, label) {
+        if (value != null && String(value).trim().length > 0) return value;
+        return new Handlebars.SafeString('<span class="missingField">' + Handlebars.Utils.escapeExpression(label) + '</span>');
+    });
+
+    // Institution street/zip/city/country (section 6, Principal Investigator / Department Head): each piece only exists once an institution is selected, so this joins only whichever parts are actually present instead of leaving stray ", ," when some are still blank.
+    Handlebars.registerHelper("addressLine", function (street, zip, city, country) {
+        var zipCity = [zip, city].map(x => (x || "").trim()).filter(Boolean).join(" ");
+        var parts = [street, zipCity, country].map(x => (x || "").trim()).filter(Boolean);
+        return parts.join(", ");
+    });
+
     Handlebars.registerHelper("joinResearchers", function (researchers, prefix) {
         const names = (researchers ?? [])
             .map(r => `${prefix ?? ""}${r.name ?? ""}`.trim())
