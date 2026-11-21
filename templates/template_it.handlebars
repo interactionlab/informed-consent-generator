@@ -30,10 +30,11 @@
             {{#if record.physiological}}<li>Effettueremo misurazioni fisiologiche del Suo corpo.</li>{{/if}}
             {{#if record.screenrecording}}<li>Registreremo lo schermo del Suo dispositivo, nella misura necessaria per lo studio.</li>{{/if}}
             {{#if record.interaction}}<li>Registreremo dati di interazione (ad es. clic, tempistiche) durante la sessione.</li>{{/if}}
-            {{#if (equal compensation 'points')}}<li>Riceverà 1 punto di credito all'ora per il Suo corso di studi come compenso.</li>
-            {{else if (equal compensation 'moneyPoints')}}<li>Riceverà 1 punto di credito all'ora per il Suo corso di studi come compenso, oppure {{missing monetaryCompensation "[Compenso Monetario]"}} come compenso economico.</li>
+            {{#if (equal compensation 'points')}}<li>Riceverà {{missing pointsCompensation "[Punti]"}} per il Suo corso di studi come compenso.</li>
+            {{else if (equal compensation 'moneyPoints')}}<li>Riceverà {{missing pointsCompensation "[Punti]"}} per il Suo corso di studi come compenso, oppure {{missing monetaryCompensation "[Compenso Monetario]"}} come compenso economico.</li>
             {{else if (equal compensation 'money')}}<li>Riceverà {{missing monetaryCompensation "[Compenso Monetario]"}} come compenso.</li>
-            {{else}}<li>Non riceverà alcun compenso.</li>{{/if}}
+            {{else if (equal compensation 'none')}}<li>Non riceverà alcun compenso.</li>
+            {{else}}<li><span class="missingField">[Compenso]</span></li>{{/if}}
             <li>Potremmo pubblicare i risultati di questa e di altre sessioni.</li>
             {{#if (equal share 'yes')}}<li>Tutti i dati da Lei forniti in questo {{missing (typeLabel) "[Tipo di Studio]"}} saranno pubblicati <b>non in forma anonima</b>.</li>
             {{else if (equal share 'anonymized')}}<li>Tutti i dati da Lei forniti in questo {{missing (typeLabel) "[Tipo di Studio]"}} saranno pubblicati in forma anonima; pertanto non includeranno il Suo nome né potranno essere ricondotti alla Sua identità.</li>
@@ -56,7 +57,7 @@
             soddisfacente, non dovrebbe prestare il Suo consenso. </p>
     </div>
     <div class="pageBreak"><h2>1. Finalità e Obiettivo della Ricerca</h2>
-        <p>{{missing purpose "[Scopo]"}} {{missing goal "[Obiettivo]"}} La Sua partecipazione ci aiuterà a raggiungere questo obiettivo. I risultati di questa ricerca potranno essere
+        <p>{{missing (ensurePeriod purpose) "[Scopo]"}} {{missing (ensurePeriod goal) "[Obiettivo]"}} La Sua partecipazione ci aiuterà a raggiungere questo obiettivo. I risultati di questa ricerca potranno essere
             presentati in convegni scientifici o professionali o pubblicati in atti e riviste
             scientifiche.</p></div>
     <div class="pageBreak"><h2>2. Partecipazione e Compenso</h2>
@@ -67,9 +68,10 @@
             {{#if (equal type 'interview')}}intervistate{{/if}}
              per questa ricerca.
             {{#if (equal compensation 'none')}}Non riceverà alcun compenso.
-            {{else if (equal compensation 'points')}}Riceverà un punto di credito all'ora richiesto per il Suo corso di studi presso {{missing institution "[Istituzione]"}}. Potrà ritirarsi e interrompere la partecipazione in qualsiasi momento senza doverne giustificare il motivo. Riceverà comunque i Suoi punti di credito.
-            {{else if (equal compensation 'moneyPoints')}}Riceverà {{missing monetaryCompensation "[Compenso Monetario]"}} come compenso per la Sua partecipazione, oppure un punto di credito all'ora richiesto per il Suo corso di studi presso {{missing institution "[Istituzione]"}}.
-            {{else if (equal compensation 'money')}}Riceverà {{missing monetaryCompensation "[Compenso Monetario]"}} come compenso per la Sua partecipazione. {{/if}}
+            {{else if (equal compensation 'points')}}Riceverà {{missing pointsCompensation "[Punti]"}} per il Suo corso di studi presso {{missing institution "[Istituzione]"}}. Potrà ritirarsi e interrompere la partecipazione in qualsiasi momento senza doverne giustificare il motivo. Riceverà comunque il Suo compenso.
+            {{else if (equal compensation 'moneyPoints')}}Riceverà {{missing monetaryCompensation "[Compenso Monetario]"}} come compenso per la Sua partecipazione, oppure {{missing pointsCompensation "[Punti]"}} per il Suo corso di studi presso {{missing institution "[Istituzione]"}}.
+            {{else if (equal compensation 'money')}}Riceverà {{missing monetaryCompensation "[Compenso Monetario]"}} come compenso per la Sua partecipazione. 
+            {{else}}<span class="missingField">[Compenso]</span>{{/if}}
             {{#if (equal compensation 'none')}}Potrà ritirarsi e interrompere la partecipazione in qualsiasi momento.
             {{else}}Potrà ritirarsi e interrompere la partecipazione in qualsiasi momento senza alcuna penalità e senza perdere il compenso. {{/if}}
             Se possibile, potrà rifiutarsi di rispondere a qualsiasi domanda non desideri rispondere, oppure ritirarsi dalla partecipazione in qualsiasi momento.

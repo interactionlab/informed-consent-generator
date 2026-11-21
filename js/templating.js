@@ -75,6 +75,13 @@ function registerHandlebarHelpers() {
         return String(v).trim().length > 0;
     });
 
+    // Purpose/Goal are free-text single sentences typed without an enforced trailing period - adds one if missing, so they always read as a complete sentence next to the prose that follows them. Leaves a still-blank value alone, so "missing" (below) can still tell it's empty and show its placeholder.
+    Handlebars.registerHelper("ensurePeriod", function (text) {
+        if (text == null || String(text).trim().length === 0) return text;
+        var s = String(text);
+        return /[.!?]\s*$/.test(s) ? s : s + ".";
+    });
+
     // Live-preview aid: required fields the researcher hasn't filled in yet would otherwise render as blank gaps ("at .", "demographics ()."). Shows a red bracketed placeholder instead, until the field (always validated before Generate/Print) has a real value.
     Handlebars.registerHelper("missing", function (value, label) {
         if (value != null && String(value).trim().length > 0) return value;

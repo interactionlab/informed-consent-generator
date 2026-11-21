@@ -153,9 +153,13 @@
                         <div class="col-4"><label id="compensationText"  for="compensation" class="danger" data-i18n="compensationLabel">Compensation</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Compensation" title="How participants will be compensated for taking part, if at all: money, course credit points, either, or none.">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="compensation" name="compensation" onchange="onChange(event)" required></select></div>
                     </div>
-                    <div class="row mt-3 ">
+                    <div class="row mt-3 " id="monetaryCompensationRow">
                         <div class="col-4"><label id="monetaryCompensationText" for="monetaryCompensation" class="danger" data-i18n="monetaryCompensationLabel">Monetary Compensation </label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Monetary Compensation" title="The amount or rate participants will be paid, e.g. &quot;12 EUR/hour&quot; or &quot;10 EUR fixed&quot;. Only shown in the consent text if Compensation above includes money.">ⓘ</button></div>
-                        <div class="col-8"><input class="form-control" id="monetaryCompensation" name="monetaryCompensation" onchange="onChange(event)" required /></div>
+                        <div class="col-8"><input class="form-control" id="monetaryCompensation" name="monetaryCompensation" onchange="onChange(event)" /></div>
+                    </div>
+                    <div class="row mt-3 " id="pointsCompensationRow">
+                        <div class="col-4"><label id="pointsCompensationText" for="pointsCompensation" class="danger" data-i18n="pointsCompensationLabel">Points Compensation</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Points Compensation" title="The amount or rate of participation/credit points participants will receive, e.g. &quot;1 credit point per hour&quot;. Only shown in the consent text if Compensation above includes points.">ⓘ</button></div>
+                        <div class="col-8"><input class="form-control" id="pointsCompensation" name="pointsCompensation" onchange="onChange(event)" /></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><span id="recordingsText" data-i18n="recordedDataLabel">Recorded Data</span><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Recorded Data" title="Check every type of data your study actually records, so participants are told exactly what will be collected about them.">ⓘ</button></div>
@@ -201,11 +205,11 @@
                         <div class="col-8"><input class="form-control" type="number" min="1" id="participants" name="participants" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="purposeText" for="purpose" class="danger" data-i18n="purposeLabel">Purpose (one sentence)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Purpose" title="A one-sentence summary of what the study investigates - the &quot;what&quot;.">ⓘ</button></div>
+                        <div class="col-4"><label id="purposeText" for="purpose" class="danger" data-i18n="purposeLabel">Purpose</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Purpose" title="A one-sentence summary of what the study investigates - the &quot;what&quot;.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="purpose" name="purpose" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="goalText" for="goal" class="danger" data-i18n="goalLabel">Goal (one sentence)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Goal" title="A one-sentence summary of what you hope to learn or achieve - the &quot;why&quot;.">ⓘ</button></div>
+                        <div class="col-4"><label id="goalText" for="goal" class="danger" data-i18n="goalLabel">Goal</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Goal" title="A one-sentence summary of what you hope to learn or achieve - the &quot;why&quot;.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="goal" name="goal" onchange="onChange(event)" required  /></div>
                     </div>
                     <div class="row mt-3 ">

@@ -30,10 +30,11 @@
             {{#if record.physiological}}<li>Wir nehmen physiologische Messungen an Ihrem Körper vor.</li>{{/if}}
             {{#if record.screenrecording}}<li>Wir zeichnen die für die Studie erforderlichen Bildschirminhalte auf Ihrem Gerät auf.</li>{{/if}}
             {{#if record.interaction}}<li>Wir erfassen Interaktionsdaten (z. B. Klicks, Zeitmessungen) während der Sitzung.</li>{{/if}}
-            {{#if (equal compensation 'points')}}<li>Sie erhalten als Vergütung 1 Leistungspunkt pro Stunde für Ihren Studiengang.</li>
-            {{else if (equal compensation 'moneyPoints')}}<li>Sie erhalten als Vergütung 1 Leistungspunkt pro Stunde für Ihren Studiengang oder {{missing monetaryCompensation "[Finanzielle Vergütung]"}} als finanzielle Vergütung.</li>
+            {{#if (equal compensation 'points')}}<li>Sie erhalten als Vergütung {{missing pointsCompensation "[Punkte]"}} für Ihren Studiengang.</li>
+            {{else if (equal compensation 'moneyPoints')}}<li>Sie erhalten als Vergütung {{missing pointsCompensation "[Punkte]"}} für Ihren Studiengang oder {{missing monetaryCompensation "[Finanzielle Vergütung]"}} als finanzielle Vergütung.</li>
             {{else if (equal compensation 'money')}}<li>Sie erhalten {{missing monetaryCompensation "[Finanzielle Vergütung]"}} als Vergütung.</li>
-            {{else}}<li>Sie erhalten keine Vergütung.</li>{{/if}}
+            {{else if (equal compensation 'none')}}<li>Sie erhalten keine Vergütung.</li>
+            {{else}}<li><span class="missingField">[Vergütung]</span></li>{{/if}}
             <li>Wir können Ergebnisse aus dieser und anderen Sitzungen veröffentlichen.</li>
             {{#if (equal share 'yes')}}<li>Alle von Ihnen in dieser Studie ({{missing (typeLabel) "[Art der Studie]"}}) bereitgestellten Daten werden <b>nicht anonymisiert</b> veröffentlicht.</li>
             {{else if (equal share 'anonymized')}}<li>Alle von Ihnen in dieser Studie ({{missing (typeLabel) "[Art der Studie]"}}) bereitgestellten Daten werden anonymisiert veröffentlicht; sie enthalten somit weder Ihren Namen noch können sie Ihrer Identität zugeordnet werden.</li>
@@ -56,7 +57,7 @@
             Zufriedenheit beantwortet wurden, sollten Sie Ihre Einwilligung nicht erteilen. </p>
     </div>
     <div class="pageBreak"><h2>1. Zweck und Ziel dieser Forschung</h2>
-        <p>{{missing purpose "[Zweck]"}} {{missing goal "[Ziel]"}} Ihre Teilnahme hilft uns, dieses Ziel zu erreichen. Die Ergebnisse dieser Forschung können
+        <p>{{missing (ensurePeriod purpose) "[Zweck]"}} {{missing (ensurePeriod goal) "[Ziel]"}} Ihre Teilnahme hilft uns, dieses Ziel zu erreichen. Die Ergebnisse dieser Forschung können
             auf wissenschaftlichen oder fachlichen Tagungen vorgestellt oder in wissenschaftlichen Sammelbänden und
             Fachzeitschriften veröffentlicht werden.</p></div>
     <div class="pageBreak"><h2>2. Teilnahme und Vergütung</h2>
@@ -67,9 +68,10 @@
             {{#if (equal type 'interview')}}interviewt{{/if}}
              für diese Forschung werden.
             {{#if (equal compensation 'none')}}Sie erhalten keine Vergütung.
-            {{else if (equal compensation 'points')}}Sie erhalten einen Leistungspunkt pro Stunde, der für Ihren Studiengang an der {{missing institution "[Institution]"}} erforderlich ist. Sie können Ihre Teilnahme jederzeit ohne Angabe von Gründen widerrufen und abbrechen. Sie erhalten Ihre Leistungspunkte dennoch.
-            {{else if (equal compensation 'moneyPoints')}}Sie erhalten {{missing monetaryCompensation "[Finanzielle Vergütung]"}} als Vergütung für Ihre Teilnahme oder einen Leistungspunkt pro Stunde, der für Ihren Studiengang an der {{missing institution "[Institution]"}} erforderlich ist.
-            {{else if (equal compensation 'money')}}Sie erhalten {{missing monetaryCompensation "[Finanzielle Vergütung]"}} als Vergütung für Ihre Teilnahme. {{/if}}
+            {{else if (equal compensation 'points')}}Sie erhalten als Vergütung {{missing pointsCompensation "[Punkte]"}} für Ihren Studiengang an der {{missing institution "[Institution]"}}. Sie können Ihre Teilnahme jederzeit ohne Angabe von Gründen widerrufen und abbrechen. Sie erhalten Ihre Vergütung dennoch.
+            {{else if (equal compensation 'moneyPoints')}}Sie erhalten {{missing monetaryCompensation "[Finanzielle Vergütung]"}} als Vergütung für Ihre Teilnahme oder {{missing pointsCompensation "[Punkte]"}} für Ihren Studiengang an der {{missing institution "[Institution]"}}.
+            {{else if (equal compensation 'money')}}Sie erhalten {{missing monetaryCompensation "[Finanzielle Vergütung]"}} als Vergütung für Ihre Teilnahme. 
+            {{else}}<span class="missingField">[Vergütung]</span>{{/if}}
             {{#if (equal compensation 'none')}}Sie können Ihre Teilnahme jederzeit widerrufen und abbrechen.
             {{else}}Sie können Ihre Teilnahme jederzeit ohne Nachteile oder Verlust der Vergütung widerrufen und abbrechen. {{/if}}
             Soweit möglich, können Sie die Beantwortung einzelner Fragen ablehnen oder Ihre Teilnahme jederzeit beenden.

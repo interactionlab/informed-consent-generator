@@ -1,5 +1,27 @@
 function onChange(event){
     data = collectData();
+    updateCompensationFieldsVisibility();
+}
+
+// Monetary/Points Compensation only make sense (and are only mentioned in the generated document - see the templates' compensation branches) once Compensation actually includes money/points; otherwise hide the row and drop its required-ness so it can't block submission over an irrelevant field.
+function updateCompensationFieldsVisibility(){
+    var compensation = $("select[name='compensation']").val();
+    var showMoney = compensation === "money" || compensation === "moneyPoints";
+    var showPoints = compensation === "points" || compensation === "moneyPoints";
+    $("#monetaryCompensationRow").toggle(showMoney);
+    $("#monetaryCompensation").prop("required", showMoney);
+    $("#pointsCompensationRow").toggle(showPoints);
+    $("#pointsCompensation").prop("required", showPoints);
+}
+
+// Mirrors the "ensurePeriod" Handlebars helper (js/templating.js) - keeps the one-sentence Purpose/Goal fields reading like complete sentences as soon as the researcher tabs away, rather than only once the document is generated/previewed.
+function appendPeriodOnBlur(event){
+    var el = event.target;
+    var v = el.value.replace(/\s+$/, "");
+    if (v.length > 0 && !/[.!?]$/.test(v)) {
+        el.value = v + ".";
+        onChange(event);
+    }
 }
 
 function capitalize(s)
@@ -18,7 +40,7 @@ function downloadObjectAsJson(data, fileName){
 }
 
 
-var inputKeys = ["title", "duration", "personalData", "storageTime", "purpose", "goal", "departmentHead", "thePIname", "thePIemail", "participants", "monetaryCompensation", "ethicalComittee", "funding"];
+var inputKeys = ["title", "duration", "personalData", "storageTime", "purpose", "goal", "departmentHead", "thePIname", "thePIemail", "participants", "monetaryCompensation", "pointsCompensation", "ethicalComittee", "funding"];
 var inputRecord = ["demographics", "contact", "audio", "photos", "videos", "motion", "physiological", "eyetracking", "screenrecording", "notes", "interaction"];
 
 function fillSelect(){
@@ -84,6 +106,7 @@ function fillSelect(){
             addResearcher();
         }
     }
+    updateCompensationFieldsVisibility();
 }
 
 // The blank placeholder option fillSelect() adds to each of these selects is built once, before a language switch could update it - re-run on every UI language change (see ui-i18n.js's applyUiLanguage) so it doesn't stay stuck in whichever language was active when the page loaded.
@@ -230,6 +253,7 @@ function fillData(data){
     }
     // Covers the case data.researchers is missing/empty: addResearcher()'s own call never ran above, so nothing else would re-home the label onto the now-empty "+ Add Researcher" row otherwise.
     ensureResearchersLabel();
+    updateCompensationFieldsVisibility();
 }
 
 // Shared by the file-picker Import button and the drag-and-drop overlay. Reads a File, fills the form from it, and immediately refreshes the live preview - since this already knows the exact moment fillData() finishes, there's no need for preview.js's old click-then-poll fallback (which existed only because it couldn't otherwise tell when an asynchronous FileReader read had completed).
@@ -331,6 +355,8 @@ $(document).ready(function() {
     });
 
     $("#btnAddResearcher").click(function(e){addResearcher ();});
+
+    $("#purpose, #goal").on("blur", appendPeriodOnBlur);
 
     $(".btnExport").click(function() {
         data = collectData();

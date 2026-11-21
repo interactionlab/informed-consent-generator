@@ -30,10 +30,11 @@
             {{#if record.physiological}}<li>We will take physiological measurements of your body.</li>{{/if}}
             {{#if record.screenrecording}}<li>We will record the screen on your device that are necessary for the study.</li>{{/if}}
             {{#if record.interaction}}<li>We will record interaction data (e.g., clicks, timings) during the session.</li>{{/if}}
-            {{#if (equal compensation 'points')}}<li>You will receive 1 credit point per hour for your study course as compensation.</li>
-            {{else if (equal compensation 'moneyPoints')}}<li>You will receive 1 credit point per hour for your study course as compensation or {{missing monetaryCompensation "[Monetary Compensation]"}} as monetary compensation.</li>
+            {{#if (equal compensation 'points')}}<li>You will receive {{missing pointsCompensation "[Points]"}} for your study course as compensation.</li>
+            {{else if (equal compensation 'moneyPoints')}}<li>You will receive {{missing pointsCompensation "[Points]"}} for your study course as compensation or {{missing monetaryCompensation "[Monetary Compensation]"}} as monetary compensation.</li>
             {{else if (equal compensation 'money')}}<li>You will receive {{missing monetaryCompensation "[Monetary Compensation]"}} as compensation.</li>
-            {{else}}<li>You will receive no compensation.</li>{{/if}}
+            {{else if (equal compensation 'none')}}<li>You will receive no compensation.</li>
+            {{else}}<li><span class="missingField">[Compensation]</span></li>{{/if}}
             <li>We may publish results from this and other sessions.</li>
             {{#if (equal share 'yes')}}<li>All data you provide in this {{missing (typeLabel) "[Study Type]"}} will be published <b>not anonymized</b>.</li>
             {{else if (equal share 'anonymized')}}<li>All data you provide in this {{missing (typeLabel) "[Study Type]"}} will be published anonymized; thus, they will neither include your name nor cannot be associated with your identity.</li>
@@ -56,7 +57,7 @@
             satisfaction, then you should not give your consent. </p>
     </div>
     <div class="pageBreak"><h2>1. Purpose and Goal of this Research</h2>
-        <p>{{missing purpose "[Purpose]"}} {{missing goal "[Goal]"}} Your participation will help us achieve this goal. The results of this research may be
+        <p>{{missing (ensurePeriod purpose) "[Purpose]"}} {{missing (ensurePeriod goal) "[Goal]"}} Your participation will help us achieve this goal. The results of this research may be
             presented at scientific or professional meetings or published in scientific proceedings and
             journals.</p></div>
     <div class="pageBreak"><h2>2. Participation and Compensation</h2>
@@ -67,9 +68,10 @@
             {{#if (equal type 'interview')}}interviewed{{/if}}
              for this research.
             {{#if (equal compensation 'none')}}You will receive no compensation.
-            {{else if (equal compensation 'points')}}You will receive one credit point per hour required for your study course at the {{missing institution "[Institution]"}}. You may withdraw and discontinue participation at any time without justification for withdrawing. You will still receive your credit points.
-            {{else if (equal compensation 'moneyPoints')}}You will receive {{missing monetaryCompensation "[Monetary Compensation]"}} as compensation for your participation or one credit point per hour required for your study course at the {{missing institution "[Institution]"}}.
-            {{else if (equal compensation 'money')}}You will receive {{missing monetaryCompensation "[Monetary Compensation]"}} as compensation for your participation. {{/if}}
+            {{else if (equal compensation 'points')}}You will receive {{missing pointsCompensation "[Points]"}} required for your study course at the {{missing institution "[Institution]"}}. You may withdraw and discontinue participation at any time without justification for withdrawing. You will still receive your compensation.
+            {{else if (equal compensation 'moneyPoints')}}You will receive {{missing monetaryCompensation "[Monetary Compensation]"}} as compensation for your participation or {{missing pointsCompensation "[Points]"}} required for your study course at the {{missing institution "[Institution]"}}.
+            {{else if (equal compensation 'money')}}You will receive {{missing monetaryCompensation "[Monetary Compensation]"}} as compensation for your participation. 
+            {{else}}<span class="missingField">[Compensation]</span>{{/if}}
             {{#if (equal compensation 'none')}}You may withdraw and discontinue participation at any time.
             {{else}}You may withdraw and discontinue participation at any time without penalty or losing the compensation. {{/if}}
             If possible, you may refuse to answer any questions you do not want to answer or withdraw from participation at any time.

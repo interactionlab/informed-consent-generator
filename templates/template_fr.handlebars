@@ -30,10 +30,11 @@
             {{#if record.physiological}}<li>Nous relèverons des mesures physiologiques de votre corps.</li>{{/if}}
             {{#if record.screenrecording}}<li>Nous enregistrerons l'écran de votre appareil dans la mesure nécessaire à l'étude.</li>{{/if}}
             {{#if record.interaction}}<li>Nous enregistrerons des données d'interaction (par ex. clics, temporisations) pendant la session.</li>{{/if}}
-            {{#if (equal compensation 'points')}}<li>Vous recevrez 1 point de crédit par heure pour votre cursus universitaire à titre de compensation.</li>
-            {{else if (equal compensation 'moneyPoints')}}<li>Vous recevrez 1 point de crédit par heure pour votre cursus universitaire à titre de compensation, ou {{missing monetaryCompensation "[Compensation Monétaire]"}} à titre de compensation financière.</li>
+            {{#if (equal compensation 'points')}}<li>Vous recevrez {{missing pointsCompensation "[Points]"}} pour votre cursus universitaire à titre de compensation.</li>
+            {{else if (equal compensation 'moneyPoints')}}<li>Vous recevrez {{missing pointsCompensation "[Points]"}} pour votre cursus universitaire à titre de compensation, ou {{missing monetaryCompensation "[Compensation Monétaire]"}} à titre de compensation financière.</li>
             {{else if (equal compensation 'money')}}<li>Vous recevrez {{missing monetaryCompensation "[Compensation Monétaire]"}} à titre de compensation.</li>
-            {{else}}<li>Vous ne recevrez aucune compensation.</li>{{/if}}
+            {{else if (equal compensation 'none')}}<li>Vous ne recevrez aucune compensation.</li>
+            {{else}}<li><span class="missingField">[Compensation]</span></li>{{/if}}
             <li>Nous pourrons publier les résultats de cette session et d'autres sessions.</li>
             {{#if (equal share 'yes')}}<li>Toutes les données que vous fournissez dans le cadre de {{missing (typeLabel) "[Type d'Étude]"}} seront publiées <b>sans anonymisation</b>.</li>
             {{else if (equal share 'anonymized')}}<li>Toutes les données que vous fournissez dans le cadre de {{missing (typeLabel) "[Type d'Étude]"}} seront publiées de manière anonymisée ; ainsi, elles ne comporteront pas votre nom et ne pourront pas être associées à votre identité.</li>
@@ -53,7 +54,7 @@
             Vous devriez lire attentivement les informations ci-dessous. Vous pouvez prendre tout le temps nécessaire pour lire le formulaire de consentement. Si vous n'êtes pas entièrement d'accord avec un point, ou si toutes vos questions n'ont pas reçu de réponse satisfaisante, vous ne devez pas donner votre consentement. </p>
     </div>
     <div class="pageBreak"><h2>1. Objet et but de cette recherche</h2>
-        <p>{{missing purpose "[But]"}} {{missing goal "[Objectif]"}} Votre participation nous aidera à atteindre cet objectif. Les résultats de cette recherche pourront être
+        <p>{{missing (ensurePeriod purpose) "[But]"}} {{missing (ensurePeriod goal) "[Objectif]"}} Votre participation nous aidera à atteindre cet objectif. Les résultats de cette recherche pourront être
             présentés lors de réunions scientifiques ou professionnelles, ou publiés dans des actes ou revues
             scientifiques.</p></div>
     <div class="pageBreak"><h2>2. Participation et compensation</h2>
@@ -64,9 +65,10 @@
             {{#if (equal type 'interview')}}interviewées{{/if}}
              dans le cadre de cette recherche.
             {{#if (equal compensation 'none')}}Vous ne recevrez aucune compensation.
-            {{else if (equal compensation 'points')}}Vous recevrez un point de crédit par heure requis pour votre cursus à {{missing institution "[Institution]"}}. Vous pouvez vous retirer et interrompre votre participation à tout moment sans justification. Vous conserverez néanmoins vos points de crédit.
-            {{else if (equal compensation 'moneyPoints')}}Vous recevrez {{missing monetaryCompensation "[Compensation Monétaire]"}} en compensation de votre participation, ou un point de crédit par heure requis pour votre cursus à {{missing institution "[Institution]"}}.
-            {{else if (equal compensation 'money')}}Vous recevrez {{missing monetaryCompensation "[Compensation Monétaire]"}} en compensation de votre participation. {{/if}}
+            {{else if (equal compensation 'points')}}Vous recevrez {{missing pointsCompensation "[Points]"}} pour votre cursus à {{missing institution "[Institution]"}}. Vous pouvez vous retirer et interrompre votre participation à tout moment sans justification. Vous conserverez néanmoins votre compensation.
+            {{else if (equal compensation 'moneyPoints')}}Vous recevrez {{missing monetaryCompensation "[Compensation Monétaire]"}} en compensation de votre participation, ou {{missing pointsCompensation "[Points]"}} pour votre cursus à {{missing institution "[Institution]"}}.
+            {{else if (equal compensation 'money')}}Vous recevrez {{missing monetaryCompensation "[Compensation Monétaire]"}} en compensation de votre participation. 
+            {{else}}<span class="missingField">[Compensation]</span>{{/if}}
             {{#if (equal compensation 'none')}}Vous pouvez vous retirer et interrompre votre participation à tout moment.
             {{else}}Vous pouvez vous retirer et interrompre votre participation à tout moment, sans pénalité ni perte de la compensation. {{/if}}
             Dans la mesure du possible, vous pouvez refuser de répondre à toute question à laquelle vous ne souhaitez pas répondre, ou vous retirer de la participation à tout moment.
