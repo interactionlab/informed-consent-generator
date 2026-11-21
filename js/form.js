@@ -301,7 +301,8 @@ function renderResult(){
     if (template != null) {
         try {
             let result = template({...data, ...institution});
-            $("#results").html(result);
+            // WCAG 3.1.2 Language of Parts: the generated document's language is independent from the surrounding UI's (see index.html's lang attribute, kept in sync by ui-i18n.js) - a screen reader needs this to pronounce the document text correctly regardless of which language the researcher authored the form in.
+            $("#results").attr("lang", data.docLanguage || "en").html(result);
         } catch (e) {
             /* incomplete data: leave whatever was last successfully rendered */
         }

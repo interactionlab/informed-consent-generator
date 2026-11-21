@@ -76,6 +76,13 @@ var UI_STRINGS = {
     themeDark: { en: "Dark", de: "Dunkel", es: "Oscuro", fr: "Sombre", it: "Scuro" },
     themeAuto: { en: "Auto", de: "Automatisch", es: "Automático", fr: "Automatique", it: "Automatico" },
     themeHighContrast: { en: "High contrast", de: "Hoher Kontrast", es: "Alto contraste", fr: "Contraste élevé", it: "Alto contrasto" },
+    themeToggleAriaLabel: { en: "Toggle theme ({theme})", de: "Design umschalten ({theme})", es: "Cambiar tema ({theme})", fr: "Changer de thème ({theme})", it: "Cambia tema ({theme})" },
+    themeChangedTo: { en: "Theme changed to {theme}.", de: "Design geändert zu {theme}.", es: "Tema cambiado a {theme}.", fr: "Thème changé en {theme}.", it: "Tema cambiato in {theme}." },
+    uiLanguageChangedTo: { en: "Language changed to {language}.", de: "Sprache geändert zu {language}.", es: "Idioma cambiado a {language}.", fr: "Langue changée en {language}.", it: "Lingua cambiata in {language}." },
+
+    // #livePreview (js/preview.js): a named landmark region, so its label and placeholder text are translated like any other UI chrome rather than left as the known English-only gap tooltips/footer are.
+    livePreviewLabel: { en: "Live preview of the consent document", de: "Live-Vorschau des Einwilligungsdokuments", es: "Vista previa en vivo del documento de consentimiento", fr: "Aperçu en direct du document de consentement", it: "Anteprima in tempo reale del documento di consenso" },
+    livePreviewEmptyText: { en: "A live preview of the consent document appears here and updates as you fill in the form.", de: "Hier erscheint eine Live-Vorschau des Einwilligungsdokuments, die sich beim Ausfüllen des Formulars aktualisiert.", es: "Aquí aparece una vista previa en vivo del documento de consentimiento, que se actualiza a medida que completa el formulario.", fr: "Un aperçu en direct du document de consentement apparaît ici et se met à jour au fur et à mesure que vous remplissez le formulaire.", it: "Qui appare un'anteprima in tempo reale del documento di consenso, che si aggiorna man mano che completi il modulo." },
 
     // Looked up from js/form.js when it builds/renumbers researcher rows (addResearcher(), correctResercherNumbers(), ensureResearchersLabel()).
     researcherNameLabel: { en: "Name", de: "Name", es: "Nombre", fr: "Nom", it: "Nome" },
@@ -161,6 +168,18 @@ function uiString(key) {
     return entry[currentUiLanguage] || entry.en;
 }
 
+// Substitutes {token} placeholders in a UI_STRINGS entry - shared by js/theme.js's and this file's own
+// "<Thing> changed to X." live-region announcements and the theme toggle's aria-label, so the one
+// announce-pattern (and its wording, per language) lives in a single place instead of being
+// reimplemented ad hoc wherever a translated sentence needs a value spliced into it.
+function uiStringFormatted(key, vars) {
+    var s = uiString(key);
+    for (var k in vars) {
+        if (Object.prototype.hasOwnProperty.call(vars, k)) s = s.split("{" + k + "}").join(vars[k]);
+    }
+    return s;
+}
+
 // Set once settings.json loads (see form.js) - only applies its configured default if the visitor hasn't explicitly chosen a UI language yet, same guarded pattern as applyConfiguredThemeDefault/applyConfiguredDocLanguageDefault in js/theme.js.
 var applyConfiguredUiLanguageDefault = function () {};
 
@@ -168,27 +187,37 @@ $(document).ready(function () {
     (function () {
         var buttons = document.querySelectorAll("#langToggle button[data-ui-lang-value]");
         var code = document.getElementById("bd-lang-code");
+        var status = document.getElementById("uiLanguageStatus");
 
         function getSavedUiLanguage() {
             try { return localStorage.getItem(UI_LANG_KEY); } catch (e) { return null; }
         }
 
-        function applyUiLanguage(lang, persist) {
+        // announce defaults to false: the initial load call and the settings.json-configured default (applyConfiguredUiLanguageDefault below) shouldn't trigger a spoken announcement - only an actual click in the dropdown should (same reasoning as js/theme.js's applyTheme()).
+        function applyUiLanguage(lang, persist, announce) {
             if (UI_LANGS.indexOf(lang) === -1) lang = "en";
             currentUiLanguage = lang;
+            // WCAG 3.1.1 Language of Page: the document's primary language is this page's own UI chrome, which now actually changes with this setting (the #docLanguage/#results/#livePreview generated document is a separate, independently-tracked language - see its own lang attribute in renderResult()/renderLivePreview()).
+            document.documentElement.setAttribute("lang", lang);
 
             document.querySelectorAll("[data-i18n]").forEach(function (el) {
                 el.textContent = uiString(el.getAttribute("data-i18n"));
             });
 
+            // The active button's own visible text doubles as "this language's name, in itself" (same
+            // convention as the #docLanguage <option>s) - read directly off the DOM rather than keeping a
+            // second, separately-maintained name map that could silently drift from what the dropdown shows.
+            var activeName = lang;
             buttons.forEach(function (btn) {
                 var active = btn.getAttribute("data-ui-lang-value") === lang;
                 btn.classList.toggle("active", active);
                 btn.setAttribute("aria-pressed", active ? "true" : "false");
                 var check = btn.querySelector(".lang-check");
                 if (check) check.classList.toggle("d-none", !active);
+                if (active && btn.firstChild) activeName = btn.firstChild.textContent.trim();
             });
             if (code) code.textContent = lang.toUpperCase();
+            if (announce && status) status.textContent = uiStringFormatted("uiLanguageChangedTo", { language: activeName });
 
             if (persist !== false) { try { localStorage.setItem(UI_LANG_KEY, lang); } catch (e) { /* best-effort persistence */ } }
 
@@ -198,13 +227,16 @@ $(document).ready(function () {
             if (typeof refreshSelectPlaceholders === "function") refreshSelectPlaceholders();
             if (typeof refreshOptionLabels === "function") refreshOptionLabels();
             if (typeof refreshInputHints === "function") refreshInputHints();
+            // Attributes (not textContent, so not covered by the [data-i18n] sweep above): the live-preview landmark's aria-label (js/preview.js) and the theme toggle's aria-label/live-region wording for the currently active theme (js/theme.js).
+            if (typeof refreshLivePreviewAriaLabel === "function") refreshLivePreviewAriaLabel();
+            if (typeof refreshThemeLanguage === "function") refreshThemeLanguage();
         }
 
         // persist: false on the initial load - a merely-defaulted language (no explicit choice yet) shouldn't be written back as if the visitor had picked it, or settings.json's configured default below would never get a chance to apply on a first visit (see applyConfiguredUiLanguageDefault).
         applyUiLanguage(getSavedUiLanguage() || "en", false);
 
         buttons.forEach(function (btn) {
-            btn.addEventListener("click", function () { applyUiLanguage(btn.getAttribute("data-ui-lang-value"), true); });
+            btn.addEventListener("click", function () { applyUiLanguage(btn.getAttribute("data-ui-lang-value"), true, true); });
         });
 
         applyConfiguredUiLanguageDefault = function (lang) {

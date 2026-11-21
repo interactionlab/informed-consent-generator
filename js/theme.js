@@ -13,13 +13,17 @@ function getDocTemplate(lang) {
 var applyConfiguredThemeDefault = function () {};
 var applyConfiguredDocLanguageDefault = function () {};
 
+// Set by the theme IIFE below; called from ui-i18n.js's applyUiLanguage() so the theme toggle's aria-label/live-region wording ("light"/"dark"/...) updates when the UI language changes, not just when the theme itself does.
+var refreshThemeLanguage = function () {};
+
 $(document).ready(function () {
 
     // Theme toggle. The <head> script (in index.html) already applied the saved theme before first paint; this syncs the dropdown's visual/ARIA state and wires up switching themes from here on.
     (function () {
         var THEME_KEY = "icgTheme";
         var ICONS = { light: "☀", dark: "☾", auto: "◐", "high-contrast": "◑" };
-        var LABELS = { light: "light", dark: "dark", auto: "auto", "high-contrast": "high contrast" };
+        // Keys into ui-i18n.js's UI_STRINGS - the same translations already used for the dropdown items' own visible text, reused here for the aria-label/live-region wording rather than a separate English-only copy.
+        var LABEL_KEYS = { light: "themeLight", dark: "themeDark", auto: "themeAuto", "high-contrast": "themeHighContrast" };
         var buttons = document.querySelectorAll("#themeToggle button[data-theme-value]");
         var mainBtn = document.getElementById("bd-theme");
         var mainIcon = document.getElementById("bd-theme-icon");
@@ -36,8 +40,9 @@ $(document).ready(function () {
             return "light"; // light, high-contrast
         }
 
+        // (theme, persist, announce) - same parameter order as ui-i18n.js's applyUiLanguage(lang, persist, announce), so the two near-identical "apply a persisted setting and optionally announce it" functions can't have their trailing booleans transposed by mistake.
         // announce defaults to false: the initial applyTheme(saved) call, the "auto" media-query listener reacting to an OS-level change, and the settings.json-configured default below shouldn't trigger a spoken announcement - only an actual click in the dropdown should.
-        function applyTheme(theme, announce, persist) {
+        function applyTheme(theme, persist, announce) {
             document.documentElement.setAttribute("data-bs-theme", resolvedBsTheme(theme));
             document.documentElement.setAttribute("data-theme", theme);
             buttons.forEach(function (btn) {
@@ -48,8 +53,9 @@ $(document).ready(function () {
                 if (check) check.classList.toggle("d-none", !active);
             });
             if (mainIcon) mainIcon.textContent = ICONS[theme] || ICONS.light;
-            if (mainBtn) mainBtn.setAttribute("aria-label", "Toggle theme (" + (LABELS[theme] || "light") + ")");
-            if (announce && status) status.textContent = "Theme changed to " + (LABELS[theme] || theme) + ".";
+            var label = uiString(LABEL_KEYS[theme] || "themeLight");
+            if (mainBtn) mainBtn.setAttribute("aria-label", uiStringFormatted("themeToggleAriaLabel", { theme: label }));
+            if (announce && status) status.textContent = uiStringFormatted("themeChangedTo", { theme: label });
             if (persist !== false) { try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* best-effort persistence */ } }
         }
 
@@ -60,7 +66,7 @@ $(document).ready(function () {
         applyTheme(getSavedTheme() || "auto", false, false);
 
         buttons.forEach(function (btn) {
-            btn.addEventListener("click", function () { applyTheme(btn.getAttribute("data-theme-value"), true); });
+            btn.addEventListener("click", function () { applyTheme(btn.getAttribute("data-theme-value"), true, true); });
         });
 
         // "Auto" follows the OS preference live, not just at page load.
@@ -71,6 +77,11 @@ $(document).ready(function () {
         // persist: false - a config-driven default shouldn't look like an explicit user choice, or settings.json later changing its default would stop reaching this visitor even though they never actually chose anything themselves.
         applyConfiguredThemeDefault = function (theme) {
             if (theme && !getSavedTheme()) applyTheme(theme, false, false);
+        };
+
+        // Re-applies the currently active theme's own aria-label/live-region wording in whatever UI language is now active - doesn't change the theme itself (announce/persist both false).
+        refreshThemeLanguage = function () {
+            applyTheme(document.documentElement.getAttribute("data-theme") || "light", false, false);
         };
     })();
 

@@ -30,12 +30,30 @@
     if (!template) return;
     var institution = settings.institutions[data.institution] || {};
     try {
-      out.innerHTML = template(Object.assign({}, data, institution));
+      var html = template(Object.assign({}, data, institution));
+      // WCAG 3.1.2 Language of Parts - same reasoning as renderResult() in js/form.js.
+      // Set only once the render has actually succeeded, so a mid-typing throw below
+      // can't leave the lang attribute pointing at a language the still-displayed
+      // (stale, un-rolled-back) content doesn't match.
+      out.setAttribute('lang', data.docLanguage || 'en');
+      out.innerHTML = html;
     } catch (e) {
       /* incomplete data while typing: keep the last good render */
     }
   }
   window.renderLivePreview = renderLivePreview;
+
+  // The aria-label is set once at creation from whatever uiString() resolves at that moment, and corrected
+  // here right after on every language switch (see ui-i18n.js's applyUiLanguage()) - including, empirically,
+  // the very first one on page load: this file's own ready handler actually fires before ui-i18n.js's despite
+  // loading first in index.html (a raw DOMContentLoaded listener registered during parsing fires after
+  // jQuery's own, which is what ui-i18n.js's $(document).ready() queues onto), so a saved non-English choice
+  // hasn't been applied yet at creation time and this call needs a follow-up fix-up rather than being correct outright.
+  function refreshLivePreviewAriaLabel() {
+    var el = document.getElementById('livePreview');
+    if (el) el.setAttribute('aria-label', uiString('livePreviewLabel'));
+  }
+  window.refreshLivePreviewAriaLabel = refreshLivePreviewAriaLabel;
 
   ready(function () {
     var page = document.getElementById('demographicsPage');
@@ -45,8 +63,16 @@
     var preview = document.createElement('article');
     preview.id = 'livePreview';
     preview.setAttribute('role', 'region'); // explicit role keeps it exposed as a named landmark rather than <article>'s own implicit role
-    preview.setAttribute('aria-label', 'Live preview of the consent document');
-    preview.innerHTML = '<p class="livePreview-empty">A live preview of the consent document appears here and updates as you fill in the form.</p>';
+    preview.setAttribute('aria-label', uiString('livePreviewLabel'));
+    // Built from uiString() rather than left as hardcoded English, same reasoning as the aria-label above:
+    // may still be English right after creation for a returning non-English visitor (see that comment), but
+    // carries the data-i18n attribute so ui-i18n.js's own sweep corrects it moments later regardless, instead
+    // of depending on this element happening to already exist by the time that sweep runs.
+    var emptyP = document.createElement('p');
+    emptyP.className = 'livePreview-empty';
+    emptyP.setAttribute('data-i18n', 'livePreviewEmptyText');
+    emptyP.textContent = uiString('livePreviewEmptyText');
+    preview.appendChild(emptyP);
     page.appendChild(preview);
     document.body.classList.add('has-live-preview');
 

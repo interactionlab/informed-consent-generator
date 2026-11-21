@@ -102,6 +102,7 @@
         </div>
     </nav>
     <div id="themeStatus" aria-live="polite" class="visually-hidden"></div>
+    <div id="uiLanguageStatus" aria-live="polite" class="visually-hidden"></div>
     <!-- Drag-and-drop import overlay (see js/form.js): purely visual feedback shown while dragging a file anywhere over the page, hidden otherwise. -->
     <div id="dropOverlay" class="d-none" aria-hidden="true"><div id="dropOverlayMessage" data-i18n="dropOverlayMessage">Drop your exported *.json file here to import it</div></div>
 
@@ -127,7 +128,7 @@
                         </div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="docLanguageText" for="docLanguage" data-i18n="docLanguageLabel">Document Language</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Document Language" title="The language of the generated consent document itself - this form stays in English either way.">ⓘ</button></div>
+                        <div class="col-4"><label id="docLanguageText" for="docLanguage" data-i18n="docLanguageLabel">Document Language</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Document Language" title="The language of the generated consent document itself - independent from the form's own interface language, picked separately from the globe menu in the navbar.">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="docLanguage" name="docLanguage" onchange="onChange(event)">
                             <option value="en">English</option>
                             <option value="de">Deutsch</option>
