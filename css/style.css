@@ -334,7 +334,10 @@ hr {
 }
 
 .whiteBox{
-	max-width: 900px;
+	/* Matches the 1200px live-preview breakpoint: below it the form is the
+	   only column, so it shouldn't snap down to a narrower cap right as the
+	   preview disappears - it should keep using about the width it already had. */
+	max-width: 1200px;
 }
 
 /* ---------------------------------------------------------------------------
