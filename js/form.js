@@ -68,7 +68,15 @@ function fillSelect(){
 
 
     $("#hostUrl").attr("href", settings["hostUrl"]);
-    $("#hostLogo").attr("src", "img/" + settings["hostLogo"]);
+    // Hides the whole link (not just the image) when there's no logo configured, rather than leaving a broken/empty image visible.
+    if (settings["hostLogo"]) {
+        // An absolute URL (http(s)://, protocol-relative //, or a data: URI) is used as-is; anything else is treated as a local filename inside img/, same as before.
+        var isExternal = /^(https?:)?\/\/|^data:/i.test(settings["hostLogo"]);
+        $("#hostLogo").attr("src", isExternal ? settings["hostLogo"] : "img/" + settings["hostLogo"]);
+        $("#hostUrl").show();
+    } else {
+        $("#hostUrl").hide();
+    }
 
     let savedData = null;
     try { savedData = sessionStorage.getItem("icgData"); } catch (e) { /* storage unavailable */ }
