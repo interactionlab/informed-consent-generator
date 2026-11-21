@@ -247,8 +247,9 @@ function fillData(data){
             addResearcher();
             var lstResearchers = document.getElementsByClassName("researchersContainer");
             var lastElement = lstResearchers[lstResearchers.length-1];
-            lastElement.getElementsByClassName("form-control")[0].value = researcher["name"];
-            lastElement.getElementsByClassName("form-control")[1].value = researcher["email"];
+            // || "" - a malformed/foreign import's entry missing name/email would otherwise assign the literal string "undefined" (native .value coerces via ToString).
+            lastElement.getElementsByClassName("form-control")[0].value = (researcher && researcher["name"]) || "";
+            lastElement.getElementsByClassName("form-control")[1].value = (researcher && researcher["email"]) || "";
         });
     }
     // Covers the case data.researchers is missing/empty: addResearcher()'s own call never ran above, so nothing else would re-home the label onto the now-empty "+ Add Researcher" row otherwise.
@@ -256,17 +257,31 @@ function fillData(data){
     updateCompensationFieldsVisibility();
 }
 
+// Drag-and-drop makes the whole window a drop target rather than a ".json"-filtered file picker click, so this is now reachable with any JSON file a user happens to drag in, not just ones exported by this tool - checks for at least one field an export would actually have, rather than trusting arbitrary valid JSON (e.g. a stray package.json) to be one.
+function looksLikeExportedData(obj) {
+    if (typeof obj !== "object" || obj === null || Array.isArray(obj)) return false;
+    return ["title", "institution", "researchers", "docLanguage", "type"].some((key) => key in obj);
+}
+
 // Shared by the file-picker Import button and the drag-and-drop overlay. Reads a File, fills the form from it, and immediately refreshes the live preview - since this already knows the exact moment fillData() finishes, there's no need for preview.js's old click-then-poll fallback (which existed only because it couldn't otherwise tell when an asynchronous FileReader read had completed).
 function importFile(file) {
     var reader = new FileReader();
     reader.onload = function (event) {
+        var jsonObj;
         try {
-            var jsonObj = JSON.parse(event.target.result);
+            jsonObj = JSON.parse(event.target.result);
+            if (!looksLikeExportedData(jsonObj)) throw new Error("not an exported settings file");
+        } catch (e) {
+            alert("Could not read that file. Please choose a settings JSON exported by this tool.");
+            return;
+        }
+        // Separate from the parse/shape check above: the file itself was read fine here, so a problem applying it to the form shouldn't be blamed on "could not read that file".
+        try {
             data = jsonObj;
             fillData(data);
             if (typeof renderLivePreview === "function") renderLivePreview();
         } catch (e) {
-            alert("Could not read that file. Please choose a settings JSON exported by this tool.");
+            alert("That file was read, but some of its data could not be applied to the form.");
         }
     };
     reader.readAsText(file);
@@ -391,8 +406,8 @@ $(document).ready(function() {
             e.preventDefault(); // required, or the browser refuses to allow a drop here at all
         });
 
+        // No isFileDrag(e) guard here (unlike dragenter/dragover): dataTransfer.types on the final dragleave as the cursor exits the browser window isn't reliably populated across browsers, which would otherwise leave dragDepth stuck above 0 and the overlay stuck visible. Decrementing unconditionally is safe - Math.max keeps it from ever going negative, so a stray dragleave from a non-file drag (when dragDepth is already 0) is a no-op.
         window.addEventListener("dragleave", function (e) {
-            if (!isFileDrag(e)) return;
             dragDepth = Math.max(0, dragDepth - 1);
             if (dragDepth === 0) dropOverlay.classList.add("d-none");
         });
