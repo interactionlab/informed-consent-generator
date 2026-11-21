@@ -415,3 +415,25 @@ hr {
   body.has-live-preview #livePreview img { max-height: 70px; max-width: 120px; }
   body.has-live-preview .livePreview-empty { color: #777; font-style: italic; }
 }
+
+/* Drag-and-drop import overlay (see js/form.js). Fixed/pointer-events:none so it's purely visual - the real dragenter/dragover/dragleave/drop listeners are on window, not this element, so it never needs to receive them itself. */
+#dropOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13, 110, 253, 0.15);
+  border: 0.4rem dashed #0d6efd;
+  pointer-events: none;
+}
+#dropOverlayMessage {
+  background: var(--bs-body-bg, #fff);
+  color: var(--bs-body-color, #000);
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}

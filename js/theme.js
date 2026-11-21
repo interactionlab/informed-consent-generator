@@ -1,6 +1,6 @@
 // Theme (light/dark/auto/high-contrast) and document-language preferences. Grouped together since both are small, independent "pick a persisted setting, apply it" concerns - UI/document preferences, not core form logic (index.html's own script) or document rendering/translation (templating.js).
 
-// getDocLanguage() is only an initial DEFAULT (what #docLanguage is set to on page load, from localStorage). The live source of truth is data.docLanguage from collectData(), same as every other form field, so it can never drift from what Save/Load Settings sees.
+// getDocLanguage() is only an initial DEFAULT (what #docLanguage is set to on page load, from localStorage). The live source of truth is data.docLanguage from collectData(), same as every other form field, so it can never drift from what Save/Load sees.
 var DOC_LANG_KEY = "icgDocLang";
 function getDocLanguage() {
     try { return localStorage.getItem(DOC_LANG_KEY) || "en"; } catch (e) { return "en"; }
