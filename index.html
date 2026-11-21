@@ -234,6 +234,7 @@
     </main>
 
     <script src="./js/templating.js"></script>
+    <script src="./js/theme.js"></script>
     <script>
 
         function onChange(event){
@@ -448,20 +449,6 @@
 
 
 
-        // getDocLanguage() is only an initial DEFAULT (what the #docLanguage
-        // select is set to on page load, from the last choice remembered in
-        // localStorage). Once the page is up, the #docLanguage field itself -
-        // read via data.docLanguage below, same as every other form field - is
-        // the single source of truth for which template actually renders, so
-        // it can never drift out of sync with what Save/Load Settings sees.
-        var DOC_LANG_KEY = "icgDocLang";
-        function getDocLanguage() {
-            try { return localStorage.getItem(DOC_LANG_KEY) || "en"; } catch (e) { return "en"; }
-        }
-        function getDocTemplate(lang) {
-            return Handlebars.templates["template_" + (lang || "en")] || Handlebars.templates.template_en;
-        }
-
         // Shared by generate() and the navbar's #btnPrintPreview button (see
         // preview.js): both need #results populated from the current form
         // data, but only generate() should switch the page into view mode.
@@ -536,78 +523,6 @@
             document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
                 new bootstrap.Tooltip(el);
             });
-
-            // Theme toggle. The <head> script already applied the saved theme
-            // (if any) before first paint; this just syncs the dropdown's visual/
-            // ARIA state to match it, and wires up switching themes from here on.
-            (function () {
-                var THEME_KEY = "icgTheme";
-                var ICONS = { light: "☀", dark: "☾", auto: "◐", "high-contrast": "◑" };
-                var LABELS = { light: "light", dark: "dark", auto: "auto", "high-contrast": "high contrast" };
-                var buttons = document.querySelectorAll("#themeToggle button[data-theme-value]");
-                var mainBtn = document.getElementById("bd-theme");
-                var mainIcon = document.getElementById("bd-theme-icon");
-                var status = document.getElementById("themeStatus");
-                var media = window.matchMedia("(prefers-color-scheme: dark)");
-
-                function resolvedBsTheme(theme) {
-                    if (theme === "dark") return "dark";
-                    if (theme === "auto") return media.matches ? "dark" : "light";
-                    return "light"; // light, high-contrast
-                }
-
-                // announce defaults to false: the initial applyTheme(saved) call
-                // on page load, and the "auto" media-query listener reacting to an
-                // OS-level change the user made elsewhere, shouldn't trigger a
-                // spoken announcement - only an actual click in the dropdown should.
-                function applyTheme(theme, announce) {
-                    document.documentElement.setAttribute("data-bs-theme", resolvedBsTheme(theme));
-                    document.documentElement.setAttribute("data-theme", theme);
-                    buttons.forEach(function (btn) {
-                        var active = btn.getAttribute("data-theme-value") === theme;
-                        btn.classList.toggle("active", active);
-                        btn.setAttribute("aria-pressed", active ? "true" : "false");
-                        var check = btn.querySelector(".theme-check");
-                        if (check) check.classList.toggle("d-none", !active);
-                    });
-                    if (mainIcon) mainIcon.textContent = ICONS[theme] || ICONS.light;
-                    if (mainBtn) mainBtn.setAttribute("aria-label", "Toggle theme (" + (LABELS[theme] || "light") + ")");
-                    if (announce && status) status.textContent = "Theme changed to " + (LABELS[theme] || theme) + ".";
-                    try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* best-effort persistence */ }
-                }
-
-                var saved = "light";
-                try { saved = localStorage.getItem(THEME_KEY) || "light"; } catch (e) { /* storage unavailable */ }
-                applyTheme(saved);
-
-                buttons.forEach(function (btn) {
-                    btn.addEventListener("click", function () { applyTheme(btn.getAttribute("data-theme-value"), true); });
-                });
-
-                // "Auto" follows the OS preference live, not just at page load.
-                media.addEventListener("change", function () {
-                    if (document.documentElement.getAttribute("data-theme") === "auto") applyTheme("auto");
-                });
-            })();
-
-            // Document language: the #docLanguage field (just above Institution)
-            // picks which template_<lang>.precompiled.js renderResult()/
-            // renderLivePreview() use (see getDocTemplate()). A native <select>
-            // already announces its own selection change to screen readers, so
-            // no custom live-region status is needed here the way the theme
-            // toggle (a styled dropdown, not a real <select>) required one.
-            (function () {
-                var select = document.getElementById("docLanguage");
-                if (!select) return;
-
-                select.value = getDocLanguage();
-
-                select.addEventListener("change", function () {
-                    try { localStorage.setItem(DOC_LANG_KEY, select.value); } catch (e) { /* best-effort persistence */ }
-                    renderResult();
-                    if (typeof renderLivePreview === "function") renderLivePreview();
-                });
-            })();
 
             fetch('./settings.json')
                 .then((response)=>response.json())
