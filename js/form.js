@@ -242,7 +242,8 @@ function fillData(data){
     $("select[name='docLanguage']").val(validDocLanguages.includes(data["docLanguage"]) ? data["docLanguage"] : "en");
 
     document.querySelectorAll(".researchersContainer").forEach(el => el.remove());
-    if (data["researchers"] != null){
+    // Array.isArray rather than != null - a malformed import's "researchers" (e.g. a string or plain object) would otherwise throw on .forEach partway through, leaving the rest of this function (and the caller's own cleanup, like ensureResearchersLabel()/updateCompensationFieldsVisibility() below) never run.
+    if (Array.isArray(data["researchers"])){
         data["researchers"].forEach((researcher) => {
             addResearcher();
             var lstResearchers = document.getElementsByClassName("researchersContainer");
@@ -260,6 +261,8 @@ function fillData(data){
 // Drag-and-drop makes the whole window a drop target rather than a ".json"-filtered file picker click, so this is now reachable with any JSON file a user happens to drag in, not just ones exported by this tool - checks for at least one field an export would actually have, rather than trusting arbitrary valid JSON (e.g. a stray package.json) to be one.
 function looksLikeExportedData(obj) {
     if (typeof obj !== "object" || obj === null || Array.isArray(obj)) return false;
+    // fillData() expects an array (or nothing) here - reject upfront rather than relying solely on fillData()'s own Array.isArray check, so a bad shape fails fast with this function's clearer "could not read" message instead of partway through applying it.
+    if (obj.researchers != null && !Array.isArray(obj.researchers)) return false;
     return ["title", "institution", "researchers", "docLanguage", "type"].some((key) => key in obj);
 }
 
