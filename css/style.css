@@ -125,12 +125,15 @@ td.additional {
    Capping the toggle button's own height, with overflow hidden as a hard
    backstop, keeps that glyph metrics blow-up from affecting anything outside
    the button itself. */
-#bd-theme {
+#bd-theme,
+#bd-lang {
 	height: 2rem;
 	overflow: hidden;
 }
 #bd-theme-icon,
+#bd-lang-code,
 .theme-check,
+.lang-check,
 .dropdown-item span[aria-hidden] {
 	display: inline-block;
 	line-height: 1;

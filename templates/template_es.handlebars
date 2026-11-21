@@ -1,0 +1,251 @@
+<div class="frameStyle">
+    <div class="row" id="firstItem">
+        <div class="col mt-2 mb-2 "><img alt="Logo" class="float-right" src="./img/{{logo}}"></div>
+    </div>
+    <div class="pageBreak"><h1>Consentimiento Informado de Participación</h1>
+        <p>
+            Se le invita a participar en el {{typeLabel}} <b>{{title}}</b>, iniciado y dirigido por
+            {{joinResearchers researchers prefix}}.
+            La investigación está supervisada por
+            {{#if (notBlank thePIname)}}{{thePIname}}{{else}}el investigador responsable{{/if}}
+            en {{institution}}{{~#if (notBlank departmentHead)}}
+                {{~#if (notBlank thePIname)}}
+                {{~#if (unequalTrim departmentHead thePIname)}}, bajo la dirección de {{departmentHead}}{{/if~}}
+                {{~/if}}
+            {{~/if}}.
+            {{#if funding}}
+                Este estudio está financiado por el proyecto de investigación {{funding}}.
+            {{/if}}
+            Tenga en cuenta lo siguiente:
+        </p>
+        <ul>
+            <li>Su participación es voluntaria.</li>
+            <li>El {{typeLabel}} tendrá una duración aproximada de {{duration}}.</li>
+            {{#if record.demographics}}<li>Registraremos sus datos demográficos personales ({{personalData}}).</li>{{/if}}
+            {{#if record.photos}}<li>Tomaremos fotografías durante la sesión.</li>{{/if}}
+            {{#if record.videos}}<li>Grabaremos vídeos durante la sesión.</li>{{/if}}
+            {{#if record.audio}}<li>Grabaremos audio durante la sesión.</li>{{/if}}
+            {{#if record.motion}}<li>Registraremos los movimientos de su cuerpo durante la sesión.</li>{{/if}}
+            {{#if record.eyetracking}}<li>Registraremos los movimientos de sus ojos y de su cabeza durante la sesión.</li>{{/if}}
+            {{#if record.physiological}}<li>Tomaremos mediciones fisiológicas de su cuerpo.</li>{{/if}}
+            {{#if record.screenrecording}}<li>Grabaremos la pantalla de su dispositivo en la medida en que sea necesario para el estudio.</li>{{/if}}
+            {{#if record.interaction}}<li>Registraremos datos de interacción (por ejemplo, clics, tiempos) durante la sesión.</li>{{/if}}
+            {{#if (equal compensation 'points')}}<li>Recibirá 1 punto de créditos por hora para su asignatura como compensación.</li>
+            {{else if (equal compensation 'moneyPoints')}}<li>Recibirá 1 punto de créditos por hora para su asignatura como compensación, o bien {{monetaryCompensation}} como compensación económica.</li>
+            {{else if (equal compensation 'money')}}<li>Recibirá {{monetaryCompensation}} como compensación.</li>
+            {{else}}<li>No recibirá ninguna compensación.</li>{{/if}}
+            <li>Es posible que publiquemos los resultados de esta y de otras sesiones.</li>
+            {{#if (equal share 'yes')}}<li>Todos los datos que usted proporcione en este {{typeLabel}} se publicarán <b>sin anonimizar</b>.</li>
+            {{else if (equal share 'anonymized')}}<li>Todos los datos que usted proporcione en este {{typeLabel}} se publicarán de forma anonimizada; por lo tanto, no incluirán su nombre ni podrán asociarse con su identidad.</li>
+            {{else}}<li>Los datos recopilados no podrán ser consultados ni utilizados para investigaciones posteriores por nadie ajeno a los investigadores que participan en este trabajo. </li>{{/if}}
+        </ul>
+        <p>Si tiene alguna pregunta sobre el proceso de consentimiento informado de esta investigación o sobre sus derechos como
+            sujeto de investigación, póngase en contacto con
+            {{#if ethicalComittee}}
+                nuestro comité de ética: {{ethicalComittee}}.
+            {{else}}
+                {{#if departmentHead}}
+                    {{thePIname}} (correo electrónico: {{thePIemail}}) o {{departmentHead}}.
+                {{else}}
+                    {{thePIname}} (correo electrónico: {{thePIemail}}).
+                {{/if}}
+            {{/if}}
+
+            Debe leer detenidamente las condiciones que figuran a continuación. Puede tomarse todo el tiempo que necesite para leer el formulario de
+            consentimiento. Si no está completamente de acuerdo con algún punto, o si no se han respondido todas sus preguntas a su entera
+            satisfacción, no debería otorgar su consentimiento. </p>
+    </div>
+    <div class="pageBreak"><h2>1. Finalidad y Objetivo de esta Investigación</h2>
+        <p>{{purpose}} {{goal}} Su participación nos ayudará a alcanzar este objetivo. Los resultados de esta investigación podrán
+            presentarse en reuniones científicas o profesionales, o publicarse en actas y revistas
+            científicas.</p></div>
+    <div class="pageBreak"><h2>2. Participación y Compensación</h2>
+        <p>Su participación en este {{typeLabel}} es voluntaria. Usted será una de aproximadamente {{participants}} personas
+            {{#if (equal type 'online study')}}encuestadas{{/if}}
+            {{#if (equal type 'user study')}}evaluadas{{/if}}
+            {{#if (equal type 'field study')}}encuestadas{{/if}}
+            {{#if (equal type 'interview')}}entrevistadas{{/if}}
+             para esta investigación.
+            {{#if (equal compensation 'none')}}No recibirá compensación alguna.
+            {{else if (equal compensation 'points')}}Recibirá un punto de créditos por hora requerido para su asignatura en {{institution}}. Puede retirarse e interrumpir su participación en cualquier momento sin necesidad de justificación. Seguirá recibiendo sus puntos de créditos.
+            {{else if (equal compensation 'moneyPoints')}}Recibirá {{monetaryCompensation}} como compensación por su participación, o bien un punto de créditos por hora requerido para su asignatura en {{institution}}.
+            {{else if (equal compensation 'money')}}Recibirá {{monetaryCompensation}} como compensación por su participación. {{/if}}
+            {{#if (equal compensation 'none')}}Puede retirarse e interrumpir su participación en cualquier momento.
+            {{else}}Puede retirarse e interrumpir su participación en cualquier momento sin penalización ni pérdida de la compensación. {{/if}}
+            En la medida de lo posible, puede negarse a responder cualquier pregunta que no desee responder, o retirarse de la participación en cualquier momento.
+            {{#if (equal type 'interview')}}Tengo derecho a no responder preguntas y, si en algún momento me siento incómodo durante la sesión de entrevista, tengo derecho a retirarme de la entrevista. {{/if}}
+        </p>
+        <p>En cualquier momento, y sin necesidad de dar ninguna razón, puede comunicarnos que desea retirar el consentimiento otorgado (RGPD art. 7(3)). En caso de retirada, sus datos almacenados en virtud de su consentimiento serán eliminados o
+            anonimizados cuando ello sea legalmente posible (RGPD art. 17). Si la eliminación resulta imposible o solo es posible
+            con un esfuerzo técnico desproporcionado, sus datos serán anonimizados mediante la eliminación de la información de
+            identificación personal. No obstante, la anonimización de sus datos no puede excluir por completo la posibilidad de que, posteriormente,
+            la información pueda rastrearse hasta usted a través de otras fuentes. Por último, una vez anonimizados los datos, su
+            eliminación ya no será posible, puesto que no podremos identificar cuáles son sus datos. </p></div>
+    <div class="pageBreak"><h2>3. Procedimiento</h2>
+        <p>Una vez otorgado el consentimiento, se le guiará a través de los siguientes pasos:</p>
+        <p style="padding-left: 10px; padding-top: 0px">{{breaklines procedure}}</p>
+        <p>El procedimiento completo de este {{typeLabel}} tendrá una duración aproximada de {{duration}}.</p></div>
+    <div class="pageBreak"><h2>4. Riesgos y Beneficios</h2>
+        <p>No existen riesgos asociados a este {{typeLabel}}. Las molestias o inconvenientes serán menores y es
+            poco probable que se produzcan. Si se siente incómodo, puede interrumpir su participación.
+            {{#if (equal compensation 'none')}}
+                (No obtendrá un beneficio directo por su participación en este {{typeLabel}}. Esperamos que los resultados obtenidos de su participación contribuyan a hacer avanzar la investigación en este campo.)
+            {{else}}
+                Su beneficio al participar es la compensación descrita anteriormente.
+            {{/if}}
+            Con esta investigación, haremos avanzar el conocimiento en este campo de investigación.</p></div>
+    <div class="pageBreak"><h2>5. Protección de Datos y Confidencialidad</h2>
+        <p>El Reglamento General de Protección de Datos (RGPD) de la Unión Europea (UE) regula esta recopilación de datos.
+            La base jurídica para el tratamiento de los datos personales es el consentimiento del participante, conforme al art. 6(1)(a) del RGPD. El RGPD garantiza a los interesados una serie de derechos, entre ellos el derecho de acceso,
+            rectificación y supresión de los datos personales. </p>
+        <ul>
+            <li>Tiene derecho a acceder a sus datos personales en cualquier momento (RGPD art. 15).</li>
+            <li>Tiene derecho a corregir datos personales inexactos en cualquier momento (RGPD art. 16).</li>
+            <li>Tiene derecho a que se supriman sus datos personales (RGPD art. 17).</li>
+            <li>Tiene derecho a limitar el tratamiento de sus datos personales (RGPD art. 18).</li>
+            <li>Tiene derecho a recibir una copia de sus datos personales y a transferirlos a otra organización (RGPD art. 20).</li>
+            <li>Tiene derecho a oponerse al tratamiento de sus datos personales (RGPD art. 21).</li>
+        </ul>
+        <p>Si desea ejercer cualquiera de sus derechos, póngase en contacto con los investigadores. </p>
+        <p>{{#if record.demographics}}Registraremos datos personales ({{personalData}}) durante su participación. {{/if}}
+            {{#if (equal type 'online study')}}Los datos de contacto de los participantes del estudio podrán utilizarse para rastrear posibles cadenas de contagio. {{/if}}
+            Los investigadores no le identificarán por su nombre real en ningún informe elaborado a partir de los resultados obtenidos de este {{typeLabel}}, y
+            su confidencialidad como participante en este {{typeLabel}} quedará garantizada.
+            {{#if (equal encryption 'yes')}}Todos los datos que usted proporcione en este {{typeLabel}} se almacenarán cifrados. {{/if}}
+            Los datos recopilados en este {{typeLabel}} se tratarán de conformidad con el RGPD. </p>
+        <p>Registraremos
+            {{listTrueKeys record}}
+            {{#if (equal type 'online study')}} y registraremos metadatos del navegador{{/if}}
+             durante el {{typeLabel}}.
+
+
+            {{#if (equal share 'yes')}}
+                Todos los datos que usted proporcione en este {{typeLabel}} se publicarán <b>sin anonimizar</b>. Los usos posteriores de los registros y datos estarán sujetos a las políticas estándar de uso de datos.
+            {{else if (equal share 'anonymized')}}
+                Todos los datos que usted proporcione en este {{typeLabel}} se publicarán de forma anonimizada. Los usos posteriores de los registros y datos estarán sujetos a las políticas estándar de uso de datos que protegen el anonimato de las personas participantes. Eliminaremos o codificaremos cualquier información personal que pudiera identificarle antes de publicar los datos, con el fin de garantizar que nadie pueda identificarle a partir de la información que compartimos. Utilizaremos los estándares científicos actuales y los métodos conocidos de anonimización. Cuando sus datos se anonimizan, se modifican de tal manera que ya no pueden rastrearse hasta su persona, o solo con un esfuerzo técnico desproporcionado. A pesar de estas medidas, no podemos garantizar el anonimato de sus datos personales.
+            {{else}}
+                Todos los datos que usted proporcione en este {{typeLabel}} no se publicarán y se mantendrán de forma confidencial.
+            {{/if}}
+
+            {{#if (equal type 'interview')}}
+                {{#if (unequal share 'yes')}}
+                        La transcripción de la entrevista será analizada principalmente por {{#if thePIname}}{{thePIname}}{{/if}}{{#if secondResearcherName}}{{#if thePIname}} y{{/if}} {{secondResearcherName}}{{/if}}{{#if thirdResearcherName}}{{#if secondResearcherName}} y{{/if}} {{thirdResearcherName}}{{/if}}.
+                        El acceso a la transcripción íntegra de la entrevista estará limitado a los autores de esta investigación, a colegas académicos y a investigadores con los que puedan colaborar como parte del proceso de investigación.
+                        Cualquier resumen del contenido de la entrevista, o cita directa de la misma, que se publique en publicaciones académicas u otros medios, será anonimizado de manera que usted no pueda ser identificado, y se tendrá cuidado de que no se revele ninguna otra información de la entrevista que pudiera identificarle. Tengo derecho a no responder preguntas y, si en algún momento me siento incómodo durante la sesión de entrevista, tengo derecho a retirarme de la entrevista.
+                {{/if}}
+            {{/if}}
+
+            {{#if (equal type 'online study')}}
+                Este sitio utiliza cookies y otras tecnologías de seguimiento para llevar a cabo la investigación, mejorar la experiencia del usuario, facilitar la interacción con el sistema y proporcionar contenido adicional de terceros. A pesar del control cuidadoso del contenido, los investigadores no asumen ninguna responsabilidad por los daños que se deriven directa o indirectamente del uso de esta aplicación en línea.
+            {{/if}}
+        </p>
+
+        <p>
+            {{#if (unequal share 'yes')}}
+                Sus datos sin anonimizar se almacenarán durante {{storageTime}} a partir del momento en que otorgue su consentimiento, salvo que lo retire antes de que transcurra dicho plazo. Sus datos sin anonimizar se almacenarán en un lugar seguro y solo tendrán acceso a ellos los investigadores que participan en este trabajo.
+            {{else}}
+                Sus datos sin anonimizar se almacenarán de forma indefinida, salvo que retire su consentimiento.
+            {{/if}}
+        </p>
+        <p>
+            {{#if (equal share 'yes')}}
+                Los datos sin anonimizar recopilados podrán compartirse públicamente, a menos que no haya firmado el formulario de autorización independiente que nos permita hacerlo (véase más abajo).
+            {{else if (equal share 'anonymized')}}
+                Los datos anonimizados recopilados podrán compartirse públicamente.
+            {{else}}
+                Los datos recopilados no podrán ser consultados ni utilizados para investigaciones posteriores por nadie ajeno a los investigadores que participan en este trabajo.
+            {{/if}}
+
+            {{#if (equal share 'no')}}
+                Los datos recopilados se eliminarán al finalizar la investigación, o si usted se pone en contacto con el investigador para solicitar su eliminación.
+            {{else}}
+                Los datos recopilados que no se hayan hecho públicos se eliminarán al finalizar la investigación.
+            {{/if}}
+        </p>
+        <p>Como ocurre con cualquier publicación o actividad relacionada con internet, siempre existe el riesgo de una violación de la confidencialidad. De conformidad con el RGPD, los investigadores informarán al participante si se detecta una violación de la confidencialidad de los datos. </p></div>
+    <div class="pageBreak"><h2>6. Identificación de los Investigadores</h2>
+        <p>Si tiene alguna pregunta o inquietud sobre la investigación, no dude en ponerse en contacto con: </p>
+        {{#if researchers}}
+            <p>{{#each researchers}}
+                {{../prefix}} {{name}} ({{email}}) <br />
+            {{/each}}</p>
+        {{/if}}
+        {{#if thePIname}}
+            <p><b>Investigador Principal:</b> {{thePIname}} ({{street}}, {{zip}} {{city}}{{#if country}}, {{country}}{{/if}}, {{thePIemail}})</p>
+        {{/if}}
+        {{#if departmentHead}}
+            {{#if (unequalTrim departmentHead thePIname)}}
+                <p><b>Jefe del Departamento:</b> {{departmentHead}} ({{street}}, {{zip}} {{city}}, {{country}})</p>
+            {{/if}}
+        {{/if}}
+    </div>
+    <div class="pageBreak"><h2>7. Consentimiento Informado y Conformidad</h2>Este formulario de consentimiento se conservará de forma segura y
+        de conformidad con el RGPD durante el tiempo estrictamente necesario.
+        <table>
+            <tbody>
+            <tr>
+                <td class="check" aria-hidden="true">&#9744;</td>
+                 <td>He comprendido la explicación que se me ha proporcionado.
+                {{#if (equal type 'online study')}}
+                   He podido guardar una copia de este formulario. Me he puesto en contacto con los investigadores indicados y todas mis preguntas han sido respondidas a mi entera satisfacción.
+                {{else}}
+                    Se me ha entregado una copia de este formulario. Todas mis preguntas han sido respondidas a mi entera satisfacción.
+                {{/if}}
+                Por lo tanto, accedo voluntariamente a participar en este {{typeLabel}}.
+                </td>
+            </tr>
+            <tr>
+                <td class="check" aria-hidden="true">&#9744;</td>
+                <td>Consiento voluntariamente que mis datos sean registrados y posteriormente tratados de conformidad con el RGPD. He sido informado de las consecuencias de retirar mi consentimiento.
+                </td>
+            </tr>
+            {{#if (equal share 'yes')}}
+                <tr>
+                    <td class="check" aria-hidden="true">&#9744;</td>
+                    <td>Acepto que mis registros de datos y las mediciones realizadas durante el estudio puedan publicarse en el contexto de esta investigación sin anonimizar.</td>
+                </tr>
+
+                {{#if record.photos}}
+                    <tr>
+                        <td class="check additional" aria-hidden="true">&#9744;</td>
+                        <td class="additional">Acepto adicionalmente que se puedan tomar y publicar fotografías durante este estudio.</td>
+                    </tr>
+                {{/if}}
+                {{#if record.videos}}
+                    <tr>
+                        <td class="check additional" aria-hidden="true">&#9744;</td>
+                        <td class="additional">Acepto adicionalmente que se puedan grabar y publicar vídeos durante este estudio.</td>
+                    </tr>
+                {{/if}}
+                {{#if record.audio}}
+                    <tr>
+                        <td class="check additional" aria-hidden="true">&#9744;</td>
+                        <td class="additional">Acepto adicionalmente que se puedan grabar y publicar archivos de audio durante este estudio.</td>
+                    </tr>
+                {{/if}}
+                <tr><td colspan="2">Entiendo que los datos anonimizados no podrán asociarse con mi nombre. Del consentimiento para la publicación no se deriva ningún derecho a mi favor (como remuneración o coautoría). Esta declaración de consentimiento es revocable en cualquier momento de conformidad con el RGPD. En caso de revocación, las grabaciones publicadas, en la medida en que estén a disposición de los investigadores, serán eliminadas. Las grabaciones adicionales dejarán de utilizarse o publicarse tras la revocación de la publicación.</td></tr>
+            {{/if}}
+            </tbody>
+        </table>
+        <table id="signatures">
+            <tbody>
+            <tr>
+                <td class="sign"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Nombre del Participante (en letra de imprenta)</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="sign"></td>
+                <td class="sign"></td>
+            </tr>
+            <tr>
+                <td>Firma del Participante</td>
+                <td>Lugar, Fecha</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

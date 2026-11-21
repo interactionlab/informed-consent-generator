@@ -1,0 +1,251 @@
+<div class="frameStyle">
+    <div class="row" id="firstItem">
+        <div class="col mt-2 mb-2 "><img alt="Logo" class="float-right" src="./img/{{logo}}"></div>
+    </div>
+    <div class="pageBreak"><h1>Einwilligungserklärung zur Teilnahme</h1>
+        <p>
+            Sie sind eingeladen, an unserer Studie ({{typeLabel}}) mit dem Titel <b>{{title}}</b> teilzunehmen, die von
+            {{joinResearchers researchers prefix}} initiiert und durchgeführt wird.
+            Die Forschung wird betreut von
+            {{#if (notBlank thePIname)}}{{thePIname}}{{else}}der verantwortlichen Projektleitung{{/if}}
+            an der {{institution}}{{~#if (notBlank departmentHead)}}
+                {{~#if (notBlank thePIname)}}
+                {{~#if (unequalTrim departmentHead thePIname)}} unter der Leitung von {{departmentHead}}{{/if~}}
+                {{~/if}}
+            {{~/if}}.
+            {{#if funding}}
+                Diese Studie wird durch das Forschungsprojekt {{funding}} gefördert und finanziert.
+            {{/if}}
+            Bitte beachten Sie:
+        </p>
+        <ul>
+            <li>Ihre Teilnahme ist freiwillig.</li>
+            <li>Die Studie ({{typeLabel}}) wird voraussichtlich etwa {{duration}} dauern.</li>
+            {{#if record.demographics}}<li>Wir erfassen persönliche demografische Daten ({{personalData}}).</li>{{/if}}
+            {{#if record.photos}}<li>Wir werden während der Sitzung Fotos aufnehmen.</li>{{/if}}
+            {{#if record.videos}}<li>Wir werden während der Sitzung Videos aufnehmen.</li>{{/if}}
+            {{#if record.audio}}<li>Wir werden während der Sitzung Audioaufnahmen machen.</li>{{/if}}
+            {{#if record.motion}}<li>Wir erfassen Ihre Körperbewegungen während der Sitzung.</li>{{/if}}
+            {{#if record.eyetracking}}<li>Wir erfassen Ihre Augen- und Kopfbewegungen während der Sitzung.</li>{{/if}}
+            {{#if record.physiological}}<li>Wir nehmen physiologische Messungen an Ihrem Körper vor.</li>{{/if}}
+            {{#if record.screenrecording}}<li>Wir zeichnen die für die Studie erforderlichen Bildschirminhalte auf Ihrem Gerät auf.</li>{{/if}}
+            {{#if record.interaction}}<li>Wir erfassen Interaktionsdaten (z. B. Klicks, Zeitmessungen) während der Sitzung.</li>{{/if}}
+            {{#if (equal compensation 'points')}}<li>Sie erhalten als Vergütung 1 Leistungspunkt pro Stunde für Ihren Studiengang.</li>
+            {{else if (equal compensation 'moneyPoints')}}<li>Sie erhalten als Vergütung 1 Leistungspunkt pro Stunde für Ihren Studiengang oder {{monetaryCompensation}} als finanzielle Vergütung.</li>
+            {{else if (equal compensation 'money')}}<li>Sie erhalten {{monetaryCompensation}} als Vergütung.</li>
+            {{else}}<li>Sie erhalten keine Vergütung.</li>{{/if}}
+            <li>Wir können Ergebnisse aus dieser und anderen Sitzungen veröffentlichen.</li>
+            {{#if (equal share 'yes')}}<li>Alle von Ihnen in dieser Studie ({{typeLabel}}) bereitgestellten Daten werden <b>nicht anonymisiert</b> veröffentlicht.</li>
+            {{else if (equal share 'anonymized')}}<li>Alle von Ihnen in dieser Studie ({{typeLabel}}) bereitgestellten Daten werden anonymisiert veröffentlicht; sie enthalten somit weder Ihren Namen noch können sie Ihrer Identität zugeordnet werden.</li>
+            {{else}}<li>Die erhobenen Daten können von niemandem außerhalb der an dieser Arbeit beteiligten Forschenden eingesehen oder für weitere Forschung verwendet werden. </li>{{/if}}
+        </ul>
+        <p>Wenn Sie Fragen zum gesamten Einwilligungsverfahren dieser Forschung oder zu Ihren Rechten als
+            Forschungsteilnehmerin bzw. Forschungsteilnehmer haben, wenden Sie sich bitte
+            {{#if ethicalComittee}}
+                an unsere Ethikkommission: {{ethicalComittee}}.
+            {{else}}
+                {{#if departmentHead}}
+                    an {{thePIname}} (E-Mail: {{thePIemail}}) oder {{departmentHead}}.
+                {{else}}
+                    an {{thePIname}} (E-Mail: {{thePIemail}}).
+                {{/if}}
+            {{/if}}
+
+            Sie sollten die nachfolgenden Angaben sorgfältig lesen. Nehmen Sie sich so viel Zeit, wie Sie benötigen, um die Einwilligungserklärung
+            zu lesen. Wenn Sie mit etwas nicht vollständig einverstanden sind oder nicht alle Ihre Fragen zu Ihrer
+            Zufriedenheit beantwortet wurden, sollten Sie Ihre Einwilligung nicht erteilen. </p>
+    </div>
+    <div class="pageBreak"><h2>1. Zweck und Ziel dieser Forschung</h2>
+        <p>{{purpose}} {{goal}} Ihre Teilnahme hilft uns, dieses Ziel zu erreichen. Die Ergebnisse dieser Forschung können
+            auf wissenschaftlichen oder fachlichen Tagungen vorgestellt oder in wissenschaftlichen Sammelbänden und
+            Fachzeitschriften veröffentlicht werden.</p></div>
+    <div class="pageBreak"><h2>2. Teilnahme und Vergütung</h2>
+        <p>Ihre Teilnahme an dieser Studie ({{typeLabel}}) ist freiwillig. Sie sind eine von schätzungsweise {{participants}} Personen, die
+            {{#if (equal type 'online study')}}befragt{{/if}}
+            {{#if (equal type 'user study')}}getestet{{/if}}
+            {{#if (equal type 'field study')}}befragt{{/if}}
+            {{#if (equal type 'interview')}}interviewt{{/if}}
+             für diese Forschung werden.
+            {{#if (equal compensation 'none')}}Sie erhalten keine Vergütung.
+            {{else if (equal compensation 'points')}}Sie erhalten einen Leistungspunkt pro Stunde, der für Ihren Studiengang an der {{institution}} erforderlich ist. Sie können Ihre Teilnahme jederzeit ohne Angabe von Gründen widerrufen und abbrechen. Sie erhalten Ihre Leistungspunkte dennoch.
+            {{else if (equal compensation 'moneyPoints')}}Sie erhalten {{monetaryCompensation}} als Vergütung für Ihre Teilnahme oder einen Leistungspunkt pro Stunde, der für Ihren Studiengang an der {{institution}} erforderlich ist.
+            {{else if (equal compensation 'money')}}Sie erhalten {{monetaryCompensation}} als Vergütung für Ihre Teilnahme. {{/if}}
+            {{#if (equal compensation 'none')}}Sie können Ihre Teilnahme jederzeit widerrufen und abbrechen.
+            {{else}}Sie können Ihre Teilnahme jederzeit ohne Nachteile oder Verlust der Vergütung widerrufen und abbrechen. {{/if}}
+            Soweit möglich, können Sie die Beantwortung einzelner Fragen ablehnen oder Ihre Teilnahme jederzeit beenden.
+            {{#if (equal type 'interview')}}Ich habe das Recht, Fragen nicht zu beantworten, und falls ich mich während des Interviews in irgendeiner Weise unwohl fühle, habe ich das Recht, das Interview abzubrechen. {{/if}}
+        </p>
+        <p>Sie können uns jederzeit und ohne Angabe von Gründen mitteilen, dass Sie Ihre erteilte Einwilligung widerrufen möchten (DSGVO Art. 7(3)). Im Falle eines Widerrufs werden Ihre auf Grundlage Ihrer Einwilligung gespeicherten Daten gelöscht oder,
+            soweit rechtlich zulässig, anonymisiert (DSGVO Art. 17). Ist eine Löschung nicht möglich oder nur mit unverhältnismäßigem
+            technischen Aufwand möglich, werden Ihre Daten durch Entfernen der personenbezogenen Identifikationsmerkmale
+            anonymisiert. Eine Anonymisierung Ihrer Daten kann jedoch die Möglichkeit einer nachträglichen
+            Rückverfolgung der Informationen zu Ihnen über andere Quellen nicht vollständig ausschließen. Sobald die Daten anonymisiert sind,
+            ist eine Löschung der Daten zudem nicht mehr möglich, da wir dann nicht mehr feststellen können, welche Daten von Ihnen stammen. </p></div>
+    <div class="pageBreak"><h2>3. Ablauf</h2>
+        <p>Nach Erteilung Ihrer Einwilligung werden Sie durch die folgenden Schritte geführt:</p>
+        <p style="padding-left: 10px; padding-top: 0px">{{breaklines procedure}}</p>
+        <p>Der gesamte Ablauf dieser Studie ({{typeLabel}}) wird voraussichtlich etwa {{duration}} dauern.</p></div>
+    <div class="pageBreak"><h2>4. Risiken und Nutzen</h2>
+        <p>Mit dieser Studie ({{typeLabel}}) sind keine Risiken verbunden. Etwaige Unannehmlichkeiten oder Beeinträchtigungen werden
+            voraussichtlich gering ausfallen und sind unwahrscheinlich. Falls Sie sich unwohl fühlen, können Sie Ihre Teilnahme jederzeit abbrechen.
+            {{#if (equal compensation 'none')}}
+                (Sie haben keinen direkten Nutzen von Ihrer Teilnahme an dieser Studie. Wir hoffen, dass die aus Ihrer Teilnahme gewonnenen Erkenntnisse dazu beitragen, die Forschung in diesem Bereich voranzubringen.)
+            {{else}}
+                Ihr Nutzen aus der Teilnahme besteht in der oben beschriebenen Vergütung.
+            {{/if}}
+            Mit dieser Forschung werden wir den Wissensstand in diesem Forschungsbereich voranbringen.</p></div>
+    <div class="pageBreak"><h2>5. Datenschutz und Vertraulichkeit</h2>
+        <p>Die Datenschutz-Grundverordnung (DSGVO) der Europäischen Union (EU) regelt diese Datenerhebung.
+            Rechtsgrundlage für die Verarbeitung personenbezogener Daten ist die Einwilligung der betroffenen Person gemäß Art. 6 Abs. 1 lit. a DSGVO. Die DSGVO gewährt den betroffenen Personen eine Reihe von Rechten, unter anderem das Recht auf Auskunft,
+            Berichtigung und Löschung personenbezogener Daten. </p>
+        <ul>
+            <li>Sie haben jederzeit das Recht auf Auskunft über Ihre personenbezogenen Daten (DSGVO Art. 15).</li>
+            <li>Sie haben jederzeit das Recht, unrichtige personenbezogene Daten berichtigen zu lassen (DSGVO Art. 16).</li>
+            <li>Sie haben das Recht, die Löschung Ihrer personenbezogenen Daten zu verlangen (DSGVO Art. 17).</li>
+            <li>Sie haben das Recht, die Verarbeitung Ihrer personenbezogenen Daten einschränken zu lassen (DSGVO Art. 18).</li>
+            <li>Sie haben das Recht, eine Kopie Ihrer personenbezogenen Daten zu erhalten und diese an eine andere Organisation zu übertragen (DSGVO Art. 20).</li>
+            <li>Sie haben das Recht, der Verarbeitung Ihrer personenbezogenen Daten zu widersprechen (DSGVO Art. 21).</li>
+        </ul>
+        <p>Wenn Sie eines dieser Rechte ausüben möchten, wenden Sie sich bitte an die Forschenden. </p>
+        <p>{{#if record.demographics}}Wir erfassen während der Teilnahme personenbezogene Daten ({{personalData}}). {{/if}}
+            {{#if (equal type 'online study')}}Die Kontaktdaten der Studienteilnehmenden können zur Nachverfolgung möglicher Infektionsketten verwendet werden. {{/if}}
+            Die Forschenden werden Sie in keinem Bericht mit den aus dieser Studie ({{typeLabel}}) gewonnenen Erkenntnissen namentlich kenntlich machen, und
+            Ihre Vertraulichkeit als Teilnehmerin bzw. Teilnehmer dieser Studie ({{typeLabel}}) bleibt gewahrt.
+            {{#if (equal encryption 'yes')}}Alle von Ihnen in dieser Studie ({{typeLabel}}) bereitgestellten Daten werden verschlüsselt. {{/if}}
+            Die in dieser Studie ({{typeLabel}}) erhobenen Daten werden im Einklang mit der DSGVO behandelt. </p>
+        <p>Wir erfassen
+            {{listTrueKeys record}}
+            {{#if (equal type 'online study')}} und zeichnen Browser-Metadaten auf{{/if}}
+             während der Studie ({{typeLabel}}).
+
+
+            {{#if (equal share 'yes')}}
+                Alle von Ihnen bereitgestellten Daten werden <b>nicht anonymisiert</b> veröffentlicht. Für die weitere Verwendung der Aufzeichnungen und Daten gelten die üblichen Datennutzungsrichtlinien.
+            {{else if (equal share 'anonymized')}}
+                Alle von Ihnen bereitgestellten Daten werden anonymisiert veröffentlicht. Für die weitere Verwendung der Aufzeichnungen und Daten gelten die üblichen Datennutzungsrichtlinien, die die Anonymität der teilnehmenden Personen schützen. Wir werden alle personenbezogenen Informationen, die Sie identifizieren könnten, vor der Veröffentlichung der Daten entfernen oder unkenntlich machen, damit niemand Sie anhand der geteilten Informationen identifizieren kann. Wir verwenden dabei aktuelle wissenschaftliche Standards und anerkannte Anonymisierungsverfahren. Bei der Anonymisierung werden Ihre Daten so verändert, dass sie nicht mehr oder nur mit unverhältnismäßigem technischen Aufwand auf Ihre Person zurückgeführt werden können. Trotz dieser Maßnahmen können wir die Anonymität Ihrer personenbezogenen Daten nicht garantieren.
+            {{else}}
+                Alle von Ihnen bereitgestellten Daten werden nicht veröffentlicht und vertraulich behandelt.
+            {{/if}}
+
+            {{#if (equal type 'interview')}}
+                {{#if (unequal share 'yes')}}
+                        Das Interviewtranskript wird in erster Linie von {{#if thePIname}}{{thePIname}}{{/if}}{{#if secondResearcherName}}{{#if thePIname}} und{{/if}} {{secondResearcherName}}{{/if}}{{#if thirdResearcherName}}{{#if secondResearcherName}} und{{/if}} {{thirdResearcherName}}{{/if}} ausgewertet.
+                        Zugang zum vollständigen Interviewtranskript haben ausschließlich die Autorinnen und Autoren dieser Forschung, akademische Kolleginnen und Kollegen sowie Forschende, mit denen im Rahmen des Forschungsprozesses zusammengearbeitet wird.
+                        Zusammenfassungen von Interviewinhalten oder wörtliche Zitate aus dem Interview, die über wissenschaftliche Publikationen oder andere Kanäle veröffentlicht werden, werden so anonymisiert, dass Sie nicht identifiziert werden können; zudem wird darauf geachtet, dass keine weiteren Angaben aus dem Interview offengelegt werden, die Sie identifizieren könnten. Ich habe das Recht, Fragen nicht zu beantworten, und falls ich mich während des Interviews in irgendeiner Weise unwohl fühle, habe ich das Recht, das Interview abzubrechen.
+                {{/if}}
+            {{/if}}
+
+            {{#if (equal type 'online study')}}
+                Diese Webseite verwendet Cookies und andere Tracking-Technologien, um die Forschung durchzuführen, die Nutzererfahrung sowie die Interaktionsmöglichkeiten mit dem System zu verbessern und zusätzliche Inhalte Dritter bereitzustellen. Trotz sorgfältiger Inhaltskontrolle übernehmen die Forschenden keine Haftung für Schäden, die direkt oder indirekt aus der Nutzung dieser Online-Anwendung entstehen.
+            {{/if}}
+        </p>
+
+        <p>
+            {{#if (unequal share 'yes')}}
+                Ihre nicht anonymisierten Daten werden ab dem Zeitpunkt der Erteilung Ihrer Einwilligung für {{storageTime}} gespeichert, sofern Sie Ihre Einwilligung nicht vorher widerrufen. Ihre nicht anonymisierten Daten werden an einem sicheren Ort gespeichert und sind ausschließlich den an dieser Arbeit beteiligten Forschenden zugänglich.
+            {{else}}
+                Ihre nicht anonymisierten Daten werden auf unbestimmte Zeit gespeichert, sofern Sie Ihre Einwilligung nicht widerrufen.
+            {{/if}}
+        </p>
+        <p>
+            {{#if (equal share 'yes')}}
+                Die erhobenen, nicht anonymisierten Daten können öffentlich geteilt werden, sofern Sie nicht das separate Formular unterzeichnet haben, das uns dies untersagt (siehe unten).
+            {{else if (equal share 'anonymized')}}
+                Die erhobenen, anonymisierten Daten können öffentlich geteilt werden.
+            {{else}}
+                Die erhobenen Daten können von niemandem außerhalb der an dieser Arbeit beteiligten Forschenden eingesehen oder für weitere Forschung verwendet werden.
+            {{/if}}
+
+            {{#if (equal share 'no')}}
+                Die erhobenen Daten werden nach Abschluss der Forschung gelöscht, oder sobald Sie die Forschenden um deren Löschung bitten.
+            {{else}}
+                Nicht veröffentlichte, erhobene Daten werden nach Abschluss der Forschung gelöscht.
+            {{/if}}
+        </p>
+        <p>Wie bei jeder Veröffentlichung oder Online-bezogenen Aktivität ist das Risiko einer Vertraulichkeitsverletzung grundsätzlich nicht auszuschließen. Gemäß der DSGVO werden die Forschenden die teilnehmende Person informieren, falls eine Verletzung des Schutzes vertraulicher Daten festgestellt wird. </p></div>
+    <div class="pageBreak"><h2>6. Angaben zu den Forschenden</h2>
+        <p>Wenn Sie Fragen oder Anliegen zu dieser Forschung haben, wenden Sie sich bitte gerne an: </p>
+        {{#if researchers}}
+            <p>{{#each researchers}}
+                {{../prefix}} {{name}} ({{email}}) <br />
+            {{/each}}</p>
+        {{/if}}
+        {{#if thePIname}}
+            <p><b>Projektleitung:</b> {{thePIname}} ({{street}}, {{zip}} {{city}}{{#if country}}, {{country}}{{/if}}, {{thePIemail}})</p>
+        {{/if}}
+        {{#if departmentHead}}
+            {{#if (unequalTrim departmentHead thePIname)}}
+                <p><b>Leitung der Abteilung:</b> {{departmentHead}} ({{street}}, {{zip}} {{city}}, {{country}})</p>
+            {{/if}}
+        {{/if}}
+    </div>
+    <div class="pageBreak"><h2>7. Einwilligung und Zustimmung</h2>Diese Einwilligungserklärung wird sicher und
+        im Einklang mit der DSGVO nicht länger als erforderlich aufbewahrt.
+        <table>
+            <tbody>
+            <tr>
+                <td class="check" aria-hidden="true">&#9744;</td>
+                 <td>Ich habe die mir erteilten Erläuterungen verstanden.
+                {{#if (equal type 'online study')}}
+                   Ich konnte eine Kopie dieses Formulars speichern. Ich habe mich an die genannten Forschenden gewandt und alle meine Fragen wurden zu meiner Zufriedenheit beantwortet.
+                {{else}}
+                    Mir wurde eine Kopie dieses Formulars ausgehändigt. Alle meine Fragen wurden zu meiner Zufriedenheit beantwortet.
+                {{/if}}
+                Daher stimme ich freiwillig der Teilnahme an dieser Studie ({{typeLabel}}) zu.
+                </td>
+            </tr>
+            <tr>
+                <td class="check" aria-hidden="true">&#9744;</td>
+                <td>Ich willige freiwillig ein, dass meine Daten im Einklang mit der DSGVO aufgezeichnet und anschließend verarbeitet werden. Ich wurde über die Folgen eines Widerrufs meiner Einwilligung informiert.
+                </td>
+            </tr>
+            {{#if (equal share 'yes')}}
+                <tr>
+                    <td class="check" aria-hidden="true">&#9744;</td>
+                    <td>Ich stimme zu, dass meine Daten und Messwerte aus der Studie im Rahmen dieser Forschung in nicht anonymisierter Form veröffentlicht werden können.</td>
+                </tr>
+
+                {{#if record.photos}}
+                    <tr>
+                        <td class="check additional" aria-hidden="true">&#9744;</td>
+                        <td class="additional">Ich stimme zusätzlich zu, dass während dieser Studie Fotos aufgenommen und veröffentlicht werden können.</td>
+                    </tr>
+                {{/if}}
+                {{#if record.videos}}
+                    <tr>
+                        <td class="check additional" aria-hidden="true">&#9744;</td>
+                        <td class="additional">Ich stimme zusätzlich zu, dass während dieser Studie Videos aufgenommen und veröffentlicht werden können.</td>
+                    </tr>
+                {{/if}}
+                {{#if record.audio}}
+                    <tr>
+                        <td class="check additional" aria-hidden="true">&#9744;</td>
+                        <td class="additional">Ich stimme zusätzlich zu, dass während dieser Studie Audioaufnahmen gemacht und veröffentlicht werden können.</td>
+                    </tr>
+                {{/if}}
+                <tr><td colspan="2">Mir ist bewusst, dass anonymisierte Daten nicht mit meinem Namen in Verbindung gebracht werden können. Aus der Einwilligung zur Veröffentlichung leite ich keine Rechte ab (wie etwa eine Vergütung oder Mitautorenschaft). Diese Einwilligungserklärung ist im Einklang mit der DSGVO jederzeit widerrufbar. Im Falle eines Widerrufs werden die veröffentlichten Aufzeichnungen, soweit sie der Verfügungsgewalt der Forschenden unterliegen, entfernt. Weitere Aufzeichnungen werden nach Widerruf der Veröffentlichung nicht mehr verwendet oder veröffentlicht.</td></tr>
+            {{/if}}
+            </tbody>
+        </table>
+        <table id="signatures">
+            <tbody>
+            <tr>
+                <td class="sign"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Name der teilnehmenden Person (in Druckbuchstaben)</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="sign"></td>
+                <td class="sign"></td>
+            </tr>
+            <tr>
+                <td>Unterschrift der teilnehmenden Person</td>
+                <td>Ort, Datum</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

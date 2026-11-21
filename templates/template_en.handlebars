@@ -4,7 +4,7 @@
     </div>
     <div class="pageBreak"><h1>Informed Consent of Participation</h1>
         <p>
-            You are invited to participate in the {{type}} <b>{{title}}</b>, initiated and conducted by
+            You are invited to participate in the {{typeLabel}} <b>{{title}}</b>, initiated and conducted by
             {{joinResearchers researchers prefix}}.
             The research is supervised by
             {{#if (notBlank thePIname)}}{{thePIname}}{{else}}the responsible investigator{{/if}}
@@ -20,7 +20,7 @@
         </p>
         <ul>
             <li>Your participation is voluntary.</li>
-            <li>The {{type}} will last approximately {{duration}}.</li>
+            <li>The {{typeLabel}} will last approximately {{duration}}.</li>
             {{#if record.demographics}}<li>We will record personal demographics ({{personalData}}).</li>{{/if}}
             {{#if record.photos}}<li>We will take photos during the session.</li>{{/if}}
             {{#if record.videos}}<li>We will record videos during the session.</li>{{/if}}
@@ -35,8 +35,8 @@
             {{else if (equal compensation 'money')}}<li>You will receive {{monetaryCompensation}} as compensation.</li>
             {{else}}<li>You will receive no compensation.</li>{{/if}}
             <li>We may publish results from this and other sessions.</li>
-            {{#if (equal share 'yes')}}<li>All data you provide in this {{type}} will be published <b>not anonymized</b>.</li>
-            {{else if (equal share 'anonymized')}}<li>All data you provide in this {{type}} will be published anonymized; thus, they will neither include your name nor cannot be associated with your identity.</li>
+            {{#if (equal share 'yes')}}<li>All data you provide in this {{typeLabel}} will be published <b>not anonymized</b>.</li>
+            {{else if (equal share 'anonymized')}}<li>All data you provide in this {{typeLabel}} will be published anonymized; thus, they will neither include your name nor cannot be associated with your identity.</li>
             {{else}}<li>The data collected cannot be viewed or used for further research by anyone outside the researchers involved in this work. </li>{{/if}}
         </ul>
         <p>If you have any questions about the whole informed consent process of this research or your rights as a
@@ -60,7 +60,7 @@
             presented at scientific or professional meetings or published in scientific proceedings and
             journals.</p></div>
     <div class="pageBreak"><h2>2. Participation and Compensation</h2>
-        <p>Your participation in this {{type}} is voluntary. You will be one of approximately {{participants}} people being
+        <p>Your participation in this {{typeLabel}} is voluntary. You will be one of approximately {{participants}} people being
             {{#if (equal type 'online study')}}surveyed{{/if}}
             {{#if (equal type 'user study')}}tested{{/if}}
             {{#if (equal type 'field study')}}surveyed{{/if}}
@@ -84,12 +84,12 @@
     <div class="pageBreak"><h2>3. Procedure</h2>
         <p>After giving consent, you will be guided through the following steps:</p>
         <p style="padding-left: 10px; padding-top: 0px">{{breaklines procedure}}</p>
-        <p>The complete procedure of this {{type}} will last approximately {{duration}}.</p></div>
+        <p>The complete procedure of this {{typeLabel}} will last approximately {{duration}}.</p></div>
     <div class="pageBreak"><h2>4. Risks and Benefits</h2>
-        <p>There are no risks associated with this {{type}}. Discomforts or inconveniences will be minor and are
+        <p>There are no risks associated with this {{typeLabel}}. Discomforts or inconveniences will be minor and are
             unlikely to happen. If you feel uncomfortable, you may discontinue your participation.
             {{#if (equal compensation 'none')}}
-                (You will not directly benefit through participation in this {{type}}. We hope that the settings obtained from your participation may help to bring forward the research in this field.)
+                (You will not directly benefit through participation in this {{typeLabel}}. We hope that the settings obtained from your participation may help to bring forward the research in this field.)
             {{else}}
                 Your benefit in participating is your compensation described above.
             {{/if}}
@@ -109,22 +109,22 @@
         <p>If you wish to exercise any of your rights, please contact the researchers. </p>
         <p>{{#if record.demographics}}We will record personal data ({{personalData}}) during participation. {{/if}}
             {{#if (equal type 'online study')}}The contact details of the study participants can be used to track potential infection chains. {{/if}}
-            Researchers will not identify you by your real name in any reports using settings obtained from this {{type}}, and
-            your confidentiality as a participant in this {{type}} will remain secure.
-            {{#if (equal encryption 'yes')}}All the data you provide in this {{type}} will be encrypted. {{/if}}
-            Data collected in this {{type}} will be treated in compliance with the GDPR. </p>
+            Researchers will not identify you by your real name in any reports using settings obtained from this {{typeLabel}}, and
+            your confidentiality as a participant in this {{typeLabel}} will remain secure.
+            {{#if (equal encryption 'yes')}}All the data you provide in this {{typeLabel}} will be encrypted. {{/if}}
+            Data collected in this {{typeLabel}} will be treated in compliance with the GDPR. </p>
         <p>We will record
             {{listTrueKeys record}}
             {{#if (equal type 'online study')}} and record browser meta data{{/if}}
-             during the {{type}}.
+             during the {{typeLabel}}.
 
 
             {{#if (equal share 'yes')}}
-                All data you provide in this {{type}} will be published <b>not anonymized</b>. Subsequent uses of records and data will be subject to standard data use policies.
+                All data you provide in this {{typeLabel}} will be published <b>not anonymized</b>. Subsequent uses of records and data will be subject to standard data use policies.
             {{else if (equal share 'anonymized')}}
-                All data you provide in this {{type}} will be published anonymized. Subsequent uses of records and datawill be subject to standard data use policies that protect the participating individuals' anonymity. We will remove or code any personal information that could identify you before publishing the data to ensure that no one can identify you from the information we share. We will use current scientific standards and known methods for anonymization. When your data are anonymized, they are altered in a manner that they can no longer be traced back to your person or only with disproportionate technical effort. Despite these measures, we cannot guarantee the anonymity of your personal data.
+                All data you provide in this {{typeLabel}} will be published anonymized. Subsequent uses of records and datawill be subject to standard data use policies that protect the participating individuals' anonymity. We will remove or code any personal information that could identify you before publishing the data to ensure that no one can identify you from the information we share. We will use current scientific standards and known methods for anonymization. When your data are anonymized, they are altered in a manner that they can no longer be traced back to your person or only with disproportionate technical effort. Despite these measures, we cannot guarantee the anonymity of your personal data.
             {{else}}
-                All data you provide in this {{type}} will not be published and kept confidential.
+                All data you provide in this {{typeLabel}} will not be published and kept confidential.
             {{/if}}
 
             {{#if (equal type 'interview')}}
@@ -191,7 +191,7 @@
                 {{else}}
                     I have been given a copy of this form. I have had all my questions answered to my satisfaction. 
                 {{/if}}
-                Therefore, I voluntarily agree to participate in this {{type}}.
+                Therefore, I voluntarily agree to participate in this {{typeLabel}}.
                 </td>
             </tr>
             <tr>

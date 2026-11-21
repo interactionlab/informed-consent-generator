@@ -67,6 +67,7 @@ function collectData(){
     data["share"] = $("select[name='share']").val();
     data["encryption"] = $("select[name='encryption']").val();
     data["compensation"] = $("select[name='compensation']").val();
+    data["docLanguage"] = $("select[name='docLanguage']").val();
 
     data["researchers"] = [];
     var lstResearchers = document.getElementsByClassName("researchersContainer");

@@ -18,12 +18,16 @@
 
   function renderLivePreview() {
     if (typeof settings === 'undefined' || !settings || !settings.institutions) return;
-    var template = Handlebars.templates.template_en;
-    if (!template) return;
     var out = document.getElementById('livePreview');
     if (!out) return;
     var data;
     try { data = collectData(); } catch (e) { return; }
+    // data.docLanguage (collected like any other field) is the source of
+    // truth for which template to use - same reasoning as renderResult() in
+    // index.html, so this pane and the generated/printed result can never
+    // silently disagree about which language is actually selected.
+    var template = typeof getDocTemplate === 'function' ? getDocTemplate(data.docLanguage) : Handlebars.templates.template_en;
+    if (!template) return;
     var institution = settings.institutions[data.institution] || {};
     try {
       out.innerHTML = template(Object.assign({}, data, institution));

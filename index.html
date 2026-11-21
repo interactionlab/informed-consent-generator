@@ -28,33 +28,82 @@
 
     <!-- Include Handlebars  -->
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-    <script>Handlebars.registerHelper('listTrueKeys', function(obj) {
-        // Key → Translation mapping
-        const translations = {
-            demographics: "personal demographics",
-            contact: "contact information",
-            audio: "audio recordings",
-            photo: "photographs",
-            video: "video recordings",
-            motion: "motion data",
-            physiological: "physiological signals",
-            eyetracking: "eye-tracking data",
-            screenrecording: "screen recordings",
-            notes: "notes",
-            interaction: "interaction logs"
+    <script>
+        // Both helpers below read the active document language via
+        // getDocLanguage() (defined later, in the main script block) at RENDER
+        // time, not at registration time, so the ordering here is safe - these
+        // function bodies only run once a template is actually rendered, by
+        // which point the whole page (including that function) has loaded.
+
+        // Translates a raw settings.json-coded value (e.g. "online study"; see
+        // the "types" array) into prose for the active document language.
+        // {{typeLabel}} takes no explicit argument - called as a plain mustache,
+        // Handlebars binds `this` to the current data context, so `this.type`
+        // reads the same field {{type}} would have printed directly.
+        const TYPE_LABELS = {
+            en: { "online study": "online study", "user study": "user study", "field study": "field study", "interview": "interview" },
+            de: { "online study": "Online-Studie", "user study": "Nutzerstudie", "field study": "Feldstudie", "interview": "Interview" },
+            es: { "online study": "estudio en línea", "user study": "estudio con usuarios", "field study": "estudio de campo", "interview": "entrevista" },
+            fr: { "online study": "étude en ligne", "user study": "étude utilisateur", "field study": "étude de terrain", "interview": "entretien" },
+            it: { "online study": "studio online", "user study": "studio con utenti", "field study": "studio sul campo", "interview": "intervista" }
         };
+        Handlebars.registerHelper('typeLabel', function() {
+            // this.docLanguage, not a separate getDocLanguage() lookup: it's
+            // whatever was actually collected into the data this exact render
+            // call is using, so it can't disagree with which template got picked.
+            var table = TYPE_LABELS[this.docLanguage] || TYPE_LABELS.en;
+            return table[this.type] || this.type;
+        });
 
-        const items = Object.keys(obj)
-            .filter(k => obj[k])
-            .map(k => translations[k] || k); // fall back to key if no translation
+        const RECORD_KEY_LABELS = {
+            en: {
+                demographics: "personal demographics", contact: "contact information", audio: "audio recordings",
+                photo: "photographs", video: "video recordings", motion: "motion data", physiological: "physiological signals",
+                eyetracking: "eye-tracking data", screenrecording: "screen recordings", notes: "notes", interaction: "interaction logs"
+            },
+            de: {
+                demographics: "persönliche Demografiedaten", contact: "Kontaktinformationen", audio: "Audioaufnahmen",
+                photo: "Fotos", video: "Videoaufnahmen", motion: "Bewegungsdaten", physiological: "physiologische Signale",
+                eyetracking: "Eye-Tracking-Daten", screenrecording: "Bildschirmaufnahmen", notes: "Notizen", interaction: "Interaktionsprotokolle"
+            },
+            es: {
+                demographics: "datos demográficos personales", contact: "información de contacto", audio: "grabaciones de audio",
+                photo: "fotografías", video: "grabaciones de vídeo", motion: "datos de movimiento", physiological: "señales fisiológicas",
+                eyetracking: "datos de seguimiento ocular", screenrecording: "grabaciones de pantalla", notes: "notas", interaction: "registros de interacción"
+            },
+            fr: {
+                demographics: "données démographiques personnelles", contact: "coordonnées", audio: "enregistrements audio",
+                photo: "photographies", video: "enregistrements vidéo", motion: "données de mouvement", physiological: "signaux physiologiques",
+                eyetracking: "données de suivi oculaire", screenrecording: "enregistrements d'écran", notes: "notes", interaction: "journaux d'interaction"
+            },
+            it: {
+                demographics: "dati demografici personali", contact: "informazioni di contatto", audio: "registrazioni audio",
+                photo: "fotografie", video: "registrazioni video", motion: "dati di movimento", physiological: "segnali fisiologici",
+                eyetracking: "dati di eye-tracking", screenrecording: "registrazioni dello schermo", notes: "note", interaction: "log di interazione"
+            }
+        };
+        Handlebars.registerHelper('listTrueKeys', function(obj) {
+            // this.docLanguage, same reasoning as typeLabel() above: {{listTrueKeys record}}
+            // is called at the template's top level (not inside a block that changes
+            // context), so `this` here is the same data object `record` came from.
+            const translations = RECORD_KEY_LABELS[this.docLanguage] || RECORD_KEY_LABELS.en;
+            const andWord = { en: "and", de: "und", es: "y", fr: "et", it: "e" }[this.docLanguage] || "and";
 
-        if (items.length > 1) {
-            return items.slice(0, -1).join(', ') + ', and ' + items[items.length - 1];
-        }
-        return items[0] || '';
+            const items = Object.keys(obj)
+                .filter(k => obj[k])
+                .map(k => translations[k] || k); // fall back to key if no translation
+
+            if (items.length > 1) {
+                return items.slice(0, -1).join(', ') + ', ' + andWord + ' ' + items[items.length - 1];
+            }
+            return items[0] || '';
         });
     </script>
     <script src="./templates/template_en.precompiled.js"></script>
+    <script src="./templates/template_de.precompiled.js"></script>
+    <script src="./templates/template_es.precompiled.js"></script>
+    <script src="./templates/template_fr.precompiled.js"></script>
+    <script src="./templates/template_it.precompiled.js"></script>
 
     <link rel="stylesheet" href="./css/style.css" />
     <meta property="og:site_name" content="Informed Consent Generator"> 
@@ -133,6 +182,16 @@
                         <div class="col" >
                             <span class="text-danger">* required fields</span>
                         </div>
+                    </div>
+                    <div class="row mt-3 ">
+                        <div class="col-4"><label id="docLanguageText" for="docLanguage">Document Language</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Document Language" title="The language of the generated consent document itself - this form stays in English either way.">ⓘ</button></div>
+                        <div class="col-8"><select class="form-select" id="docLanguage" name="docLanguage" onchange="onChange(event)">
+                            <option value="en">English</option>
+                            <option value="de">Deutsch</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="it">Italiano</option>
+                        </select></div>
                     </div>
                     <div class="row mt-3 ">
                         <div class="col-4"><label id="institutionText" for="institution" class="danger">Institution</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Institution" title="The university or institution running this study. Sets the logo and address shown on the generated consent form.">ⓘ</button></div>
@@ -436,6 +495,11 @@
             $("select[name='share'] option[value='" + data["share"] + "']").attr("selected", true);
             $("select[name='encryption'] option[value='" + data["encryption"] + "']").attr("selected", true);
             $("select[name='compensation'] option[value='" + data["compensation"] + "']").attr("selected", true);
+            // Explicitly defaults to English for old saves that predate this
+            // field, or any unrecognized value, rather than silently leaving
+            // whatever the select happened to already be set to.
+            var validDocLanguages = ["en", "de", "es", "fr", "it"];
+            $("select[name='docLanguage']").val(validDocLanguages.includes(data["docLanguage"]) ? data["docLanguage"] : "en");
 
             document.querySelectorAll(".researchersContainer").forEach(el => el.remove());
             if (data["researchers"] != null){
@@ -455,12 +519,31 @@
 
 
 
+        // getDocLanguage() is only an initial DEFAULT (what the #docLanguage
+        // select is set to on page load, from the last choice remembered in
+        // localStorage). Once the page is up, the #docLanguage field itself -
+        // read via data.docLanguage below, same as every other form field - is
+        // the single source of truth for which template actually renders, so
+        // it can never drift out of sync with what Save/Load Settings sees.
+        var DOC_LANG_KEY = "icgDocLang";
+        function getDocLanguage() {
+            try { return localStorage.getItem(DOC_LANG_KEY) || "en"; } catch (e) { return "en"; }
+        }
+        function getDocTemplate(lang) {
+            return Handlebars.templates["template_" + (lang || "en")] || Handlebars.templates.template_en;
+        }
+
         // Shared by generate() and the navbar's #btnPrintPreview button (see
         // preview.js): both need #results populated from the current form
         // data, but only generate() should switch the page into view mode.
         function renderResult(){
-            var template = Handlebars.templates.template_en;
+            // Defensive: every current caller (generate(), #btnPrintPreview,
+            // beforeprint) only ever runs well after settings.json has loaded,
+            // but if that ever changes, settings["institutions"] being
+            // undefined here would throw uncaught rather than fail quietly.
+            if (!settings || !settings.institutions) return;
             data = collectData();
+            var template = getDocTemplate(data.docLanguage);
 
             let institution = settings["institutions"][data["institution"]]
             if (template != null) {
@@ -575,6 +658,25 @@
                 // "Auto" follows the OS preference live, not just at page load.
                 media.addEventListener("change", function () {
                     if (document.documentElement.getAttribute("data-theme") === "auto") applyTheme("auto");
+                });
+            })();
+
+            // Document language: the #docLanguage field (just above Institution)
+            // picks which template_<lang>.precompiled.js renderResult()/
+            // renderLivePreview() use (see getDocTemplate()). A native <select>
+            // already announces its own selection change to screen readers, so
+            // no custom live-region status is needed here the way the theme
+            // toggle (a styled dropdown, not a real <select>) required one.
+            (function () {
+                var select = document.getElementById("docLanguage");
+                if (!select) return;
+
+                select.value = getDocLanguage();
+
+                select.addEventListener("change", function () {
+                    try { localStorage.setItem(DOC_LANG_KEY, select.value); } catch (e) { /* best-effort persistence */ }
+                    renderResult();
+                    if (typeof renderLivePreview === "function") renderLivePreview();
                 });
             })();
 
