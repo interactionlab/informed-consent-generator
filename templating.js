@@ -2,6 +2,48 @@
  * This file contains the necessary functions to be able to load and handle the templates
  */
 
+// Translates a raw settings.json-coded value (e.g. "online study"; see the
+// "types" array) into prose for the active document language. Used by the
+// typeLabel helper below, which reads this.docLanguage - whatever was
+// actually collected into the data the current render call is using, so it
+// can't disagree with which template got picked (see getDocTemplate() and
+// collectData() in index.html).
+const TYPE_LABELS = {
+    en: { "online study": "online study", "user study": "user study", "field study": "field study", "interview": "interview" },
+    de: { "online study": "Online-Studie", "user study": "Nutzerstudie", "field study": "Feldstudie", "interview": "Interview" },
+    es: { "online study": "estudio en línea", "user study": "estudio con usuarios", "field study": "estudio de campo", "interview": "entrevista" },
+    fr: { "online study": "étude en ligne", "user study": "étude utilisateur", "field study": "étude de terrain", "interview": "entretien" },
+    it: { "online study": "studio online", "user study": "studio con utenti", "field study": "studio sul campo", "interview": "intervista" }
+};
+
+const RECORD_KEY_LABELS = {
+    en: {
+        demographics: "personal demographics", contact: "contact information", audio: "audio recordings",
+        photo: "photographs", video: "video recordings", motion: "motion data", physiological: "physiological signals",
+        eyetracking: "eye-tracking data", screenrecording: "screen recordings", notes: "notes", interaction: "interaction logs"
+    },
+    de: {
+        demographics: "persönliche Demografiedaten", contact: "Kontaktinformationen", audio: "Audioaufnahmen",
+        photo: "Fotos", video: "Videoaufnahmen", motion: "Bewegungsdaten", physiological: "physiologische Signale",
+        eyetracking: "Eye-Tracking-Daten", screenrecording: "Bildschirmaufnahmen", notes: "Notizen", interaction: "Interaktionsprotokolle"
+    },
+    es: {
+        demographics: "datos demográficos personales", contact: "información de contacto", audio: "grabaciones de audio",
+        photo: "fotografías", video: "grabaciones de vídeo", motion: "datos de movimiento", physiological: "señales fisiológicas",
+        eyetracking: "datos de seguimiento ocular", screenrecording: "grabaciones de pantalla", notes: "notas", interaction: "registros de interacción"
+    },
+    fr: {
+        demographics: "données démographiques personnelles", contact: "coordonnées", audio: "enregistrements audio",
+        photo: "photographies", video: "enregistrements vidéo", motion: "données de mouvement", physiological: "signaux physiologiques",
+        eyetracking: "données de suivi oculaire", screenrecording: "enregistrements d'écran", notes: "notes", interaction: "journaux d'interaction"
+    },
+    it: {
+        demographics: "dati demografici personali", contact: "informazioni di contatto", audio: "registrazioni audio",
+        photo: "fotografie", video: "registrazioni video", motion: "dati di movimento", physiological: "segnali fisiologici",
+        eyetracking: "dati di eye-tracking", screenrecording: "registrazioni dello schermo", notes: "note", interaction: "log di interazione"
+    }
+};
+
 /**
  * Registers the Handlebar helpers
  */
@@ -42,6 +84,31 @@ function registerHandlebarHelpers() {
         if (names.length === 1) return names[0];
         if (names.length === 2) return `${names[0]} and ${names[1]}`;
         return `${names.slice(0, -1).join(", ")}, and ${names[names.length - 1]}`;
+    });
+
+    // {{typeLabel}} takes no explicit argument - called as a plain mustache,
+    // Handlebars binds `this` to the current data context, so `this.type`
+    // reads the same field {{type}} would have printed directly.
+    Handlebars.registerHelper('typeLabel', function() {
+        var table = TYPE_LABELS[this.docLanguage] || TYPE_LABELS.en;
+        return table[this.type] || this.type;
+    });
+
+    Handlebars.registerHelper('listTrueKeys', function(obj) {
+        // this.docLanguage, same reasoning as typeLabel() above: {{listTrueKeys record}}
+        // is called at the template's top level (not inside a block that changes
+        // context), so `this` here is the same data object `record` came from.
+        const translations = RECORD_KEY_LABELS[this.docLanguage] || RECORD_KEY_LABELS.en;
+        const andWord = { en: "and", de: "und", es: "y", fr: "et", it: "e" }[this.docLanguage] || "and";
+
+        const items = Object.keys(obj)
+            .filter(k => obj[k])
+            .map(k => translations[k] || k); // fall back to key if no translation
+
+        if (items.length > 1) {
+            return items.slice(0, -1).join(', ') + ', ' + andWord + ' ' + items[items.length - 1];
+        }
+        return items[0] || '';
     });
 }
 
