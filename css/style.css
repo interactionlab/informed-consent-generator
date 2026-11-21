@@ -149,6 +149,11 @@ td.additional {
 	--bs-secondary-color: #000;
 	--bs-link-color: #00008b;
 	--bs-link-hover-color: #00008b;
+	/* Also covers .btn-primary (Generate/Print) and .field-help's hover/focus
+	   color, both of which reference --bs-primary directly rather than a
+	   link-related variable - without this they'd keep the regular blue. */
+	--bs-primary: #000;
+	--bs-primary-rgb: 0, 0, 0;
 }
 [data-theme="high-contrast"] .form-control,
 [data-theme="high-contrast"] .form-select,
@@ -162,6 +167,9 @@ td.additional {
 }
 [data-theme="high-contrast"] .field-help {
 	color: #000;
+}
+[data-theme="high-contrast"] hr {
+	border-color: #000;
 }
 
 @page {

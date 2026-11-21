@@ -111,6 +111,7 @@
             </div>
         </div>
     </nav>
+    <div id="themeStatus" aria-live="polite" class="visually-hidden"></div>
 
     <main id="mainFrame" class="vertical-center">
         <a id="downloadAnchorElem" style="display:none"></a>
@@ -134,28 +135,28 @@
                         </div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="institutionText" for="institution" class="danger">Institution</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="The university or institution running this study. Sets the logo and address shown on the generated consent form.">ⓘ</button></div>
+                        <div class="col-4"><label id="institutionText" for="institution" class="danger">Institution</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Institution" title="The university or institution running this study. Sets the logo and address shown on the generated consent form.">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="institution" name="institution" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="researchText" for="studyType" class="danger">Kind of research</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="Whether this is an online study, an in-person user study, a field study, or an interview. Changes some of the wording in the generated consent text (e.g. &quot;surveyed&quot; vs. &quot;interviewed&quot;).">ⓘ</button></div>
+                        <div class="col-4"><label id="researchText" for="studyType" class="danger">Kind of research</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Kind of research" title="Whether this is an online study, an in-person user study, a field study, or an interview. Changes some of the wording in the generated consent text (e.g. &quot;surveyed&quot; vs. &quot;interviewed&quot;).">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="studyType" name="type" onchange="onChange(event)" required></select></div>
                     </div>
                     
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="topicText" for="title" class="danger">Title</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="The working title of your study, shown at the top of the generated consent document.">ⓘ</button></div>
+                        <div class="col-4"><label id="topicText" for="title" class="danger">Title</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Title" title="The working title of your study, shown at the top of the generated consent document.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="title" name="title" onchange="onChange(event)" required /></div>
                     </div> 
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="compensationText"  for="compensation" class="danger">Compensation</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="How participants will be compensated for taking part, if at all: money, course credit points, either, or none.">ⓘ</button></div>
+                        <div class="col-4"><label id="compensationText"  for="compensation" class="danger">Compensation</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Compensation" title="How participants will be compensated for taking part, if at all: money, course credit points, either, or none.">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="compensation" name="compensation" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="monetaryCompensationText" for="monetaryCompensation" class="danger">Monetary Compensation </label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="The amount or rate participants will be paid, e.g. &quot;12 EUR/hour&quot; or &quot;10 EUR fixed&quot;. Only shown in the consent text if Compensation above includes money.">ⓘ</button></div>
+                        <div class="col-4"><label id="monetaryCompensationText" for="monetaryCompensation" class="danger">Monetary Compensation </label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Monetary Compensation" title="The amount or rate participants will be paid, e.g. &quot;12 EUR/hour&quot; or &quot;10 EUR fixed&quot;. Only shown in the consent text if Compensation above includes money.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="monetaryCompensation" name="monetaryCompensation" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><span id="recordingsText">Recorded Data</span><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="Check every type of data your study actually records, so participants are told exactly what will be collected about them.">ⓘ</button></div>
+                        <div class="col-4"><span id="recordingsText">Recorded Data</span><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Recorded Data" title="Check every type of data your study actually records, so participants are told exactly what will be collected about them.">ⓘ</button></div>
                         <fieldset class="col-8 plain-fieldset">
                             <legend class="visually-hidden">Recorded Data</legend>
                             <div class="row row-cols-3">
@@ -174,51 +175,51 @@
                         </fieldset>
                     </div> 
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="personalDataText" for="personalData" class="danger">Which personal data will be collected? (list all)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="Any personal data you'll record beyond what the checkboxes above already cover, e.g. age, gender, country of birth, occupation.">ⓘ</button></div>
+                        <div class="col-4"><label id="personalDataText" for="personalData" class="danger">Which personal data will be collected? (list all)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about which personal data will be collected" title="Any personal data you'll record beyond what the checkboxes above already cover, e.g. age, gender, country of birth, occupation.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control"  id="personalData" name="personalData" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="storageTimeText" for="storageTime" class="danger">How long will the data stored with the researchers?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="How long you'll keep participants' non-anonymized data after the study ends, e.g. &quot;a maximum of 10 years&quot;.">ⓘ</button></div>
+                        <div class="col-4"><label id="storageTimeText" for="storageTime" class="danger">How long will the data stored with the researchers?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about data storage time" title="How long you'll keep participants' non-anonymized data after the study ends, e.g. &quot;a maximum of 10 years&quot;.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="storageTime" name="storageTime" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="shareText" for="share" class="danger">Will the raw data be public?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="Whether the data you collect will be published at all, and if so, whether it will be anonymized first.">ⓘ</button></div>
+                        <div class="col-4"><label id="shareText" for="share" class="danger">Will the raw data be public?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about whether the raw data will be public" title="Whether the data you collect will be published at all, and if so, whether it will be anonymized first.">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="share"  name="share" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="encryptionText" for="encryption" class="danger">Will the data be stored encrypted?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="Whether the data you store at rest will be encrypted.">ⓘ</button></div>
+                        <div class="col-4"><label id="encryptionText" for="encryption" class="danger">Will the data be stored encrypted?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about data encryption" title="Whether the data you store at rest will be encrypted.">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="encryption" name="encryption" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="durationText" for="duration" class="danger">Estimated Study Duration</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="How long a single session with one participant is expected to take, e.g. &quot;60 minutes&quot;.">ⓘ</button></div>
+                        <div class="col-4"><label id="durationText" for="duration" class="danger">Estimated Study Duration</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Estimated Study Duration" title="How long a single session with one participant is expected to take, e.g. &quot;60 minutes&quot;.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="duration" name="duration" onchange="onChange(event)" required /></div>
                     </div> 
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="numberOfParticipantsText" for="participants" class="danger">Estimated Number of Participants</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="Your estimated total sample size for the whole study.">ⓘ</button></div>
+                        <div class="col-4"><label id="numberOfParticipantsText" for="participants" class="danger">Estimated Number of Participants</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Estimated Number of Participants" title="Your estimated total sample size for the whole study.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" type="number" min="1" id="participants" name="participants" onchange="onChange(event)" required /></div>
                     </div> 
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="purposeText" for="purpose" class="danger">Purpose (one sentence)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="A one-sentence summary of what the study investigates - the &quot;what&quot;.">ⓘ</button></div>
+                        <div class="col-4"><label id="purposeText" for="purpose" class="danger">Purpose (one sentence)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Purpose" title="A one-sentence summary of what the study investigates - the &quot;what&quot;.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="purpose" name="purpose" onchange="onChange(event)" required /></div>
                     </div> 
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="goalText" for="goal" class="danger">Goal (one sentence)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="A one-sentence summary of what you hope to learn or achieve - the &quot;why&quot;.">ⓘ</button></div>
+                        <div class="col-4"><label id="goalText" for="goal" class="danger">Goal (one sentence)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Goal" title="A one-sentence summary of what you hope to learn or achieve - the &quot;why&quot;.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="goal" name="goal" onchange="onChange(event)" required  /></div>
                     </div> 
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="procedureText" for="procedure" class="danger">Procedure (in 4-6 steps)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="A short, numbered description of what happens during a session, written from the participant's point of view.">ⓘ</button></div>
+                        <div class="col-4"><label id="procedureText" for="procedure" class="danger">Procedure (in 4-6 steps)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Procedure" title="A short, numbered description of what happens during a session, written from the participant's point of view.">ⓘ</button></div>
                         <div class="col-8"><textarea rows="4" class="form-control" id="procedure" name="procedure" onchange="onChange(event)" required></textarea></div>
                     </div> 
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="thePInameLabel" for="thePIname" class="danger">Principal Investigator Name</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="The person responsible for this research - usually your supervisor or the professor who approved the study.">ⓘ</button></div>
+                        <div class="col-4"><label id="thePInameLabel" for="thePIname" class="danger">Principal Investigator Name</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Principal Investigator Name" title="The person responsible for this research - usually your supervisor or the professor who approved the study.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="thePIname" name="thePIname" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="thePIemailLabel" for="thePIemail" class="danger">Principal Investigator E-Mail</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="A contact email for the principal investigator, shown to participants in the consent form.">ⓘ</button></div>
+                        <div class="col-4"><label id="thePIemailLabel" for="thePIemail" class="danger">Principal Investigator E-Mail</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Principal Investigator E-Mail" title="A contact email for the principal investigator, shown to participants in the consent form.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" type="email" id="thePIemail" name="thePIemail" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="PIText" for="departmentHead">Head of the Department (if not the principal investigator)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="Only needed if your department head is someone other than the Principal Investigator above - leave blank otherwise.">ⓘ</button></div>
+                        <div class="col-4"><label id="PIText" for="departmentHead">Head of the Department (if not the principal investigator)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Head of the Department" title="Only needed if your department head is someone other than the Principal Investigator above - leave blank otherwise.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="departmentHead" name="departmentHead" onchange="onChange(event)" /></div>
                     </div>
                     <div class="row mt-3" id="addResearchersContainer">
@@ -226,11 +227,11 @@
                         <div class="col-8 text-end"><button class="btn btn-success" id="btnAddResearcher" type="button" >+ Add Researcher</button></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="fundingLabel" for="funding">Funding</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="The grant, project, or funding source backing this research, if any - leave blank if not applicable.">ⓘ</button></div>
+                        <div class="col-4"><label id="fundingLabel" for="funding">Funding</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Funding" title="The grant, project, or funding source backing this research, if any - leave blank if not applicable.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="funding" name="funding" onchange="onChange(event)" /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="ethicalComitteeText" for="ethicalComittee">Ethical Committee</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information" title="Your institution's ethics review board, if your study was reviewed by one - leave blank if not applicable.">ⓘ</button></div>
+                        <div class="col-4"><label id="ethicalComitteeText" for="ethicalComittee">Ethical Committee</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Ethical Committee" title="Your institution's ethics review board, if your study was reviewed by one - leave blank if not applicable.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="ethicalComittee" name="ethicalComittee" onchange="onChange(event)" /></div>
                     </div>
                     </div>
@@ -534,6 +535,7 @@
                 var buttons = document.querySelectorAll("#themeToggle button[data-theme-value]");
                 var mainBtn = document.getElementById("bd-theme");
                 var mainIcon = document.getElementById("bd-theme-icon");
+                var status = document.getElementById("themeStatus");
                 var media = window.matchMedia("(prefers-color-scheme: dark)");
 
                 function resolvedBsTheme(theme) {
@@ -542,7 +544,11 @@
                     return "light"; // light, high-contrast
                 }
 
-                function applyTheme(theme) {
+                // announce defaults to false: the initial applyTheme(saved) call
+                // on page load, and the "auto" media-query listener reacting to an
+                // OS-level change the user made elsewhere, shouldn't trigger a
+                // spoken announcement - only an actual click in the dropdown should.
+                function applyTheme(theme, announce) {
                     document.documentElement.setAttribute("data-bs-theme", resolvedBsTheme(theme));
                     document.documentElement.setAttribute("data-theme", theme);
                     buttons.forEach(function (btn) {
@@ -554,6 +560,7 @@
                     });
                     if (mainIcon) mainIcon.textContent = ICONS[theme] || ICONS.light;
                     if (mainBtn) mainBtn.setAttribute("aria-label", "Toggle theme (" + (LABELS[theme] || "light") + ")");
+                    if (announce && status) status.textContent = "Theme changed to " + (LABELS[theme] || theme) + ".";
                     try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* best-effort persistence */ }
                 }
 
@@ -562,7 +569,7 @@
                 applyTheme(saved);
 
                 buttons.forEach(function (btn) {
-                    btn.addEventListener("click", function () { applyTheme(btn.getAttribute("data-theme-value")); });
+                    btn.addEventListener("click", function () { applyTheme(btn.getAttribute("data-theme-value"), true); });
                 });
 
                 // "Auto" follows the OS preference live, not just at page load.
