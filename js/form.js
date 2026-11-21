@@ -276,7 +276,12 @@ $(document).ready(function() {
 
     fetch('./settings.json')
         .then((response)=>response.json())
-        .then((responseJson)=>{settings = responseJson; fillSelect();});
+        .then((responseJson)=>{
+            settings = responseJson;
+            fillSelect();
+            applyConfiguredThemeDefault(settings.theme);
+            applyConfiguredDocLanguageDefault(settings.docLanguage);
+        });
 
     $("#demographicsForm").on("submit", function(e) {
         e.preventDefault();

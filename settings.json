@@ -1,8 +1,10 @@
 {
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"versionData": "0.3",
 	"hostLogo":"logoLMU.png",
 	"hostUrl":"https://www.medien.ifi.lmu.de/",
+	"theme":"auto",
+	"docLanguage":"en",
 	"institutions": {
 		"FH Aachen University of Applied Sciences": {
 			"name": "FH Aachen University of Applied Sciences",

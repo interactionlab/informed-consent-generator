@@ -7,13 +7,13 @@
     <script>
     (function () {
         try {
-            var t = localStorage.getItem("icgTheme") || "light";
+            var t = localStorage.getItem("icgTheme") || "auto";
             var resolved = t === "dark" ? "dark"
                 : t === "auto" ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
                 : "light"; // light, high-contrast
             document.documentElement.setAttribute("data-bs-theme", resolved);
             document.documentElement.setAttribute("data-theme", t);
-        } catch (e) { /* storage unavailable: stays on the light default */ }
+        } catch (e) { /* storage unavailable: stays on the auto default */ }
     })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
