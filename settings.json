@@ -5,6 +5,7 @@
 	"hostUrl":"https://www.medien.ifi.lmu.de/",
 	"theme":"auto",
 	"docLanguage":"en",
+	"uiLanguage":"en",
 	"institutions": {
 		"FH Aachen University of Applied Sciences": {
 			"name": "FH Aachen University of Applied Sciences",
@@ -84,22 +85,5 @@
 		["Yes", "yes"],
 		["No", "no"]
 	],
-	"researcherCount":2,
-	"hints": {
-		"select": "Please select",
-		"title": "Your research title",
-		"monetaryCompensation": "Monetary compensation, e.g., 12 EUR/hour",
-		"personalData": "age, gender, and country of birth",
-		"storageTime": "a maximum of 10 years",
-		"ethicalComittee": "Your review board",
-		"departmentHead": "When there is a prof above the prof....",
-		"thePIname": "the person, who said you should do the study (e.g., Prof. Dr. Sven Mayer)",
-		"thePIemail": "email of the guy, who said you should do the study",
-		"procedure": "1. Participant takes a seat\n2. Participant conducts the study\n3. Participant is confused\n4.Participant leaves",
-		"participants": "Insert number",
-		"funding": "Your funding",
-		"duration": "60 minutes",
-		"purpose": "Explain the purpose of this research.",
-		"goal": "Explain the goal of this research."
-	}
+	"researcherCount":2
 }

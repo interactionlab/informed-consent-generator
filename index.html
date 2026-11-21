@@ -23,7 +23,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 
     <!-- Include Handlebars  -->
@@ -35,7 +35,7 @@
     <script src="./templates/template_it.precompiled.js"></script>
 
     <link rel="stylesheet" href="./css/style.css" />
-    <meta property="og:site_name" content="Informed Consent Generator"> 
+    <meta property="og:site_name" content="Informed Consent Generator">
     <title>Informed Consent Generator</title>
     <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
 </head>
@@ -43,7 +43,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top border-bottom">
         <div class="container-fluid justify-content-start gap-3">
             <a id="hostUrl" target="_blank" rel="noopener noreferrer"><img id="hostLogo" height="40" alt="Media Informatics Groups"></a>
-            <h1 id="pageTitle" class="navbar-brand mb-0" tabindex="-1">Informed Consent Generator</h1>
+            <h1 id="pageTitle" class="navbar-brand mb-0" tabindex="-1" data-i18n="pageTitle">Informed Consent Generator</h1>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -57,32 +57,44 @@
                  under .navbar-nav, not .navbar itself. No flex-row here any more - navbar-expand-lg already handles row-vs-column
                  responsively (row when expanded, column when collapsed behind the toggler), so forcing it would fight that. -->
             <ul class="navbar-nav gap-lg-3">
-                <li class="nav-item uiEdit"><button id="btnExample" type="button" class="nav-link">Example</button></li>
-                <li class="nav-item uiEdit"><button id="btnExportSettings" type="button" class="nav-link btnExport">Export</button></li>
-                <li class="nav-item uiEdit"><button id="btnImport" type="button" class="nav-link">Import</button></li>
+                <li class="nav-item uiEdit"><button id="btnExample" type="button" class="nav-link" data-i18n="btnExample">Example</button></li>
+                <li class="nav-item uiEdit"><button id="btnExportSettings" type="button" class="nav-link btnExport" data-i18n="btnExport">Export</button></li>
+                <li class="nav-item uiEdit"><button id="btnImport" type="button" class="nav-link" data-i18n="btnImport">Import</button></li>
             </ul>
             <!-- Replaces the edit toolbar above once generate() switches to view mode on narrow screens (force-hidden on wide, where
                  there's no view mode to go back from - see the .uiView rule in style.css). -->
             <ul class="navbar-nav gap-lg-3 uiView">
-                <li class="nav-item"><button id="btnBackView" type="button" class="nav-link btnBack">Back</button></li>
-                <li class="nav-item"><button id="btnExportView" type="button" class="nav-link btnExport">Export</button></li>
+                <li class="nav-item"><button id="btnBackView" type="button" class="nav-link btnBack" data-i18n="btnBack">Back</button></li>
+                <li class="nav-item"><button id="btnExportView" type="button" class="nav-link btnExport" data-i18n="btnExport">Export</button></li>
             </ul>
             <input id="fileInput" type="file" accept=".json,application/json" style="display: none;">
-            <button id="btnGenerate" type="submit" form="demographicsForm" class="btn btn-primary btn-sm uiEdit my-2 my-lg-0">Generate From</button>
+            <button id="btnGenerate" type="submit" form="demographicsForm" class="btn btn-primary btn-sm uiEdit my-2 my-lg-0" data-i18n="btnGenerate">Generate From</button>
             <!-- Takes Generate's place on wide screens (see style.css): same spot, same btn-primary weight - not .uiEdit, since it must
                  stay visible exactly where #btnGenerate is hidden there, rather than sit off in the corner via ms-auto. On narrow
                  screens it's synced with the uiView show()/hide() calls below instead, same timing #btnPrint used to have. -->
-            <button id="btnPrintPreview" type="button" class="btn btn-primary btn-sm my-2 my-lg-0">Print</button>
+            <button id="btnPrintPreview" type="button" class="btn btn-primary btn-sm my-2 my-lg-0" data-i18n="btnPrint">Print</button>
             <ul class="navbar-nav ms-lg-auto">
+                <li class="nav-item dropdown">
+                    <button class="btn btn-link nav-link px-0 px-lg-2 py-2 dropdown-toggle d-flex align-items-center" id="bd-lang" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Change interface language">
+                        <span id="bd-lang-code" aria-hidden="true">EN</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="langToggle" aria-labelledby="bd-lang">
+                        <li><button type="button" class="dropdown-item d-flex align-items-center active" data-ui-lang-value="en" aria-pressed="true">English<span class="ms-auto lang-check" aria-hidden="true">✓</span></button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-ui-lang-value="de" aria-pressed="false">Deutsch<span class="ms-auto lang-check d-none" aria-hidden="true">✓</span></button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-ui-lang-value="es" aria-pressed="false">Español<span class="ms-auto lang-check d-none" aria-hidden="true">✓</span></button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-ui-lang-value="fr" aria-pressed="false">Français<span class="ms-auto lang-check d-none" aria-hidden="true">✓</span></button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-ui-lang-value="it" aria-pressed="false">Italiano<span class="ms-auto lang-check d-none" aria-hidden="true">✓</span></button></li>
+                    </ul>
+                </li>
                 <li class="nav-item dropdown">
                     <button class="btn btn-link nav-link px-0 px-lg-2 py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
                         <span id="bd-theme-icon" aria-hidden="true">☀</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" id="themeToggle" aria-labelledby="bd-theme">
-                        <li><button type="button" class="dropdown-item d-flex align-items-center active" data-theme-value="light" aria-pressed="true"><span class="me-2" aria-hidden="true">☀</span>Light<span class="ms-auto theme-check" aria-hidden="true">✓</span></button></li>
-                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-theme-value="dark" aria-pressed="false"><span class="me-2" aria-hidden="true">☾</span>Dark<span class="ms-auto theme-check d-none" aria-hidden="true">✓</span></button></li>
-                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-theme-value="auto" aria-pressed="false"><span class="me-2" aria-hidden="true">◐</span>Auto<span class="ms-auto theme-check d-none" aria-hidden="true">✓</span></button></li>
-                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-theme-value="high-contrast" aria-pressed="false"><span class="me-2" aria-hidden="true">◑</span>High contrast<span class="ms-auto theme-check d-none" aria-hidden="true">✓</span></button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center active" data-theme-value="light" aria-pressed="true"><span class="me-2" aria-hidden="true">☀</span><span data-i18n="themeLight">Light</span><span class="ms-auto theme-check" aria-hidden="true">✓</span></button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-theme-value="dark" aria-pressed="false"><span class="me-2" aria-hidden="true">☾</span><span data-i18n="themeDark">Dark</span><span class="ms-auto theme-check d-none" aria-hidden="true">✓</span></button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-theme-value="auto" aria-pressed="false"><span class="me-2" aria-hidden="true">◐</span><span data-i18n="themeAuto">Auto</span><span class="ms-auto theme-check d-none" aria-hidden="true">✓</span></button></li>
+                        <li><button type="button" class="dropdown-item d-flex align-items-center" data-theme-value="high-contrast" aria-pressed="false"><span class="me-2" aria-hidden="true">◑</span><span data-i18n="themeHighContrast">High contrast</span><span class="ms-auto theme-check d-none" aria-hidden="true">✓</span></button></li>
                     </ul>
                 </li>
             </ul>
@@ -91,7 +103,7 @@
     </nav>
     <div id="themeStatus" aria-live="polite" class="visually-hidden"></div>
     <!-- Drag-and-drop import overlay (see js/form.js): purely visual feedback shown while dragging a file anywhere over the page, hidden otherwise. -->
-    <div id="dropOverlay" class="d-none" aria-hidden="true"><div id="dropOverlayMessage">Drop your exported *.json file here to import it</div></div>
+    <div id="dropOverlay" class="d-none" aria-hidden="true"><div id="dropOverlayMessage" data-i18n="dropOverlayMessage">Drop your exported *.json file here to import it</div></div>
 
     <main id="mainFrame" class="vertical-center">
         <a id="downloadAnchorElem" style="display:none"></a>
@@ -99,23 +111,23 @@
             <form id="demographicsForm" class="form-horizontal">
                 <div id="input">
                     <div class="row mt-3">
-                        <div class="col mb-1">
+                        <div class="col mb-1" data-i18n="introText">
                             Obtaining informed consent ensures the users' autonomy and privacy, and that the users are aware of potential risks and benefits of your HCI study. That consent should be freely given, specific, informed and unambiguous by way of a request presented in clear and plain language. Consent should be given by an affirmative act, such as checking a box online or signing the form. Please reach out to your supervisor in case of any requests.
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col mb-1">
-                            This informed consent is not suitable for vulnerable groups (children, disabled, prisoners) or when any harm can occur (medical studies). Please consult your local ethics committee. 
+                        <div class="col mb-1" data-i18n="ethicsText">
+                            This informed consent is not suitable for vulnerable groups (children, disabled, prisoners) or when any harm can occur (medical studies). Please consult your local ethics committee.
                         </div>
                     </div>
                     <hr />
                     <div class="row mt-3 mb-1 itemRow" id="fieldsrequired">
                         <div class="col" >
-                            <span class="text-danger">* required fields</span>
+                            <span class="text-danger" data-i18n="requiredFieldsText">* required fields</span>
                         </div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="docLanguageText" for="docLanguage">Document Language</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Document Language" title="The language of the generated consent document itself - this form stays in English either way.">ⓘ</button></div>
+                        <div class="col-4"><label id="docLanguageText" for="docLanguage" data-i18n="docLanguageLabel">Document Language</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Document Language" title="The language of the generated consent document itself - this form stays in English either way.">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="docLanguage" name="docLanguage" onchange="onChange(event)">
                             <option value="en">English</option>
                             <option value="de">Deutsch</option>
@@ -125,103 +137,103 @@
                         </select></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="institutionText" for="institution" class="danger">Institution</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Institution" title="The university or institution running this study. Sets the logo and address shown on the generated consent form.">ⓘ</button></div>
+                        <div class="col-4"><label id="institutionText" for="institution" class="danger" data-i18n="institutionLabel">Institution</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Institution" title="The university or institution running this study. Sets the logo and address shown on the generated consent form.">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="institution" name="institution" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="researchText" for="studyType" class="danger">Kind of research</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Kind of research" title="Whether this is an online study, an in-person user study, a field study, or an interview. Changes some of the wording in the generated consent text (e.g. &quot;surveyed&quot; vs. &quot;interviewed&quot;).">ⓘ</button></div>
+                        <div class="col-4"><label id="researchText" for="studyType" class="danger" data-i18n="researchTypeLabel">Kind of research</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Kind of research" title="Whether this is an online study, an in-person user study, a field study, or an interview. Changes some of the wording in the generated consent text (e.g. &quot;surveyed&quot; vs. &quot;interviewed&quot;).">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="studyType" name="type" onchange="onChange(event)" required></select></div>
                     </div>
-                    
+
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="topicText" for="title" class="danger">Title</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Title" title="The working title of your study, shown at the top of the generated consent document.">ⓘ</button></div>
+                        <div class="col-4"><label id="topicText" for="title" class="danger" data-i18n="titleLabel">Title</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Title" title="The working title of your study, shown at the top of the generated consent document.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="title" name="title" onchange="onChange(event)" required /></div>
-                    </div> 
+                    </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="compensationText"  for="compensation" class="danger">Compensation</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Compensation" title="How participants will be compensated for taking part, if at all: money, course credit points, either, or none.">ⓘ</button></div>
+                        <div class="col-4"><label id="compensationText"  for="compensation" class="danger" data-i18n="compensationLabel">Compensation</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Compensation" title="How participants will be compensated for taking part, if at all: money, course credit points, either, or none.">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="compensation" name="compensation" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="monetaryCompensationText" for="monetaryCompensation" class="danger">Monetary Compensation </label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Monetary Compensation" title="The amount or rate participants will be paid, e.g. &quot;12 EUR/hour&quot; or &quot;10 EUR fixed&quot;. Only shown in the consent text if Compensation above includes money.">ⓘ</button></div>
+                        <div class="col-4"><label id="monetaryCompensationText" for="monetaryCompensation" class="danger" data-i18n="monetaryCompensationLabel">Monetary Compensation </label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Monetary Compensation" title="The amount or rate participants will be paid, e.g. &quot;12 EUR/hour&quot; or &quot;10 EUR fixed&quot;. Only shown in the consent text if Compensation above includes money.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="monetaryCompensation" name="monetaryCompensation" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><span id="recordingsText">Recorded Data</span><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Recorded Data" title="Check every type of data your study actually records, so participants are told exactly what will be collected about them.">ⓘ</button></div>
+                        <div class="col-4"><span id="recordingsText" data-i18n="recordedDataLabel">Recorded Data</span><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Recorded Data" title="Check every type of data your study actually records, so participants are told exactly what will be collected about them.">ⓘ</button></div>
                         <fieldset class="col-8 plain-fieldset">
-                            <legend class="visually-hidden">Recorded Data</legend>
+                            <legend class="visually-hidden" data-i18n="recordedDataLabel">Recorded Data</legend>
                             <div class="row row-cols-3">
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordDemographics" id="recordDemographics" onchange="onChange(event)" checked required><label class="form-check-label" for="recordDemographics">Demographics<span class="text-danger">*</span></label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordContact" id="recordContact" onchange="onChange(event)"><label class="form-check-label" for="recordContact">Contact information</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordInteraction" id="recordInteraction" onchange="onChange(event)"><label class="form-check-label" for="recordInteraction">User Interaction</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordAudio" id="recordAudio" onchange="onChange(event)"><label class="form-check-label" for="recordAudio">Audio</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhotos" id="recordPhotos" onchange="onChange(event)"><label class="form-check-label" for="recordPhotos">Photos</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordVideos" id="recordVideos" onchange="onChange(event)"><label class="form-check-label" for="recordVideos">Videos</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordMotion" id="recordMotion" onchange="onChange(event)"><label class="form-check-label" for="recordMotion">Motion Tracking</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhysiological" id="recordPhysiological" onchange="onChange(event)"><label class="form-check-label" for="recordPhysiological">Physio. Sensing</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordEyetracking" id="recordEyetracking" onchange="onChange(event)"><label class="form-check-label" for="recordEyetracking">Eye/Head Tracking</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordScreenrecording" id="recordScreenrecording" onchange="onChange(event)"><label class="form-check-label" for="recordScreenrecording">Screen Recording</label></div>
-                                <div class="col"><input type="checkbox" class="form-check-input" name="recordNotes" id="recordNotes" onchange="onChange(event)"><label class="form-check-label" for="recordNotes">Manual notes</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordDemographics" id="recordDemographics" onchange="onChange(event)" checked required><label class="form-check-label" for="recordDemographics"><span data-i18n="demographicsLabel">Demographics</span><span class="text-danger">*</span></label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordContact" id="recordContact" onchange="onChange(event)"><label class="form-check-label" for="recordContact" data-i18n="contactInfoLabel">Contact information</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordInteraction" id="recordInteraction" onchange="onChange(event)"><label class="form-check-label" for="recordInteraction" data-i18n="userInteractionLabel">User Interaction</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordAudio" id="recordAudio" onchange="onChange(event)"><label class="form-check-label" for="recordAudio" data-i18n="audioLabel">Audio</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhotos" id="recordPhotos" onchange="onChange(event)"><label class="form-check-label" for="recordPhotos" data-i18n="photosLabel">Photos</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordVideos" id="recordVideos" onchange="onChange(event)"><label class="form-check-label" for="recordVideos" data-i18n="videosLabel">Videos</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordMotion" id="recordMotion" onchange="onChange(event)"><label class="form-check-label" for="recordMotion" data-i18n="motionTrackingLabel">Motion Tracking</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordPhysiological" id="recordPhysiological" onchange="onChange(event)"><label class="form-check-label" for="recordPhysiological" data-i18n="physioSensingLabel">Physio. Sensing</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordEyetracking" id="recordEyetracking" onchange="onChange(event)"><label class="form-check-label" for="recordEyetracking" data-i18n="eyeHeadTrackingLabel">Eye/Head Tracking</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordScreenrecording" id="recordScreenrecording" onchange="onChange(event)"><label class="form-check-label" for="recordScreenrecording" data-i18n="screenRecordingLabel">Screen Recording</label></div>
+                                <div class="col"><input type="checkbox" class="form-check-input" name="recordNotes" id="recordNotes" onchange="onChange(event)"><label class="form-check-label" for="recordNotes" data-i18n="manualNotesLabel">Manual notes</label></div>
                             </div>
                         </fieldset>
-                    </div> 
+                    </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="personalDataText" for="personalData" class="danger">Which personal data will be collected? (list all)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about which personal data will be collected" title="Any personal data you'll record beyond what the checkboxes above already cover, e.g. age, gender, country of birth, occupation.">ⓘ</button></div>
+                        <div class="col-4"><label id="personalDataText" for="personalData" class="danger" data-i18n="personalDataLabel">Which personal data will be collected? (list all)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about which personal data will be collected" title="Any personal data you'll record beyond what the checkboxes above already cover, e.g. age, gender, country of birth, occupation.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control"  id="personalData" name="personalData" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="storageTimeText" for="storageTime" class="danger">How long will the data stored with the researchers?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about data storage time" title="How long you'll keep participants' non-anonymized data after the study ends, e.g. &quot;a maximum of 10 years&quot;.">ⓘ</button></div>
+                        <div class="col-4"><label id="storageTimeText" for="storageTime" class="danger" data-i18n="storageTimeLabel">How long will the data stored with the researchers?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about data storage time" title="How long you'll keep participants' non-anonymized data after the study ends, e.g. &quot;a maximum of 10 years&quot;.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="storageTime" name="storageTime" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="shareText" for="share" class="danger">Will the raw data be public?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about whether the raw data will be public" title="Whether the data you collect will be published at all, and if so, whether it will be anonymized first.">ⓘ</button></div>
+                        <div class="col-4"><label id="shareText" for="share" class="danger" data-i18n="shareLabel">Will the raw data be public?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about whether the raw data will be public" title="Whether the data you collect will be published at all, and if so, whether it will be anonymized first.">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="share"  name="share" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="encryptionText" for="encryption" class="danger">Will the data be stored encrypted?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about data encryption" title="Whether the data you store at rest will be encrypted.">ⓘ</button></div>
+                        <div class="col-4"><label id="encryptionText" for="encryption" class="danger" data-i18n="encryptionLabel">Will the data be stored encrypted?</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about data encryption" title="Whether the data you store at rest will be encrypted.">ⓘ</button></div>
                         <div class="col-8"><select class="form-select" id="encryption" name="encryption" onchange="onChange(event)" required></select></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="durationText" for="duration" class="danger">Estimated Study Duration</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Estimated Study Duration" title="How long a single session with one participant is expected to take, e.g. &quot;60 minutes&quot;.">ⓘ</button></div>
+                        <div class="col-4"><label id="durationText" for="duration" class="danger" data-i18n="durationLabel">Estimated Study Duration</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Estimated Study Duration" title="How long a single session with one participant is expected to take, e.g. &quot;60 minutes&quot;.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="duration" name="duration" onchange="onChange(event)" required /></div>
-                    </div> 
+                    </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="numberOfParticipantsText" for="participants" class="danger">Estimated Number of Participants</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Estimated Number of Participants" title="Your estimated total sample size for the whole study.">ⓘ</button></div>
+                        <div class="col-4"><label id="numberOfParticipantsText" for="participants" class="danger" data-i18n="participantsLabel">Estimated Number of Participants</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Estimated Number of Participants" title="Your estimated total sample size for the whole study.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" type="number" min="1" id="participants" name="participants" onchange="onChange(event)" required /></div>
-                    </div> 
+                    </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="purposeText" for="purpose" class="danger">Purpose (one sentence)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Purpose" title="A one-sentence summary of what the study investigates - the &quot;what&quot;.">ⓘ</button></div>
+                        <div class="col-4"><label id="purposeText" for="purpose" class="danger" data-i18n="purposeLabel">Purpose (one sentence)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Purpose" title="A one-sentence summary of what the study investigates - the &quot;what&quot;.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="purpose" name="purpose" onchange="onChange(event)" required /></div>
-                    </div> 
+                    </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="goalText" for="goal" class="danger">Goal (one sentence)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Goal" title="A one-sentence summary of what you hope to learn or achieve - the &quot;why&quot;.">ⓘ</button></div>
+                        <div class="col-4"><label id="goalText" for="goal" class="danger" data-i18n="goalLabel">Goal (one sentence)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Goal" title="A one-sentence summary of what you hope to learn or achieve - the &quot;why&quot;.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="goal" name="goal" onchange="onChange(event)" required  /></div>
-                    </div> 
+                    </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="procedureText" for="procedure" class="danger">Procedure (in 4-6 steps)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Procedure" title="A short, numbered description of what happens during a session, written from the participant's point of view.">ⓘ</button></div>
+                        <div class="col-4"><label id="procedureText" for="procedure" class="danger" data-i18n="procedureLabel">Procedure (in 4-6 steps)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Procedure" title="A short, numbered description of what happens during a session, written from the participant's point of view.">ⓘ</button></div>
                         <div class="col-8"><textarea rows="4" class="form-control" id="procedure" name="procedure" onchange="onChange(event)" required></textarea></div>
-                    </div> 
+                    </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="thePInameLabel" for="thePIname" class="danger">Principal Investigator Name</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Principal Investigator Name" title="The person responsible for this research - usually your supervisor or the professor who approved the study.">ⓘ</button></div>
+                        <div class="col-4"><label id="thePInameLabel" for="thePIname" class="danger" data-i18n="piNameLabel">Principal Investigator Name</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Principal Investigator Name" title="The person responsible for this research - usually your supervisor or the professor who approved the study.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="thePIname" name="thePIname" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="thePIemailLabel" for="thePIemail" class="danger">Principal Investigator E-Mail</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Principal Investigator E-Mail" title="A contact email for the principal investigator, shown to participants in the consent form.">ⓘ</button></div>
+                        <div class="col-4"><label id="thePIemailLabel" for="thePIemail" class="danger" data-i18n="piEmailLabel">Principal Investigator E-Mail</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Principal Investigator E-Mail" title="A contact email for the principal investigator, shown to participants in the consent form.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" type="email" id="thePIemail" name="thePIemail" onchange="onChange(event)" required /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="PIText" for="departmentHead">Head of the Department (if not the principal investigator)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Head of the Department" title="Only needed if your department head is someone other than the Principal Investigator above - leave blank otherwise.">ⓘ</button></div>
+                        <div class="col-4"><label id="PIText" for="departmentHead" data-i18n="departmentHeadLabel">Head of the Department (if not the principal investigator)</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Head of the Department" title="Only needed if your department head is someone other than the Principal Investigator above - leave blank otherwise.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="departmentHead" name="departmentHead" onchange="onChange(event)" /></div>
                     </div>
                     <div class="row mt-3" id="addResearchersContainer">
                         <div class="col-4"></div>
-                        <div class="col-8 text-end"><button class="btn btn-success" id="btnAddResearcher" type="button" >+ Add Researcher</button></div>
+                        <div class="col-8 text-end"><button class="btn btn-success" id="btnAddResearcher" type="button" data-i18n="btnAddResearcher">+ Add Researcher</button></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="fundingLabel" for="funding">Funding</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Funding" title="The grant, project, or funding source backing this research, if any - leave blank if not applicable.">ⓘ</button></div>
+                        <div class="col-4"><label id="fundingLabel" for="funding" data-i18n="fundingLabel">Funding</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Funding" title="The grant, project, or funding source backing this research, if any - leave blank if not applicable.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="funding" name="funding" onchange="onChange(event)" /></div>
                     </div>
                     <div class="row mt-3 ">
-                        <div class="col-4"><label id="ethicalComitteeText" for="ethicalComittee">Ethical Committee</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Ethical Committee" title="Your institution's ethics review board, if your study was reviewed by one - leave blank if not applicable.">ⓘ</button></div>
+                        <div class="col-4"><label id="ethicalComitteeText" for="ethicalComittee" data-i18n="ethicalCommitteeLabel">Ethical Committee</label><button type="button" class="field-help" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="More information about Ethical Committee" title="Your institution's ethics review board, if your study was reviewed by one - leave blank if not applicable.">ⓘ</button></div>
                         <div class="col-8"><input class="form-control" id="ethicalComittee" name="ethicalComittee" onchange="onChange(event)" /></div>
                     </div>
                     </div>
@@ -236,6 +248,7 @@
     </main>
 
     <script src="./js/templating.js"></script>
+    <script src="./js/ui-i18n.js"></script>
     <script src="./js/theme.js"></script>
     <script src="./js/form.js"></script>
      <script src="./js/preview.js"></script>

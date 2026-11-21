@@ -24,48 +24,37 @@ var inputRecord = ["demographics", "contact", "audio", "photos", "videos", "moti
 function fillSelect(){
     document.getElementById("version").innerHTML = settings["version"];
 
-    $("select[name='institution']").append(new Option(settings["hints"]["select"], ""));
+    $("select[name='institution']").append(new Option(uiString("selectPlaceholder"), ""));
     for (let key in settings["institutions"]) {
         let institution = settings["institutions"][key]
         $("select[name='institution']").append(new Option(institution["name"], institution["name"]));
     }
 
-    $("select[name='type']").append(new Option(settings["hints"]["select"], ""));
+    $("select[name='type']").append(new Option(uiString("selectPlaceholder"), ""));
     for (let i = 0; i < settings["types"].length; i++) {
         type = settings["types"][i]
-        $("select[name='type']").append(new Option(type[0], type[1]));
+        $("select[name='type']").append(new Option(optionLabel("types", type[1], type[0]), type[1]));
     }
 
-    $("select[name='share']").append(new Option(settings["hints"]["select"], ""));
+    $("select[name='share']").append(new Option(uiString("selectPlaceholder"), ""));
     for (let i = 0; i < settings["dataShare"].length; i++) {
         share = settings["dataShare"][i]
-        $("select[name='share']").append(new Option(share[0], share[1]));
+        $("select[name='share']").append(new Option(optionLabel("dataShare", share[1], share[0]), share[1]));
     }
 
-    $("select[name='encryption']").append(new Option(settings["hints"]["select"], ""));
+    $("select[name='encryption']").append(new Option(uiString("selectPlaceholder"), ""));
     for (let i = 0; i < settings["dataEncryption"].length; i++) {
         encryption = settings["dataEncryption"][i]
-        $("select[name='encryption']").append(new Option(encryption[0], encryption[1]));
+        $("select[name='encryption']").append(new Option(optionLabel("dataEncryption", encryption[1], encryption[0]), encryption[1]));
     }
 
-    $("select[name='compensation']").append(new Option(settings["hints"]["select"], ""));
+    $("select[name='compensation']").append(new Option(uiString("selectPlaceholder"), ""));
     for (let i = 0; i < settings["compensation"].length; i++) {
         compensation = settings["compensation"][i]
-        $("select[name='compensation']").append(new Option(compensation[0], compensation[1]));
+        $("select[name='compensation']").append(new Option(optionLabel("compensation", compensation[1], compensation[0]), compensation[1]));
     }
 
-    var hints = settings["hints"]
-    for (let key in hints) {
-        if (key === "select"){
-            //None
-        }
-        else if (key === "procedure"){
-            $("textarea[name='" + key + "'] ").attr("placeholder", hints[key]);
-        } else {
-            $("input[name='" + key + "'] ").attr("placeholder", hints[key]);
-        }
-    }
-
+    refreshInputHints();
 
     $("#hostUrl").attr("href", settings["hostUrl"]);
     // Hides the whole link (not just the image) when there's no logo configured, rather than leaving a broken/empty image visible.
@@ -93,6 +82,42 @@ function fillSelect(){
     if (!restored) {
         for (let i = 0; i < settings["researcherCount"]; i++){
             addResearcher();
+        }
+    }
+}
+
+// The blank placeholder option fillSelect() adds to each of these selects is built once, before a language switch could update it - re-run on every UI language change (see ui-i18n.js's applyUiLanguage) so it doesn't stay stuck in whichever language was active when the page loaded.
+function refreshSelectPlaceholders(){
+    ["institution", "type", "share", "encryption", "compensation"].forEach(function (name) {
+        $("select[name='" + name + "'] option[value='']").text(uiString("selectPlaceholder"));
+    });
+}
+
+// Same reasoning as refreshSelectPlaceholders() above, for the type/compensation/share/encryption option text built from settings.json's arrays + optionLabel().
+function refreshOptionLabels(){
+    function refresh(name, category, pairs) {
+        (pairs || []).forEach(function (pair) {
+            $("select[name='" + name + "'] option[value='" + pair[1] + "']").text(optionLabel(category, pair[1], pair[0]));
+        });
+    }
+    refresh("type", "types", settings["types"]);
+    refresh("compensation", "compensation", settings["compensation"]);
+    refresh("share", "dataShare", settings["dataShare"]);
+    refresh("encryption", "dataEncryption", settings["dataEncryption"]);
+}
+
+// Input placeholder hints: settings.json's "hints" is a flat, single-language admin override (same treatment as
+// the "types"/"compensation" option labels there - shown as-is regardless of UI language); a field the admin
+// hasn't customized falls back to DEFAULT_HINTS' translation for the current UI language. Re-run on every
+// language change, same reasoning as refreshSelectPlaceholders() above.
+function refreshInputHints(){
+    var overrides = settings["hints"] || {};
+    for (let key in DEFAULT_HINTS) {
+        var text = overrides[key] != null ? overrides[key] : (DEFAULT_HINTS[key][currentUiLanguage] || DEFAULT_HINTS[key].en);
+        if (key === "procedure"){
+            $("textarea[name='" + key + "'] ").attr("placeholder", text);
+        } else {
+            $("input[name='" + key + "'] ").attr("placeholder", text);
         }
     }
 }
@@ -136,9 +161,10 @@ function ensureResearchersLabel() {
         ? lst[0].querySelector(".col-4")
         : document.getElementById("addResearchersContainer").querySelector(".col-4");
     if (label) {
+        label.textContent = uiString("allInvolvedResearchersLabel");
         if (label.parentElement !== targetCol4) targetCol4.appendChild(label);
     } else {
-        targetCol4.insertAdjacentHTML("afterbegin", '<span id="additionalResearchers" class="danger">All involved researchers</span>');
+        targetCol4.insertAdjacentHTML("afterbegin", '<span id="additionalResearchers" class="danger">' + uiString("allInvolvedResearchersLabel") + '</span>');
     }
 }
 
@@ -156,17 +182,18 @@ function correctResercherNumbers (){
     var lstResearchers = document.getElementsByClassName("researcherName");
     for (var i = 0; i < lstResearchers.length; i++){
         var researcherName = lstResearchers[i];
-        researcherName.innerHTML = "Name " + (i+1);
+        researcherName.innerHTML = uiString("researcherNameLabel") + " " + (i+1);
     }
     var lstResearchers = document.getElementsByClassName("btnRemoveResearcher");
     for (var i = 0; i < lstResearchers.length; i++){
         var researcherName = lstResearchers[i];
         researcherName.setAttribute("onclick", "removeResearcher(" + (i) + ")");
+        researcherName.setAttribute("aria-label", uiString("removeResearcherAria"));
     }
     var lstResearchers = document.getElementsByClassName("researcherEmail");
     for (var i = 0; i < lstResearchers.length; i++){
         var researcherName = lstResearchers[i];
-        researcherName.innerHTML = "E-mail " + (i+1);
+        researcherName.innerHTML = uiString("researcherEmailLabel") + " " + (i+1);
     }
 }
 
@@ -281,6 +308,7 @@ $(document).ready(function() {
             fillSelect();
             applyConfiguredThemeDefault(settings.theme);
             applyConfiguredDocLanguageDefault(settings.docLanguage);
+            applyConfiguredUiLanguageDefault(settings.uiLanguage);
         });
 
     $("#demographicsForm").on("submit", function(e) {

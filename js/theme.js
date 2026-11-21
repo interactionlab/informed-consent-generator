@@ -53,7 +53,11 @@ $(document).ready(function () {
             if (persist !== false) { try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* best-effort persistence */ } }
         }
 
-        applyTheme(getSavedTheme() || "auto");
+        // persist: false - same reasoning as applyConfiguredThemeDefault's own comment below: a merely-defaulted
+        // theme (no explicit saved choice yet) shouldn't be written back as if the visitor had picked it, or
+        // settings.json's configured default would never get a chance to apply on a first visit (getSavedTheme()
+        // would already return non-null by the time that runs).
+        applyTheme(getSavedTheme() || "auto", false, false);
 
         buttons.forEach(function (btn) {
             btn.addEventListener("click", function () { applyTheme(btn.getAttribute("data-theme-value"), true); });
